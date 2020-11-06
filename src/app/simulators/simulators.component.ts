@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+
+import { Client } from '../client';
+import { ClientService }  from '../client.service';
 
 @Component({
   selector: 'app-simulators',
@@ -7,8 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SimulatorsComponent implements OnInit {
   hide = true;
+  data:Client[];
+  current_clien:Client;
+  crud_operation={is_new:false, is_visible:false};
 
-  constructor() { }
+  constructor(private service: ClientService, private toastr: ToastrService) {
+    this.data=[];
+   }
   amount: number;
   term: number;
   returnRate: number;
@@ -22,6 +31,30 @@ export class SimulatorsComponent implements OnInit {
   totalDpf: number;
 
   ngOnInit(): void {
+  }
+  new(){
+    this.current_clien= new Client();
+    this.crud_operation.is_visible=true;
+    this.crud_operation.is_new=true;
+  }
+
+  save(){
+
+    if(this.crud_operation.is_new){
+     this.toastr.success('Ingresado Exitosamente', 'Cliente',{
+       timeOut:1500,
+
+     });
+     this.crud_operation.is_visible=false;
+      this.service.insert(this.current_clien).subscribe(res =>{
+
+       // this.current_clien= new Client();
+       //  this.ngOnInit();
+      });
+
+      return;
+    }
+
   }
 
   onCalc(): void {
