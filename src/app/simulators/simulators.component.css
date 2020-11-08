@@ -14,3 +14,8 @@ input.example-right-align::-webkit-inner-spin-button {
 input.example-right-align {
   -moz-appearance: textfield;
 }
+
+example-button-toggle-label {
+  display: inline-block;
+  margin: 16px;
+}

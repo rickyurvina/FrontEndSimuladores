@@ -11,7 +11,8 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-// import { MatInputModule } from '@angular/material/input';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 
@@ -34,6 +35,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     }),
     MatSliderModule,
     MatFormFieldModule,
+    MatTabsModule,
     // MatInputModule
 
 
