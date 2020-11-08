@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 import { Client } from '../client';
 import { ClientService }  from '../client.service';
+import { MatTabGroup } from "@angular/material/tabs";
+
+
+
 
 @Component({
   selector: 'app-simulators',
@@ -55,10 +59,56 @@ export class SimulatorsComponent implements OnInit {
 
     this.amortizacionIA.is_visible=true;
 
+
+  }
+
+  @ViewChild("mattabgroup", { static: false }) mattabgroup: MatTabGroup;
+
+  selectedIndex = 0;
+
+  _selectedTabChange(index: number) {
+    console.log("_selectTabChange " + index);
+    this.limpiarDatos();
+  }
+
+  _selectedIndexChange(index: number) {
+    console.log("_selectedIndexChange " + index);
+      // this.limpiarDatos();
+  }
+
+  _select(index: number) {
+    console.log("_select " + index);
+    // if (this.mattabgroup) { this.mattabgroup.selectedIndex = index;  }
+    this.selectedIndex = index;
+  }
+
+  limpiarDatos():void{
+    this.tasaInteresAnualIA=0;
+  this.seguroDesgravamenIA=0;
+  this.tasaInteresPeriodicaIA=0;
+  this.valorPrestamoIA=0;
+  this.tiempoPrestamoIA=0;
+  this.numeroDePagosPorAnoIA=-0
+  this.numeroCuotasIA=0;
+  this.interesDelPeriodoIA=0;
+  this.capitalAmortizadoIA=0;
+  this.seguroIA=0;
+  this.cuotaPagarIA=0;
+  this.saldoRemanenteIA=0;
+  this.dataIA=[];
+  this.sumaIntereses=0;
+  this.amortizacionIA.is_visible=false;
+  }
+
+  limpiarTabla():void{
+    this.dataIA=[];
   }
 
 
+
+
   inversionAleman(): void {
+    this.limpiarTabla();
     this.numeroCuotasIA=this.tiempoPrestamoIA*12;
     this.capitalAmortizadoIA=this.valorPrestamoIA/this.numeroCuotasIA;
     this.saldoRemanenteIA=this.valorPrestamoIA;
@@ -66,9 +116,7 @@ export class SimulatorsComponent implements OnInit {
     this.tasaInteresPeriodicaIA=this.tasaInteresAnualIA/12;
     this.seguroDesgravamenIA=0.0688/100;
     this.sumaIntereses=0;
-
     for(let i=0; i<this.numeroCuotasIA;i++){
-
       this.interesDelPeriodoIA=this.saldoRemanenteIA*this.tasaInteresPeriodicaIA/100;
       this.seguroIA=this.saldoRemanenteIA*this.seguroDesgravamenIA/12;
       this.cuotaPagarIA=this.interesDelPeriodoIA+this.capitalAmortizadoIA+this.seguroIA;
@@ -81,13 +129,60 @@ export class SimulatorsComponent implements OnInit {
     });
     this.saldoRemanenteIA=this.saldoRemanenteIA-this.capitalAmortizadoIA;
     this.sumaIntereses=this.sumaIntereses+this.interesDelPeriodoIA;
-
+    }
+    console.log(this.dataIA);
+  }
+  inmobiliarioAleman(): void{
+    this.limpiarTabla();
+    this.numeroCuotasIA=this.tiempoPrestamoIA*12;
+    this.capitalAmortizadoIA=this.valorPrestamoIA/this.numeroCuotasIA;
+    this.saldoRemanenteIA=this.valorPrestamoIA;
+    this.tasaInteresAnualIA=9;
+    this.tasaInteresPeriodicaIA=this.tasaInteresAnualIA/12;
+    this.seguroDesgravamenIA=0.0688/100;
+    this.sumaIntereses=0;
+    for(let i=0; i<this.numeroCuotasIA;i++){
+      this.interesDelPeriodoIA=this.saldoRemanenteIA*this.tasaInteresPeriodicaIA/100;
+      this.seguroIA=this.saldoRemanenteIA*this.seguroDesgravamenIA/12;
+      this.cuotaPagarIA=this.interesDelPeriodoIA+this.capitalAmortizadoIA+this.seguroIA;
+      this.dataIA.push({numeroCuota: i+1,
+        interesPeriodo:this.interesDelPeriodoIA,
+        capitalAmortizado:this.capitalAmortizadoIA,
+        seguro:this.seguroIA,
+        cuotaPagar:this.cuotaPagarIA,
+      saldoRemanente:this.saldoRemanenteIA
+    });
+    this.saldoRemanenteIA=this.saldoRemanenteIA-this.capitalAmortizadoIA;
+    this.sumaIntereses=this.sumaIntereses+this.interesDelPeriodoIA;
+    }
+    console.log(this.dataIA);
+  }
+  educativoAleman(): void{
+    this.limpiarTabla();
+    this.numeroCuotasIA=this.tiempoPrestamoIA*12;
+    this.capitalAmortizadoIA=this.valorPrestamoIA/this.numeroCuotasIA;
+    this.saldoRemanenteIA=this.valorPrestamoIA;
+    this.tasaInteresAnualIA=8.5;
+    this.tasaInteresPeriodicaIA=this.tasaInteresAnualIA/12;
+    this.seguroDesgravamenIA=0.0688/100;
+    this.sumaIntereses=0;
+    for(let i=0; i<this.numeroCuotasIA;i++){
+      this.interesDelPeriodoIA=this.saldoRemanenteIA*this.tasaInteresPeriodicaIA/100;
+      this.seguroIA=this.saldoRemanenteIA*this.seguroDesgravamenIA/12;
+      this.cuotaPagarIA=this.interesDelPeriodoIA+this.capitalAmortizadoIA+this.seguroIA;
+      this.dataIA.push({numeroCuota: i+1,
+        interesPeriodo:this.interesDelPeriodoIA,
+        capitalAmortizado:this.capitalAmortizadoIA,
+        seguro:this.seguroIA,
+        cuotaPagar:this.cuotaPagarIA,
+      saldoRemanente:this.saldoRemanenteIA
+    });
+    this.saldoRemanenteIA=this.saldoRemanenteIA-this.capitalAmortizadoIA;
+    this.sumaIntereses=this.sumaIntereses+this.interesDelPeriodoIA;
     }
     console.log(this.dataIA);
 
-
   }
-
 
 
 

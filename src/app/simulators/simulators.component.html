@@ -17,43 +17,72 @@
       <br>
     </div>
     <div class="container-fluid">
-      <mat-tab-group>
-        <mat-tab label="Crédito Eduactivo">Crédito Educativo</mat-tab>
-        <mat-tab label="Credito Inversion">
-          <div class="container-fluid" style="display: flex;">
+      <mat-tab-group #mattabgroup (selectedTabChange)="_selectedTabChange($event.index)"
+        (selectedIndexChange)="_selectedIndexChange($event)" [selectedIndex]="selectedIndex">
+        <mat-tab label="Crédito Eduactivo">
+          <div class="container-fluid" >
             <div class="row">
               <div class="col-md-12">
                 <h3>
-                  Simulador de Crédito Inversión Alemán
+                  Simulador de Crédito Educativo
                 </h3>
                 <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">
-                        Monto
-                      </label>
+                  <div class="col-md-5">
+                    <label for="exampleInputEmail1">
+                      Monto
+                    </label>
+                    <div class="input-group">
+                      <mat-slider thumbLabel [displayWith]="formatLabel2" tickInterval="1" min="1000" max="30000"
+                        [(ngModel)]="valorPrestamoIA" (ngModelChange)="educativoAleman()"
+                        style="min-width: 280px;"
+                        ></mat-slider>
                       <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
-                        [(ngModel)]="valorPrestamoIA" name="valorPrestamoIA">
-                        <mat-slider thumbLabel [displayWith]="formatLabel2" tickInterval="1" min="5000" max="30000"
-                        [(ngModel)]="valorPrestamoIA"></mat-slider>
+                        [(ngModel)]="valorPrestamoIA" name="valorPrestamoIA" (ngModelChange)="educativoAleman()"
+                        size=40 style="width:100px; flex:none">
                     </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">
-                        Plazo (Años)
-                      </label>
+                    <label for="exampleInputPassword1">
+                      Plazo (Años)
+                    </label>
+                    <div class="input-group">
+                      <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="0.5" max="4"
+                      [(ngModel)]="tiempoPrestamoIA" (ngModelChange)="educativoAleman()"
+                      style="min-width: 280px;"> </mat-slider>
                       <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo"
-                        [(ngModel)]="tiempoPrestamoIA" name="tiempoPrestamoIA">
-                        <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="0.5" max="5"
-                        [(ngModel)]="tiempoPrestamoIA"> </mat-slider>
+                        [(ngModel)]="tiempoPrestamoIA" name="tiempoPrestamoIA" (ngModelChange)="educativoAleman()"
+                        size=40 style="width:100px; flex:none">
+
                     </div>
                     <div class="button-group"></div>
-                    <button type="submit" (click)="inversionAleman()" class="btn btn-primary">
+                    <!-- <button type="submit" (click)="educativoAleman()" class="btn btn-primary">
                       Calcular
-                    </button> |
+                    </button> | -->
                     <button class="btn btn-info" (click)="vetTablaIA()">Sistema Aleman Tabla Amoritzación!</button>
                   </div>
                   <div class="col-md-6">
-                    <table class="table table-bordered table-hover">
+                    <table style="width:100%" class="table table-bordered table-hover">
+                      <tr>
+                        <th>Interes Anual:</th>
+                        <td>  8.5%</td>
+                      </tr>
+                      <tr>
+                        <th>Tasa Interes Periodica</th>
+                        <td> 0.71%</td>
+                      </tr>
+                      <tr>
+                        <th> Seguro Desgravamen</th>
+                        <td>  0.068%</td>
+                      </tr>
+                      <tr>
+                        <th>  # Cuotas</th>
+                        <td>    {{numeroCuotasIA}}</td>
+                      </tr>
+                      <tr>
+                        <th> Total Interes a Pagar</th>
+                        <td>   {{sumaIntereses | currency}}</td>
+                      </tr>
+
+                    </table>
+                    <!-- <table class="table table-bordered table-hover">
                       <thead>
                         <tr class="table-success">
                           <th>
@@ -76,10 +105,10 @@
                       <tbody>
                         <tr class="table-warning">
                           <td>
-                            13.00%
+                            9.00%
                           </td>
                           <td>
-                            1.08%
+                            0.75%
                           </td>
                           <td>
                             0.068%
@@ -92,7 +121,7 @@
                           </td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table> -->
 
                   </div>
                   <div *ngIf="amortizacionIA.is_visible">
@@ -137,10 +166,300 @@
             </div>
           </div>
         </mat-tab>
+        <mat-tab label="Credito Inversion">
+          <div class="container-fluid" >
+            <div class="row">
+              <div class="col-md-12">
+                <h3>
+                  Simulador de Crédito Inversión
+                </h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="exampleInputEmail1">
+                      Monto
+                    </label>
+                    <div class="input-group">
+                      <mat-slider thumbLabel [displayWith]="formatLabel2" tickInterval="1" min="5000" max="30000"
+                        [(ngModel)]="valorPrestamoIA" (ngModelChange)="inversionAleman()"
+                        style="min-width: 280px;"></mat-slider>
+                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
+                        [(ngModel)]="valorPrestamoIA" name="valorPrestamoIA" (ngModelChange)="inversionAleman()"
+                        size=40 style="width:100px; flex:none; ">
+                    </div>
+                    <label for="exampleInputPassword1">
+                      Plazo (Años)
+                    </label>
+                    <div class="input-group">
+                      <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="0.5" max="5"
+                        [(ngModel)]="tiempoPrestamoIA" (ngModelChange)="inversionAleman()"
+                        style="min-width: 280px;"> </mat-slider>
+                      <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo"
+                        [(ngModel)]="tiempoPrestamoIA" name="tiempoPrestamoIA" (ngModelChange)="inversionAleman()"
+                        size=40 style="width:100px; flex:none;">
 
-        <mat-tab label="Crédito Inmobiliario">Crédito Inmobiliario</mat-tab>
+                    </div>
+                    <!-- <button type="submit" (click)="inversionAleman()" class="btn btn-primary">
+                      Calcular
+                    </button> | -->
+                    <button class="btn btn-info" (click)="vetTablaIA()">Sistema Aleman Tabla Amoritzación!</button>
+                  </div>
+                  <div class="col-md-6">
+                    <table style="width:100%" class="table table-bordered table-hover">
+                      <tr>
+                        <th>Interes Anual:</th>
+                        <td> 13.00%</td>
+                      </tr>
+                      <tr>
+                        <th>Tasa Interes Periodica</th>
+                        <td>  1.08%</td>
+                      </tr>
+                      <tr>
+                        <th> Seguro Desgravamen</th>
+                        <td>  0.068%</td>
+                      </tr>
+                      <tr>
+                        <th>  # Cuotas</th>
+                        <td>    {{numeroCuotasIA}}</td>
+                      </tr>
+                      <tr>
+                        <th> Total Interes a Pagar</th>
+                        <td>   {{sumaIntereses | currency}}</td>
+                      </tr>
+
+                    </table>
+                    <!-- <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr class="table-success">
+                          <th>
+                            Interes Anual
+                          </th>
+                          <th>
+                            Tasa Interes Periodica
+                          </th>
+                          <th>
+                            Seguro Desgravamen
+                          </th>
+                          <th>
+                            # Cuotas
+                          </th>
+                          <th>
+                            Total Interes a Pagar
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="table-warning">
+                          <td>
+                            13.00%
+                          </td>
+                          <td>
+                            1.08%
+                          </td>
+                          <td>
+                            0.068%
+                          </td>
+                          <td>
+                            {{numeroCuotasIA}}
+                          </td>
+                          <td>
+                            {{sumaIntereses | currency}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table> -->
+
+                  </div>
+                  <div *ngIf="amortizacionIA.is_visible">
+                    <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>
+                            #Cuotas
+                          </th>
+                          <th>
+                            Interes del Periodo
+                          </th>
+                          <th>
+                            Capital Amortizado
+                          </th>
+                          <th>
+                            Seguro
+                          </th>
+                          <th>
+                            Cuota a Pagar
+                          </th>
+                          <th>
+                            Saldo Remanente
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of dataIA">
+                          <td>{{data.numeroCuota}}</td>
+                          <td>{{data.interesPeriodo | currency}}</td>
+                          <td>{{data.capitalAmortizado | currency}}</td>
+                          <td>{{data.seguro | currency}}</td>
+                          <td>{{data.cuotaPagar | currency}}</td>
+                          <td>{{data.saldoRemanente | currency}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button class="btn btn-danger" (click)="amortizacionIA.is_visible=false">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Crédito Inmobiliario">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <h3>
+                  Simulador de Crédito Inmobiliario
+                </h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="exampleInputEmail1">
+                      Monto
+                    </label>
+                    <div class="input-group">
+                      <mat-slider thumbLabel [displayWith]="formatLabel2" tickInterval="1" min="50000" max="100000"
+                      [(ngModel)]="valorPrestamoIA" (ngModelChange)="inmobiliarioAleman()"
+                      style="min-width: 280px;"></mat-slider>
+                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
+                        [(ngModel)]="valorPrestamoIA" name="valorPrestamoIA" (ngModelChange)="inmobiliarioAleman()"
+                        size=40 style="width:100px; flex:none;">
+
+                    </div>
+                    <label for="exampleInputPassword1">
+                      Plazo (Años)
+                    </label>
+                    <div class="input-group">
+                      <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="20"
+                      [(ngModel)]="tiempoPrestamoIA" (ngModelChange)="inmobiliarioAleman()"
+                      style="min-width: 280px;"> </mat-slider>
+                      <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo"
+                        [(ngModel)]="tiempoPrestamoIA" name="tiempoPrestamoIA" (ngModelChange)="inmobiliarioAleman()"
+                        size=40 style="width:100px; flex:none;">
+
+                    </div>
+                    <div class="button-group"></div>
+                    <!-- <button type="submit" (click)="inmobiliarioAleman()" class="btn btn-primary">
+                      Calcular
+                    </button> | -->
+                    <button class="btn btn-info" (click)="vetTablaIA()">Sistema Aleman Tabla Amoritzación!</button>
+                  </div>
+                  <div class="col-md-6">
+                    <table style="width:100%" class="table table-bordered table-hover">
+                      <tr>
+                        <th>Interes Anual:</th>
+                        <td>   9.00%</td>
+                      </tr>
+                      <tr>
+                        <th>Tasa Interes Periodica</th>
+                        <td> 0.75%</td>
+                      </tr>
+                      <tr>
+                        <th> Seguro Desgravamen</th>
+                        <td>  0.068%</td>
+                      </tr>
+                      <tr>
+                        <th> # Cuotas</th>
+                        <td>    {{numeroCuotasIA}}</td>
+                      </tr>
+                      <tr>
+                        <th> Total Interes a Pagar</th>
+                        <td>   {{sumaIntereses | currency}}</td>
+                      </tr>
+
+                    </table>
+                    <!-- <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr class="table-success">
+                          <th>
+                            Interes Anual
+                          </th>
+                          <th>
+                            Tasa Interes Periodica
+                          </th>
+                          <th>
+                            Seguro Desgravamen
+                          </th>
+                          <th>
+                            # Cuotas
+                          </th>
+                          <th>
+                            Total Interes a Pagar
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="table-warning">
+                          <td>
+                            9.00%
+                          </td>
+                          <td>
+                            0.75%
+                          </td>
+                          <td>
+                            0.068%
+                          </td>
+                          <td>
+                            {{numeroCuotasIA}}
+                          </td>
+                          <td>
+                            {{sumaIntereses | currency}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table> -->
+
+                  </div>
+                  <div *ngIf="amortizacionIA.is_visible">
+                    <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>
+                            #Cuotas
+                          </th>
+                          <th>
+                            Interes del Periodo
+                          </th>
+                          <th>
+                            Capital Amortizado
+                          </th>
+                          <th>
+                            Seguro
+                          </th>
+                          <th>
+                            Cuota a Pagar
+                          </th>
+                          <th>
+                            Saldo Remanente
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of dataIA">
+                          <td>{{data.numeroCuota}}</td>
+                          <td>{{data.interesPeriodo | currency}}</td>
+                          <td>{{data.capitalAmortizado | currency}}</td>
+                          <td>{{data.seguro | currency}}</td>
+                          <td>{{data.cuotaPagar | currency}}</td>
+                          <td>{{data.saldoRemanente | currency}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <button class="btn btn-danger" (click)="amortizacionIA.is_visible=false">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
         <mat-tab label="Ahorro Flex Save ">
-          <div class="container" style="display: flex;">
+          <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
                 <h3>
@@ -148,31 +467,63 @@
                 </h3>
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">
-                        Monto
-                      </label>
-                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
-                        [(ngModel)]="amount" name="amount">
+                    <label for="exampleInputPassword1">
+                      Monto
+                    </label>
+                    <div class="input-group">
                       <mat-slider thumbLabel [displayWith]="formatLabel2" tickInterval="1" min="1" max="1000000"
-                        [(ngModel)]="amount"></mat-slider>
+                      [(ngModel)]="amount" (ngModelChange)="flexSave()"
+                      style="min-width: 280px;"></mat-slider>
+                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
+                        [(ngModel)]="amount"
+                        name="amount" (ngModelChange)="flexSave()"
+                         size=40 style="width:100px; flex:none;">
                     </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">
-                        Plazo (Dias)
-                      </label>
-                      <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo"
-                        [(ngModel)]="term" name="term">
+                    <label for="exampleInputPassword1">
+                      Plazo (Dias)
+                    </label>
+                    <div class="input-group">
                       <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="365"
-                        [(ngModel)]="term">
-                      </mat-slider>
+                      [(ngModel)]="term" (ngModelChange)="flexSave()"     style="min-width: 280px;">
+                    </mat-slider>
+                      <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo"
+                        [(ngModel)]="term" name="term" (ngModelChange)="flexSave()" size=40
+                        style="width:100px; flex:none;">
+
                     </div>
-                    <button type="submit" (click)="flexSave()" class="btn btn-primary">
+                    <!-- <button type="submit" (click)="flexSave()" class="btn btn-primary">
                       Calcular
-                    </button>
+                    </button> -->
                   </div>
                   <div class="col-md-6">
-                    <table class="table table-bordered table-hover">
+                    <table style="width:100%" class="table table-bordered table-hover">
+                      <tr>
+                        <th>Monto:</th>
+                        <td>  {{amount | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Tasa Nominal Vigente:</th>
+                        <td>3.5%</td>
+                      </tr>
+                      <tr>
+                        <th>Plazo Meses:</th>
+                        <td>   {{term}}</td>
+                      </tr>
+                      <tr>
+                        <th>Interes Ganado Referencial:</th>
+                        <td> {{returnRate | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Retención IR:</th>
+                        <td>   {{retention | currency}}</td>
+                      </tr>
+
+                      <tr>
+                        <th>Total Recibir:</th>
+                        <td>{{total | currency}}          </td>
+                      </tr>
+                    </table>
+                    <!-- <table class="table table-bordered table-hover">
                       <thead>
                         <tr class="table-success">
                           <th>
@@ -223,7 +574,7 @@
                           </td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table> -->
                   </div>
                 </div>
               </div>
@@ -231,7 +582,7 @@
           </div>
         </mat-tab>
         <mat-tab label="Ahorro DPF">
-          <div class="container" style="display: flex;">
+          <div class="container-fluid" >
             <div class="row">
               <div class="col-md-12">
                 <h3>
@@ -239,31 +590,67 @@
                 </h3>
                 <div class="row">
                   <div class="col-md-6">
-                    <div class="form-group">
+                    <label for="exampleInputEmail1">
+                      Monto
+                    </label>
+                    <div class="input-group">
 
-                      <label for="exampleInputEmail1">
-                        Monto
-                      </label>
+                      <mat-slider thumbLabel [displayWith]="formatLabel2" tickInterval="1" min="1" max="300000"
+                      [(ngModel)]="amountDpf" (ngModelChange)="dpfSave()"
+                      style="min-width: 280px;"></mat-slider>
                       <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
-                        [(ngModel)]="amountDpf" name="amountDpf">
-                        <mat-slider thumbLabel [displayWith]="formatLabel2" tickInterval="1" min="1" max="300000"
-                        [(ngModel)]="amountDpf"></mat-slider>
+                        [(ngModel)]="amountDpf" name="amountDpf"
+                        (ngModelChange)="dpfSave()" size=40 style="width:100px; flex:none;">
+
                     </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">
-                        Plazo (Meses)
-                      </label>
+                    <label for="exampleInputPassword1">
+                      Plazo (Meses)
+                    </label>
+                    <div class="input-group">
+                      <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="6" max="36"
+                      [(ngModel)]="termDpf" (ngModelChange)="dpfSave()"
+                      style="min-width: 280px;"
+                      > </mat-slider>
+
                       <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo"
-                        [(ngModel)]="termDpf" name="termDpf">
-                        <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="6" max="36"
-                        [(ngModel)]="termDpf"> </mat-slider>
+                        [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()"
+                        size=40 style="width:100px; flex:none;">
+
                     </div>
-                    <button type="submit" (click)="dpfSave()" class="btn btn-primary">
+                    <!-- <button type="submit" (click)="dpfSave()" class="btn btn-primary">
                       Calcular
-                    </button>
+                    </button> -->
                   </div>
                   <div class="col-md-6">
-                    <table class="table table-bordered table-hover">
+                    <table style="width:100%" class="table table-bordered table-hover">
+                      <tr>
+                        <th>Monto:</th>
+                        <td>{{amountDpf | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Tasa Nominal Vigente:</th>
+                        <td>5%</td>
+                      </tr>
+                      <tr>
+                        <th>Plazo Meses:</th>
+                        <td>{{termDpf}}</td>
+                      </tr>
+                      <tr>
+                        <th>Interes Ganado Referencial:</th>
+                        <td>{{returnRateDpf | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Retención IR:</th>
+                        <td> {{retentionDpf | currency}}</td>
+                      </tr>
+
+                      <tr>
+                        <th>Total Recibir:</th>
+                        <td>{{totalDpf | currency}}</td>
+                      </tr>
+                    </table>
+
+                    <!-- <table class="table table-bordered table-hover">
                       <thead>
                         <tr class="table-success">
                           <th>
@@ -314,7 +701,7 @@
                           </td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table> -->
                   </div>
                 </div>
               </div>
@@ -328,7 +715,7 @@
   <div class="container">
     <div>
       <br>
-      <button class="btn btn-info" (click)="new()">Lo Quiero!</button>
+      <button class="btn btn-success" (click)="new()">Lo Quiero!</button>
     </div>
     <div class="form-group" *ngIf="crud_operation.is_visible">
       <label>Nombre</label>
