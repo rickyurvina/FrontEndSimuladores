@@ -31,16 +31,11 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="exampleInputPassword1">
-              Monto
+                Monto
               </label>
               <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto" [(ngModel)]="amount"
                 name="amount">
-                <mat-slider
-                thumbLabel
-                [displayWith]="formatLabel2"
-                tickInterval="1"
-                min="1"
-                max="1000000"
+              <mat-slider thumbLabel [displayWith]="formatLabel2" tickInterval="1" min="1" max="1000000"
                 [(ngModel)]="amount"></mat-slider>
 
             </div>
@@ -51,14 +46,10 @@
               </label>
               <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo" [(ngModel)]="term"
                 name="term">
-                <mat-slider
-                thumbLabel
-                [displayWith]="formatLabel"
-                tickInterval="1"
-                min="1"
-                max="365"
-                [(ngModel)]="term"></mat-slider>  </div>
-            <button type="submit" (click)="onCalc()" class="btn btn-primary">
+              <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="1" max="365" [(ngModel)]="term">
+              </mat-slider>
+            </div>
+            <button type="submit" (click)="flexSave()" class="btn btn-primary">
               Calcular
             </button>
 
@@ -121,7 +112,7 @@
         </div>
       </div>
     </div>
-  <span>-------------------------------------------------------</span>
+    <span>-------------------------------------------------------</span>
 
   </div>
 
@@ -138,18 +129,18 @@
               <label for="exampleInputEmail1">
                 Monto
               </label>
-              <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto" [(ngModel)]="amountDpf"
-                name="amountDpf">
+              <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
+                [(ngModel)]="amountDpf" name="amountDpf">
             </div>
             <div class="form-group">
 
               <label for="exampleInputPassword1">
                 Plazo (Meses)
               </label>
-              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo" [(ngModel)]="termDpf"
-                name="termDpf">
+              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo"
+                [(ngModel)]="termDpf" name="termDpf">
             </div>
-            <button type="submit" (click)="onCalc2()" class="btn btn-primary">
+            <button type="submit" (click)="dpfSave()" class="btn btn-primary">
               Calcular
             </button>
 
@@ -209,19 +200,143 @@
               </tbody>
             </table>
           </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          Simulador de Crédito Inversion Aleman
+        </h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+
+              <label for="exampleInputEmail1">
+                Monto
+              </label>
+              <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
+                [(ngModel)]="valorPrestamoIA" name="valorPrestamoIA">
+            </div>
+            <div class="form-group">
+
+              <label for="exampleInputPassword1">
+                Plazo (Años)
+              </label>
+              <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo"
+                [(ngModel)]="tiempoPrestamoIA" name="tiempoPrestamoIA">
+            </div>
+            <button type="submit" (click)="inversionAleman()" class="btn btn-primary">
+              Calcular
+            </button>
+
+              <button class="btn btn-info" (click)="vetTablaIA()">VerTablaAmoritzacion!</button>
+
+
+
+            <br><br>
+
+          </div>
+          <div class="col-md-6">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr class="table-success">
+                  <th>
+                    Interes Anual
+                  </th>
+                  <th>
+                    Tasa Interes Periodica
+                  </th>
+                  <th>
+                    Seguro Desgravamen
+                  </th>
+                  <th>
+                    # Cuotas
+                  </th>
+                  <th>
+                    Total Interes a Pagar
+                  </th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-warning">
+                  <td>
+                    13.00%
+                  </td>
+                  <td>
+                    1.08%
+                  </td>
+                  <td>
+                    0.068%
+                  </td>
+                  <td>
+                    {{numeroCuotasIA}}
+                  </td>
+                  <td>
+                    {{sumaIntereses | currency}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <div *ngIf="amortizacionIA.is_visible" >
+
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    #Cuotas
+                  </th>
+                  <th>
+                    Interes del Periodo
+                  </th>
+                  <th>
+                    Capital Amortizado
+                  </th>
+                  <th>
+                    Seguro
+                  </th>
+                  <th>
+                    Cuota a Pagar
+                  </th>
+                  <th>
+                    Saldo Remanente
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of dataIA">
+                  <td>{{data.numeroCuota}}</td>
+                  <td>{{data.interesPeriodo | currency}}</td>
+                  <td>{{data.capitalAmortizado | currency}}</td>
+                  <td>{{data.seguro | currency}}</td>
+                  <td>{{data.cuotaPagar | currency}}</td>
+                  <td>{{data.saldoRemanente | currency}}</td>
+                </tr>
+
+              </tbody>
+            </table>
+      <button class="btn btn-danger" (click)="amortizacionIA.is_visible=false">Cancelar</button>
+
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="container">
-
-
+    <div>
+      <br>
+      <button class="btn btn-info" (click)="new()">Lo Quiero!</button>
+    </div>
     <div class="form-group" *ngIf="crud_operation.is_visible">
-
       <label>Nombre</label>
       <input type="text" class="form-control" [(ngModel)]="current_clien.name">
-
       <label>Estado Civil</label>
       <input type="text" class="form-control" [(ngModel)]="current_clien.martial_status">
       <label>Numero</label>
@@ -233,21 +348,10 @@
       <label>Ingresos Promedios</label>
       <input type="text" class="form-control" [(ngModel)]="current_clien.average_income">
       <br>
-
       <button class="btn btn-success" (click)="save()">Guardar</button> |
       <button class="btn btn-danger" (click)="crud_operation.is_visible=false">Cancelar</button>
-
-
-
     </div>
-
-
-    <div>
-      <br>
-      <button class="btn btn-info" (click)="new()">Lo Quiero!</button>
-    </div>
-    </div>
-
+  </div>
 </body>
 
 </html>
