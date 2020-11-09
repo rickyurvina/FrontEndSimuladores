@@ -22,11 +22,28 @@ example-button-toggle-label {
 
 /* CSS to change Default/'Accent' color */
 ::ng-deep .mat-accent .mat-slider-thumb {
-  background-color: black;
+  background-color: #696c72;
 }
 ::ng-deep .mat-accent .mat-slider-thumb-label {
-  background-color: red;
+  background-color: #d4232e;
 }
 ::ng-deep .mat-accent .mat-slider-track-fill {
-  background-color: red;
+  background-color: #d4232e;
+}
+
+
+
+
+
+::ng-deep .mat-tab-label-container {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  z-index: 1;
+  background-color: #ecebeb;
+}
+
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #d4232e;
 }

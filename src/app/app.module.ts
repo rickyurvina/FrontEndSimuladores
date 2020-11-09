@@ -76,6 +76,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     ToastrModule.forRoot({
       timeOut:1000,
       progressBar:true,
+      preventDuplicates: true,
     }),
     MatSliderModule,
     MatFormFieldModule,
