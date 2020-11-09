@@ -19,3 +19,14 @@ example-button-toggle-label {
   display: inline-block;
   margin: 16px;
 }
+
+/* CSS to change Default/'Accent' color */
+::ng-deep .mat-accent .mat-slider-thumb {
+  background-color: black;
+}
+::ng-deep .mat-accent .mat-slider-thumb-label {
+  background-color: red;
+}
+::ng-deep .mat-accent .mat-slider-track-fill {
+  background-color: red;
+}

@@ -143,7 +143,7 @@ export class SimulatorsComponent implements OnInit {
     this.dataFrances = [];
     this.sumaIntereses = 0;
     this.amortizacionIA.is_visible = false;
-    this.francesa.is_visible = false;
+    // this.francesa.is_visible = false;
     this.alemana.is_visible = false;
   }
 

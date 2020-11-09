@@ -44,11 +44,11 @@
                     </label>
                     <div class="input-group">
                       <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1" min="0.5" max="4"
-                        [(ngModel)]="tiempoPrestamoIA" (ngModelChange)="educativoAleman()" style="min-width: 280px;">
+                        [(ngModel)]="tiempoPrestamoIA" (ngModelChange)="educativoAleman()" style="min-width: 280px; ">
                       </mat-slider>
                       <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo"
                         [(ngModel)]="tiempoPrestamoIA" name="tiempoPrestamoIA" (ngModelChange)="educativoAleman()"
-                        size=40 style="width:100px; flex:none">
+                        size=40 style="width:100px; flex:none; ">
                     </div>
                     <div class="button-group">
                       <label>Tabla de Amortizacion</label>
@@ -66,14 +66,9 @@
                     </div>
                     <div class="button-group" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible">
                       <br>
-                      <button class="btn btn-outline-secondary" (click)="cerrarTablas()">Cerrar
-                        Tabla</button>
-
+                      <button class="btn btn-outline-secondary" (click)="cerrarTablas()">
+                        Cerrar Tabla</button>
                     </div>
-                    <!-- <button type="submit" (click)="educativoAleman()" class="btn btn-primary">
-                      Calcular
-                    </button> | -->
-                    <!-- <button class="btn btn-info" (click)="vetTablaIA()">Sistema Aleman Tabla Amoritzación!</button> -->
                   </div>
                   <div class="col-md-6">
                     <div *ngIf="alemana.is_visible">
@@ -99,7 +94,6 @@
                           <th> Total Interes a Pagar</th>
                           <td> {{sumaIntereses | currency}}</td>
                         </tr>
-
                       </table>
                     </div>
                     <div *ngIf="francesa.is_visible">
@@ -129,7 +123,6 @@
                           <th> Total Interes a Pagar</th>
                           <td> {{sumaInteresesF | currency}}</td>
                         </tr>
-
                       </table>
                     </div>
                     <!-- <table class="table table-bordered table-hover">
@@ -172,12 +165,10 @@
                         </tr>
                       </tbody>
                     </table> -->
-
                   </div>
                   <div style="margin-left: 15%;">
                     <div *ngIf="amortizacionF.is_visible">
                       <h2>Tabla de Amortizacion Francesa</h2>
-
                       <table class="table table-bordered table-hover">
                         <thead>
                           <tr>
@@ -212,8 +203,7 @@
                           </tr>
                         </tbody>
                       </table>
-                      <!-- <button class="btn btn-danger" (click)="amortizacionIA.is_visible=false">Cerrar</button> -->
-                    </div>
+                   </div>
                     <div *ngIf="amortizacionIA.is_visible">
                       <h2>Tabla de Amortizacion Alemana</h2>
                       <table class="table table-bordered table-hover">
@@ -250,7 +240,6 @@
                           </tr>
                         </tbody>
                       </table>
-                      <!-- <button class="btn btn-danger" (click)="amortizacionF.is_visible=false">Cerrar</button> -->
                     </div>
                   </div>
                 </div>
@@ -291,9 +280,10 @@
 
                     </div>
                     <div class="button-group">
+                      <label>Tabla de Amortizacion</label>
                       <br>
-                      <button class="btn btn-danger">Francesa</button>
-                      <button class="btn btn-light">Alemana</button>
+                      <button class="btn btn-danger" (click)="verFrancesa()">Francesa</button>
+                      <button class="btn btn-light" (click)="verAlemana()">Alemana</button>
                     </div>
                     <div class="form-group" *ngIf="amortizacionIA.is_visible">
                       <br>
@@ -449,9 +439,10 @@
                     </div>
 
                     <div class="button-group">
+                      <label>Tabla de Amortizacion</label>
                       <br>
-                      <button class="btn btn-danger">Francesa</button>
-                      <button class="btn btn-light">Alemana</button>
+                      <button class="btn btn-danger" (click)="verFrancesa()">Francesa</button>
+                      <button class="btn btn-light" (click)="verAlemana()">Alemana</button>
                     </div>
                     <div class="button-group" *ngIf="amortizacionIA.is_visible">
                       <br>
@@ -823,16 +814,11 @@
       <br>
       <div class="form-group" style="margin-left: 35%;">
         <button class="btn btn-success" (click)="new()">Lo Quiero!</button> |
-        <!-- <div *ngIf="alemana.is_visible"> -->
         <button *ngIf="alemana.is_visible" class="btn btn-info" (click)="vetTablaIA()">Tabla Amoritzación
           Alemana!</button>
-        <!-- </div> -->
-        <!-- <div *ngIf="francesa.is_visible"> -->
         <button *ngIf="francesa.is_visible" class="btn btn-info" (click)="vetTablaFrancesa()">Tabla Amoritzación
           Francesa!</button>
-        <!-- </div> -->
       </div>
-
     </div>
     <div class="form-group" *ngIf="crud_operation.is_visible">
       <label>Nombre</label>
