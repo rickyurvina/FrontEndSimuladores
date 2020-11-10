@@ -197,8 +197,8 @@ export class SimulatorsComponent implements OnInit {
       this.toastr.warning('Monto Maximo $30.000 Monto Minimo $5.000 ', 'Limite Superado', {
         timeOut: 4500,
       });
-    } else if (this.tiempoPrestamo > 20) {
-      this.tiempoPrestamo = 0;
+    } else if (this.numeroCuotas > 60 || this.numeroCuotas <6) {
+      this.numeroCuotas= 0;
       this.toastr.warning('Tiempo Maximo 20 Años, Tiempo Minimo 1 Año', 'Limite Superado', {
         timeOut: 4500,
       });
@@ -257,8 +257,8 @@ export class SimulatorsComponent implements OnInit {
       this.toastr.warning('Monto Maximo $100.000 Monto Minimo $50.000 ', 'Limite Superado', {
         timeOut: 4500,
       });
-    } else if (this.tiempoPrestamo > 20) {
-      this.tiempoPrestamo = 0;
+    } else if (this.numeroCuotas > 244 || this.numeroCuotas<12) {
+      this.numeroCuotas
       this.toastr.warning('Tiempo Maximo 20 Años, Tiempo Minimo 1 Año', 'Limite Superado', {
         timeOut: 4500,
       });
@@ -313,16 +313,16 @@ export class SimulatorsComponent implements OnInit {
     this.saldoRemanenteF = this.valorPrestamo;
     // this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
     this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
-    if (this.valorPrestamo > 30000 ) {
+    if (this.valorPrestamo > 30000 || this.valorPrestamo<1000) {
       this.valorPrestamo = 0;
       // this.tiempoPrestamo=0;
       this.toastr.warning('Monto Maximo $30.000, Monto Minimo $1000 ', 'Limite Superado', {
         timeOut: 4500,
 
       });
-    } else if (this.tiempoPrestamo > 4 ) {
-      this.tiempoPrestamo = 0;
-      this.toastr.warning('Tiempo Maximo 4 Años, Tiempo Minimo 6 Meses', 'Limite Superado', {
+    } else if (this.numeroCuotas > 48 || this.numeroCuotas<6 ) {
+      this.numeroCuotas = 0;
+      this.toastr.warning('Tiempo Maximo 48 Meses, Tiempo Minimo 6 Meses', 'Limite Superado', {
         timeOut: 4500,
 
       });

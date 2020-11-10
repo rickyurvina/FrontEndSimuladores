@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule} from '@angular/forms';
 import { SimulatorsComponent } from './simulators/simulators.component';
-import { ClientComponent } from './client/client.component'
+
 import { HttpClientModule } from '@angular/common/http';
 import { ClientService } from './client.service';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -65,7 +65,6 @@ import {OverlayModule} from '@angular/cdk/overlay';
   declarations: [
     AppComponent,
     SimulatorsComponent,
-    ClientComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +124,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     OverlayModule,
     PortalModule,
     ScrollingModule,
-    // MatInputModule
+    MatInputModule
 
 
   ],
