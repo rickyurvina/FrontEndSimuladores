@@ -179,7 +179,7 @@ export class SimulatorsComponent implements OnInit {
   simuladorInversion(): void {
     this.limpiarTabla();
     // this.verFrancesa();
-    this.numeroCuotas = this.tiempoPrestamo * 12;
+    // this.numeroCuotas = this.tiempoPrestamo * 12;
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
@@ -239,7 +239,7 @@ export class SimulatorsComponent implements OnInit {
   simuladorInmobiliario(): void {
     this.limpiarTabla();
     // this.verFrancesa();
-    this.numeroCuotas = this.tiempoPrestamo * 12;
+    // this.numeroCuotas = this.tiempoPrestamo * 12;
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
@@ -299,7 +299,8 @@ export class SimulatorsComponent implements OnInit {
   simuladorEducativo(): void {
     this.limpiarTabla();
     // this.verFrancesa();
-    this.numeroCuotas = this.tiempoPrestamo * 12;
+    // this.numeroCuotas = this.tiempoPrestamo * 12;
+    // this.numeroCuotas=0;
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
@@ -311,9 +312,7 @@ export class SimulatorsComponent implements OnInit {
     this.base = 1 + this.tasaInteresPeriodica / 100;
     this.saldoRemanenteF = this.valorPrestamo;
     // this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
-
     this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
-
     if (this.valorPrestamo > 30000 ) {
       this.valorPrestamo = 0;
       // this.tiempoPrestamo=0;

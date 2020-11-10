@@ -20,7 +20,7 @@
       </div>
       <mat-tab-group #mattabgroup (selectedTabChange)="_selectedTabChange($event.index)"
         (selectedIndexChange)="_selectedIndexChange($event)" [selectedIndex]="selectedIndex" mat-align-tabs="center">
-        <mat-tab label="Crédito Eduactivo">
+        <mat-tab label="Crédito Educativo">
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
@@ -45,11 +45,11 @@
                       Plazo (Años)
                     </label>
                     <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" min="0.5" max="4"
-                        [(ngModel)]="tiempoPrestamo" (ngModelChange)="simuladorEducativo()" style="min-width: 280px; ">
+                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" min="6" max="48"
+                        [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorEducativo()" style="min-width: 280px; ">
                       </mat-slider>
-                      <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo" min="0.5" max="4"
-                        [(ngModel)]="tiempoPrestamo" name="tiempoPrestamo" (ngModelChange)="simuladorEducativo()"
+                      <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo" min="1" max="48"
+                        [(ngModel)]="numeroCuotas" name="numeroCuotas" (ngModelChange)="simuladorEducativo()"
                         size=40 style="width:100px; flex:none; ">
                     </div>
                     <div class="button-group">
@@ -62,7 +62,7 @@
                     </div>
                     <div style="color:#b4b3b5">
                       <br>
-                      <label style="font-size:30px;">Tasa de Interes</label>
+                      <label style="font-size:30px;">Tasa de Interés</label>
                       <br>
                       <label>
                         <h1 style="font-size: 50px;">8.5 % </h1>
@@ -87,14 +87,14 @@
                       <table style="width:100%" class="table table-active" rules="none"
                         style="background-color: #d4232e; color: white; ">
                         <!-- <tr>
-                          <th>Interes Anual:</th>
+                          <th>Interés Anual:</th>
                           <td>
                             0.85% -->
                             <!-- <input value="0.85%" size=40 style="width:100px; flex:none"> -->
                           <!-- </td>
                         </tr> -->
                         <tr>
-                          <th>Tasa Interes Periódica</th>
+                          <th>Tasa Interés Periódica</th>
                           <td> 0.71%</td>
                         </tr>
                         <tr>
@@ -106,8 +106,8 @@
                           <td> {{numeroCuotas}}</td>
                         </tr>
                         <tr>
-                          <th> Total Interes a Pagar</th>
-                          <td> {{sumaIntereses | currency}}</td>
+                          <th> Total Interés a Pagar</th>
+                          <td> {{sumaInteréses | currency}}</td>
                         </tr>
                       </table>
                     </div>
@@ -122,14 +122,14 @@
                       padding: 2px;
                       -webkit-border-radius: 5px;">
                         <!-- <tr>
-                          <th>Interes Anual:</th>
+                          <th>Interés Anual:</th>
                           <td>
                             <input value="8.5%" readonly style="width:120px;  border-radius: 10px;
                             border: 1px solid white ;">
                           </td>
                         </tr> -->
                         <tr>
-                          <th>Tasa Interes Periódica</th>
+                          <th>Tasa Interés Periódica</th>
                           <td>
                             <input value="0.71%" readonly style="width:120px;  border-radius: 10px;
                             border: 1px solid white ;">
@@ -158,9 +158,9 @@
                           </td>
                         </tr>
                         <tr>
-                          <th> Total Interes a Pagar</th>
+                          <th> Total Interés a Pagar</th>
                           <td>
-                            <input value="{{sumaInteresesF | currency}}" readonly style="width:90px;  border-radius: 10px;
+                            <input value="{{sumaInterésesF | currency}}" readonly style="width:90px;  border-radius: 10px;
                             border: 1px solid white ;">
                           </td>
                         </tr>
@@ -180,7 +180,7 @@
                               #Cuotas
                             </th>
                             <th>
-                              Interes del Periodo
+                              Interés del Periodo
                             </th>
                             <th>
                               Capital Amortizado
@@ -199,7 +199,7 @@
                         <tbody>
                           <tr *ngFor="let data of dataFrances">
                             <td>{{data.numeroCuota}}</td>
-                            <td>{{data.interesPeriodo | currency}}</td>
+                            <td>{{data.InterésPeriodo | currency}}</td>
                             <td>{{data.capitalAmortizado | currency}}</td>
                             <td>{{data.seguro | currency}}</td>
                             <td>{{data.cuotaPagar | currency}}</td>
@@ -220,7 +220,7 @@
                               #Cuotas
                             </th>
                             <th>
-                              Interes del Periodo
+                              Interés del Periodo
                             </th>
                             <th>
                               Capital Amortizado
@@ -239,7 +239,7 @@
                         <tbody>
                           <tr *ngFor="let data of dataAleman">
                             <td>{{data.numeroCuota}}</td>
-                            <td>{{data.interesPeriodo | currency}}</td>
+                            <td>{{data.InterésPeriodo | currency}}</td>
                             <td>{{data.capitalAmortizado | currency}}</td>
                             <td>{{data.seguro | currency}}</td>
                             <td>{{data.cuotaPagar | currency}}</td>
@@ -259,7 +259,7 @@
             <div class="row">
               <div class="col-md-12">
                 <h3 style="text-align: center;">
-                  Simulador de Inversion
+                  Simulador de Inversión
                 </h3>
                 <br>
                 <div class="row">
@@ -279,11 +279,11 @@
                       Plazo (Años)
                     </label>
                     <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" min="0.5" max="5"
-                        [(ngModel)]="tiempoPrestamo" (ngModelChange)="simuladorInversion()" style="min-width: 280px; ">
+                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="0.1" min="0.5" max="5"
+                        [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorInversion()" style="min-width: 280px; ">
                       </mat-slider>
                       <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo"
-                        [(ngModel)]="tiempoPrestamo" name="tiempoPrestamo" (ngModelChange)="simuladorInversion()"
+                        [(ngModel)]="numeroCuotas" name="numeroCuotas" (ngModelChange)="simuladorInversion()"
                         size=40 style="width:100px; flex:none; ">
                     </div>
                     <div class="button-group">
@@ -294,7 +294,7 @@
                     </div>
                     <div>
                       <br>
-                      <label>Tasa de Interes</label>
+                      <label>Tasa de Interés</label>
                       <br>
                       <label> 13% Anual</label>
                       <br>
@@ -311,11 +311,11 @@
                       <h2>Simulador Aleman</h2>
                       <table style="width:100%" class="table table-bordered table-hover">
                         <tr>
-                          <th>Interes Anual:</th>
+                          <th>Interés Anual:</th>
                           <td> 8.5%</td>
                         </tr>
                         <tr>
-                          <th>Tasa Interes Periódica</th>
+                          <th>Tasa Interés Periódica</th>
                           <td> 0.71%</td>
                         </tr>
                         <tr>
@@ -327,8 +327,8 @@
                           <td> {{numeroCuotas}}</td>
                         </tr>
                         <tr>
-                          <th> Total Interes a Pagar</th>
-                          <td> {{sumaIntereses | currency}}</td>
+                          <th> Total Interés a Pagar</th>
+                          <td> {{sumaInteréses | currency}}</td>
                         </tr>
                       </table>
                     </div>
@@ -336,11 +336,11 @@
                       <h2>Simulador Frances</h2>
                       <table style="width:100%" class="table table-bordered table-hover">
                         <tr>
-                          <th>Interes Anual:</th>
+                          <th>Interés Anual:</th>
                           <td> 8.5%</td>
                         </tr>
                         <tr>
-                          <th>Tasa Interes Periódica</th>
+                          <th>Tasa Interés Periódica</th>
                           <td> 0.71%</td>
                         </tr>
                         <tr>
@@ -356,8 +356,8 @@
                           <td> {{cuotaPagarF | currency}} </td>
                         </tr>
                         <tr>
-                          <th> Total Interes a Pagar</th>
-                          <td> {{sumaInteresesF | currency}}</td>
+                          <th> Total Interés a Pagar</th>
+                          <td> {{sumaInterésesF | currency}}</td>
                         </tr>
                       </table>
                     </div>
@@ -365,10 +365,10 @@
                       <thead>
                         <tr class="table-success">
                           <th>
-                            Interes Anual
+                            Interés Anual
                           </th>
                           <th>
-                            Tasa Interes Periódica
+                            Tasa Interés Periódica
                           </th>
                           <th>
                             Seguro Desgravamen
@@ -377,7 +377,7 @@
                             # Cuotas
                           </th>
                           <th>
-                            Total Interes a Pagar
+                            Total Interés a Pagar
                           </th>
                         </tr>
                       </thead>
@@ -396,7 +396,7 @@
                             {{numeroCuotas}}
                           </td>
                           <td>
-                            {{sumaIntereses | currency}}
+                            {{sumaInteréses | currency}}
                           </td>
                         </tr>
                       </tbody>
@@ -414,7 +414,7 @@
                               #Cuotas
                             </th>
                             <th>
-                              Interes del Periodo
+                              Interés del Periodo
                             </th>
                             <th>
                               Capital Amortizado
@@ -433,7 +433,7 @@
                         <tbody>
                           <tr *ngFor="let data of dataFrances">
                             <td>{{data.numeroCuota}}</td>
-                            <td>{{data.interesPeriodo | currency}}</td>
+                            <td>{{data.InterésPeriodo | currency}}</td>
                             <td>{{data.capitalAmortizado | currency}}</td>
                             <td>{{data.seguro | currency}}</td>
                             <td>{{data.cuotaPagar | currency}}</td>
@@ -454,7 +454,7 @@
                               #Cuotas
                             </th>
                             <th>
-                              Interes del Periodo
+                              Interés del Periodo
                             </th>
                             <th>
                               Capital Amortizado
@@ -473,7 +473,7 @@
                         <tbody>
                           <tr *ngFor="let data of dataAleman">
                             <td>{{data.numeroCuota}}</td>
-                            <td>{{data.interesPeriodo | currency}}</td>
+                            <td>{{data.InterésPeriodo | currency}}</td>
                             <td>{{data.capitalAmortizado | currency}}</td>
                             <td>{{data.seguro | currency}}</td>
                             <td>{{data.cuotaPagar | currency}}</td>
@@ -513,12 +513,12 @@
                       Plazo (Años)
                     </label>
                     <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" min="1" max="20"
-                        [(ngModel)]="tiempoPrestamo" (ngModelChange)="simuladorInmobiliario()"
+                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="0.1" min="1" max="20"
+                        [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorInmobiliario()"
                         style="min-width: 280px; ">
                       </mat-slider>
                       <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo"
-                        [(ngModel)]="tiempoPrestamo" name="tiempoPrestamo" (ngModelChange)="simuladorInmobiliario()"
+                        [(ngModel)]="numeroCuotas" name="numeroCuotas" (ngModelChange)="simuladorInmobiliario()"
                         size=40 style="width:100px; flex:none; ">
                     </div>
                     <div class="button-group">
@@ -529,7 +529,7 @@
                     </div>
                     <div>
                       <br>
-                      <label>Tasa de Interes</label>
+                      <label>Tasa de Interés</label>
                       <br>
                       <label> 9% Anual</label>
                       <br>
@@ -546,11 +546,11 @@
                       <h2>Simulador Aleman</h2>
                       <table style="width:100%" class="table table-bordered table-hover">
                         <tr>
-                          <th>Interes Anual:</th>
+                          <th>Interés Anual:</th>
                           <td> 8.5%</td>
                         </tr>
                         <tr>
-                          <th>Tasa Interes Periódica</th>
+                          <th>Tasa Interés Periódica</th>
                           <td> 0.71%</td>
                         </tr>
                         <tr>
@@ -562,8 +562,8 @@
                           <td> {{numeroCuotas}}</td>
                         </tr>
                         <tr>
-                          <th> Total Interes a Pagar</th>
-                          <td> {{sumaIntereses | currency}}</td>
+                          <th> Total Interés a Pagar</th>
+                          <td> {{sumaInteréses | currency}}</td>
                         </tr>
                       </table>
                     </div>
@@ -571,11 +571,11 @@
                       <h2>Simulador Frances</h2>
                       <table style="width:100%" class="table table-bordered table-hover">
                         <tr>
-                          <th>Interes Anual:</th>
+                          <th>Interés Anual:</th>
                           <td> 8.5%</td>
                         </tr>
                         <tr>
-                          <th>Tasa Interes Periódica</th>
+                          <th>Tasa Interés Periódica</th>
                           <td> 0.71%</td>
                         </tr>
                         <tr>
@@ -591,8 +591,8 @@
                           <td> {{cuotaPagarF | currency}} </td>
                         </tr>
                         <tr>
-                          <th> Total Interes a Pagar</th>
-                          <td> {{sumaInteresesF | currency}}</td>
+                          <th> Total Interés a Pagar</th>
+                          <td> {{sumaInterésesF | currency}}</td>
                         </tr>
                       </table>
                     </div>
@@ -600,10 +600,10 @@
                       <thead>
                         <tr class="table-success">
                           <th>
-                            Interes Anual
+                            Interés Anual
                           </th>
                           <th>
-                            Tasa Interes Periódica
+                            Tasa Interés Periódica
                           </th>
                           <th>
                             Seguro Desgravamen
@@ -612,7 +612,7 @@
                             # Cuotas
                           </th>
                           <th>
-                            Total Interes a Pagar
+                            Total Interés a Pagar
                           </th>
                         </tr>
                       </thead>
@@ -631,7 +631,7 @@
                             {{numeroCuotas}}
                           </td>
                           <td>
-                            {{sumaIntereses | currency}}
+                            {{sumaInteréses | currency}}
                           </td>
                         </tr>
                       </tbody>
@@ -650,7 +650,7 @@
                               #Cuotas
                             </th>
                             <th>
-                              Interes del Periodo
+                              Interés del Periodo
                             </th>
                             <th>
                               Capital Amortizado
@@ -669,7 +669,7 @@
                         <tbody>
                           <tr *ngFor="let data of dataFrances">
                             <td>{{data.numeroCuota}}</td>
-                            <td>{{data.interesPeriodo | currency}}</td>
+                            <td>{{data.InterésPeriodo | currency}}</td>
                             <td>{{data.capitalAmortizado | currency}}</td>
                             <td>{{data.seguro | currency}}</td>
                             <td>{{data.cuotaPagar | currency}}</td>
@@ -690,7 +690,7 @@
                               #Cuotas
                             </th>
                             <th>
-                              Interes del Periodo
+                              Interés del Periodo
                             </th>
                             <th>
                               Capital Amortizado
@@ -709,7 +709,7 @@
                         <tbody>
                           <tr *ngFor="let data of dataAleman">
                             <td>{{data.numeroCuota}}</td>
-                            <td>{{data.interesPeriodo | currency}}</td>
+                            <td>{{data.InterésPeriodo | currency}}</td>
                             <td>{{data.capitalAmortizado | currency}}</td>
                             <td>{{data.seguro | currency}}</td>
                             <td>{{data.cuotaPagar | currency}}</td>
@@ -757,7 +757,7 @@
                     </div>
                     <div>
                       <br>
-                      <label>Tasa de Interes</label>
+                      <label>Tasa de Interés</label>
                       <br>
                       <label> 3.5% </label>
                       <br>
@@ -780,7 +780,7 @@
                         <td> {{term}}</td>
                       </tr>
                       <tr>
-                        <th>Interes Ganado Referencial:</th>
+                        <th>Interés Ganado Referencial:</th>
                         <td> {{returnRate | currency}}</td>
                       </tr>
                       <tr>
@@ -838,7 +838,7 @@
                     </button> -->
                     <div>
                       <br>
-                      <label>Tasa de Interes</label>
+                      <label>Tasa de Interés</label>
                       <br>
                       <label> 5% </label>
                       <br>
@@ -861,7 +861,7 @@
                         <td>{{termDpf}}</td>
                       </tr>
                       <tr>
-                        <th>Interes Ganado Referencial:</th>
+                        <th>Interés Ganado Referencial:</th>
                         <td>{{returnRateDpf | currency}}</td>
                       </tr>
                       <tr>
