@@ -768,10 +768,10 @@
                     </label>
                     <div class="input-group">
 
-                      <mat-slider thumbLabel [displayWith]="formatoMonto" tickInterval="1" min="1" max="300000"
+                      <mat-slider thumbLabel [displayWith]="formatoMonto" tickInterval="1" min="5000" max="1000000"
                         [(ngModel)]="amountDpf" (ngModelChange)="dpfSave()" style="min-width: 280px;"></mat-slider>
                       <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
-                        [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40
+                        [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40  min="5000" max="1000000"
                         style="width:100px; flex:none;">
                     </div>
                     <label for="exampleInputPassword1">
@@ -781,7 +781,7 @@
                       <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" min="6" max="36"
                         [(ngModel)]="termDpf" (ngModelChange)="dpfSave()" style="min-width: 280px;"> </mat-slider>
                       <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo"
-                        [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()" size=40
+                        [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()" size=40 min="6" max="36"
                         style="width:100px; flex:none;">
                     </div>
                     <div>

@@ -493,14 +493,33 @@ ngOnInit(): void {
   //Funciones Simuladores de Ahorro
 
   flexSave(): void {
+    if(this.term<1 || this.term>365){
+      // this.amount=5000;
+      this.term=1;
+      this.toastr.warning('Limites Fuera de Rango ', 'Advertencia', {
+        timeOut: 4500,
+      });
+
+    }else{
     this.returnRate = this.amount * this.term * this.tasaAhorroFlexSave / 360 / 100;
     this.retention = this.returnRate * 0.02;
     this.total = this.amount + this.returnRate - this.retention;
+    }
+
   }
   dpfSave(): void {
+    if(this.amountDpf<5000 || this.termDpf<6 || this.termDpf >36){
+      this.amountDpf=5000;
+      this.termDpf=6;
+      this.toastr.warning('Limites Fuera de Rango ', 'Advertencia', {
+        timeOut: 4500,
+      });
+
+    }else{
     this.returnRateDpf = this.amountDpf * this.termDpf * this.tasaAhorroDpf / 360 / 100 * 30.4167;
     this.retentionDpf = this.returnRateDpf * 0.02;
     this.totalDpf = this.amountDpf + this.returnRateDpf - this.retentionDpf;
+    }
   }
 
   /******************************************************************************** */
