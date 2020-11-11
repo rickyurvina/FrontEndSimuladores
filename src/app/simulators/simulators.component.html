@@ -26,9 +26,7 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <!-- <h3 style="text-align: center;">
-                  Simulador de Crédito Educativo
-                </h3> -->
+
                 <br>
                 <div class="row">
                   <div class="col-md-6" style="background-color: #e3e9e9;">
@@ -526,9 +524,6 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <!-- <h3 style="text-align: center;">
-                  Simulador de Crédito Inmobiliario
-                </h3> -->
                 <br>
                 <div class="row">
                   <div class="col-md-6">
@@ -630,53 +625,12 @@
                         </tr>
                       </table>
                     </div>
-                    <!-- <table class="table table-bordered table-hover">
-                      <thead>
-                        <tr class="table-success">
-                          <th>
-                            Interes Anual
-                          </th>
-                          <th>
-                            Tasa Interes Periódica
-                          </th>
-                          <th>
-                            Seguro Desgravamen
-                          </th>
-                          <th>
-                            # Cuotas
-                          </th>
-                          <th>
-                            Total Interes a Pagar
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="table-warning">
-                          <td>
-                            9.00%
-                          </td>
-                          <td>
-                            0.75%
-                          </td>
-                          <td>
-                            0.068%
-                          </td>
-                          <td>
-                            {{numeroCuotas}}
-                          </td>
-                          <td>
-                            {{sumaIntereses | currency}}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table> -->
                   </div>
                   <div style="margin-left: 15%;">
                     <div *ngIf="amortizacionF.is_visible">
                       <div style="text-align: center;">
                         <h2>Tabla de Amortización Francesa</h2>
                       </div>
-
                       <table class="table table-bordered table-hover">
                         <thead>
                           <tr>
@@ -716,7 +670,6 @@
                       <div style="text-align: center;">
                         <h2>Tabla de Amortización Alemana</h2>
                       </div>
-
                       <table class="table table-bordered table-hover">
                         <thead>
                           <tr>
@@ -762,9 +715,6 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <!-- <h3 style="text-align: center;">
-                  Simulador de Ahorro Flex
-                </h3> -->
                 <br>
                 <div class="row">
                   <div class="col-md-6">
@@ -797,7 +747,6 @@
                       <br>
                       <label>Tiempo mínimo 1 día, máximo 365 días</label>
                     </div>
-
                   </div>
                   <div class="col-md-6" style="margin-left: auto; text-align: center;">
                     <table style="width:100%" class="table table-bordered table-hover">
@@ -821,7 +770,6 @@
                         <th>Retención IR:</th>
                         <td> {{retention | currency}}</td>
                       </tr>
-
                       <tr>
                         <th>Total Recibir:</th>
                         <td>{{total | currency}} </td>
@@ -837,9 +785,6 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <!-- <h3 style="text-align: center;">
-                  Simulador de Ahorro DPF
-                </h3> -->
                 <br>
                 <div class="row">
                   <div class="col-md-6">
@@ -853,7 +798,6 @@
                       <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
                         [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40
                         style="width:100px; flex:none;">
-
                     </div>
                     <label for="exampleInputPassword1">
                       Plazo (Meses)
@@ -861,15 +805,10 @@
                     <div class="input-group">
                       <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" min="6" max="36"
                         [(ngModel)]="termDpf" (ngModelChange)="dpfSave()" style="min-width: 280px;"> </mat-slider>
-
                       <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo"
                         [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()" size=40
                         style="width:100px; flex:none;">
-
                     </div>
-                    <!-- <button type="submit" (click)="dpfSave()" class="btn btn-primary">
-                      Calcular
-                    </button> -->
                     <div>
                       <br>
                       <label>Tasa de Interés</label>
@@ -879,7 +818,6 @@
                       <label>Tiempo mínimo 6 meses, máximo 36 meses</label>
                     </div>
                   </div>
-
                   <div class="col-md-6" style="margin-left: auto; text-align: center;">
                     <table style="width:100%" class="table table-bordered table-hover">
                       <tr>

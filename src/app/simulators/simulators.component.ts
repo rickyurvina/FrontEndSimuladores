@@ -85,6 +85,124 @@ export class SimulatorsComponent implements OnInit {
 
   /***************************************************** */
 
+/**Variables Creditos para guardar peticiones del API */
+tasaCreditoEducativo:number;
+tasaCreditoInversion:number;
+tasaCreditoInmobiliario:number;
+montoMinCreditoEducativo:number;
+montoMinCreditoInversion:number;
+montoMinCreditoInmobiliario:number;
+montoMaxCreditoEducativo:number;
+montoMaxCreditoInversion:number;
+montoMaxCreditoInmobiliario:number;
+tiempoMinCreditoEducativo:number;
+tiempoMinCreditoInversion:number;
+tiempoMinCreditoInmobiliario:number;
+tiempoMaxCreditoEducativo:number;
+tiempoMaxCreditoInversion:number;
+tiempoMaxCreditoInmobiliario:number;
+
+/**Variables Ahorros para guardar peticiones del API */
+
+tasaAhorroFlexSave:number;
+tasaAhorroDpf:number;
+tiempoMinAhorroFlexSave:number;
+tiempoMinAhorroDpf:number;
+tiempoMaxAhorroFlexSave:number;
+tiempoMaxAhorroDpf:number;
+
+/**Varibles para almacenar las consultas api de credito y ahorro */
+datosFlexSaving=null;
+datosDpfSaving=null;
+datosCreditoEducativo=null;
+datosCreditoInversion=null;
+datosCreditoInmobiliario=null;
+
+ngOnInit(): void {
+  this.service.getFlexSaving().subscribe(
+    (datos)=>{
+      this.datosFlexSaving=datos;
+      for( let x of this.datosFlexSaving){
+        // console.log(x.name);
+        this.tasaAhorroFlexSave=x.rate;
+        this.tiempoMinAhorroFlexSave=x.minimum_time;
+        this.tiempoMaxAhorroFlexSave=x.maximum_time;
+        // console.log(this.tiempoMaxAhorroDpf);
+      }
+    },
+    (error)=>{
+      console.log(error);
+    }
+  )
+  this.service.getDpfSaving().subscribe(
+    (datos)=>{
+      this.datosDpfSaving=datos;
+      for( let x of this.datosDpfSaving){
+        // console.log(x.name);
+        this.tasaAhorroDpf=x.rate;
+        this.tiempoMinAhorroDpf=x.minimum_time;
+        this.tiempoMaxAhorroDpf=x.maximum_time;
+        // console.log(this.tiempoMaxAhorroDpf);
+      }
+    },
+    (error)=>{
+      console.log(error);
+    }
+  )
+  this.service.getCreditoEducativo().subscribe(
+    (datos)=>{
+      this.datosCreditoEducativo=datos;
+      for( let x of this.datosCreditoEducativo){
+        // console.log(x.name);
+       this.tasaCreditoEducativo=x.tasa;
+       this.montoMinCreditoEducativo=x.montomin;
+       this.montoMaxCreditoEducativo=x.montomax;
+       this.tiempoMinCreditoEducativo=x.tiempomin;
+       this.tiempoMaxCreditoEducativo=x.tiempomax;
+      }
+      console.log(this.tiempoMaxCreditoEducativo);
+    },
+    (error)=>{
+      console.log(error);
+    }
+  )
+  this.service.getCreditoInversion().subscribe(
+    (datos)=>{
+      this.datosCreditoInversion=datos;
+      for( let x of this.datosCreditoInversion){
+        // console.log(x.name);
+       this.tasaCreditoInversion=x.tasa;
+       this.montoMinCreditoInversion=x.montomin;
+       this.montoMaxCreditoInversion=x.montomax;
+       this.tiempoMinCreditoInversion=x.tiempomin;
+       this.tiempoMaxCreditoInversion=x.tiempomax;
+      }
+      console.log(this.tiempoMaxCreditoInversion);
+    },
+    (error)=>{
+      console.log(error);
+    }
+  )
+  this.service.getCreditoInmobiliario().subscribe(
+    (datos)=>{
+      this.datosCreditoInmobiliario=datos;
+      for( let x of this.datosCreditoInmobiliario){
+        // console.log(x.name);
+       this.tasaCreditoInmobiliario=x.tasa;
+       this.montoMinCreditoInmobiliario=x.montomin;
+       this.montoMaxCreditoInmobiliario=x.montomax;
+       this.tiempoMinCreditoInmobiliario=x.tiempomin;
+       this.tiempoMaxCreditoInmobiliario=x.tiempomax;
+      }
+      console.log(this.tiempoMaxCreditoInmobiliario);
+    },
+    (error)=>{
+      console.log(error);
+    }
+  )
+}
+
+
   cerrarTablas(): void {
     this.amortizacionF.is_visible = false;
     this.amortizacionIA.is_visible = false;
@@ -381,8 +499,7 @@ export class SimulatorsComponent implements OnInit {
 
   /******************************************************************************** */
 
-  ngOnInit(): void {
-  }
+
 
 
   /************************************** */

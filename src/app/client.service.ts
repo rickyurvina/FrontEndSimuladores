@@ -2,23 +2,38 @@ import { Injectable } from '@angular/core';
 
 import {Client} from './client';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { environment } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
   data:Client[];
+  url:string;
+
+
 
   constructor(private http:HttpClient) { }
 
-  // read(){
-  //   return this.http.get('http://127.0.0.1:8000/client');
-  // }
+  getFlexSaving(){
+    return this.http.get(environment.url+"/flexSaving");
+  }
+  getDpfSaving(){
+    return this.http.get(environment.url+'/dpfSaving');
+  }
+  getCreditoEducativo(){
+    return this.http.get(environment.url+'/creditoEducativo');
+  }
+  getCreditoInversion(){
+    return this.http.get(environment.url+'/creditoInversion');
+  }
+  getCreditoInmobiliario(){
+    return this.http.get(environment.url+'/creditoInmobiliario');
+  }
   insert(data:Client){
 
-    // return this.http.post('http://127.0.0.1:8000/api/client',data);
-    return this.http.post('https://backend-proccredit.azurewebsites.net/',data);
+    return this.http.post(environment.url+'/client',data, { responseType: 'text'});
+    // return this.http.post('https://backend-proccredit.azurewebsites.net/api/client',data, { responseType: 'text'});
 
   }
 }
