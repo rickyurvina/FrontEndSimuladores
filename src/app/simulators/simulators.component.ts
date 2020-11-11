@@ -319,12 +319,12 @@ ngOnInit(): void {
     if (this.valorPrestamo > 100000 || this.valorPrestamo < 5000) {
       this.valorPrestamo = 5000;
       // this.tiempoPrestamo=0;
-      this.toastr.warning('Monto Maximo $30.000 Monto Minimo $5.000 ', 'Limite Superado', {
+      this.toastr.warning('Monto Maximo $30.000 Monto Minimo $5.000 ', 'Monto Fuera de Rango', {
         timeOut: 4500,
       });
     } else if (this.numeroCuotas > 60 || this.numeroCuotas <6) {
       this.numeroCuotas= 6;
-      this.toastr.warning('Tiempo Maximo 20 Años, Tiempo Minimo 1 Año', 'Limite Superado', {
+      this.toastr.warning('Tiempo Maximo 60 Meses, Tiempo Minimo 6 Meses', 'Tiempo Fuera de Rango', {
         timeOut: 4500,
       });
     } else {
@@ -333,10 +333,13 @@ ngOnInit(): void {
         this.interesDelPeriodoF = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
         this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA + this.valorSeguroDesgravamen;
+        // this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaFrancesa = this.valorSeguroDesgravamen + this.cuotaPagarF;
+        // this.cuotaFrancesa =  this.cuotaPagarF;
         this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
+
         this.dataFrances.push({
           numeroCuota: i + 1,
           interesPeriodo: this.interesDelPeriodoF,
@@ -345,7 +348,6 @@ ngOnInit(): void {
           cuotaPagar: this.cuotaFrancesa,
           saldoRemanente: this.saldoRemanenteF
         });
-        this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
         this.sumaInteresesF = this.sumaInteresesF + this.interesDelPeriodoF;
         this.dataAleman.push({
           numeroCuota: i + 1,
@@ -377,14 +379,14 @@ ngOnInit(): void {
     this.saldoRemanenteF = this.valorPrestamo;
     this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
     if (this.valorPrestamo > 100000 || this.valorPrestamo < 50000) {
-      this.valorPrestamo = 0;
+      this.valorPrestamo = 50000;
       // this.tiempoPrestamo=0;
-      this.toastr.warning('Monto Maximo $100.000 Monto Minimo $50.000 ', 'Limite Superado', {
+      this.toastr.warning('Monto Maximo $100.000 Monto Minimo $50.000 ', 'Monto Fuera de Rango', {
         timeOut: 4500,
       });
     } else if (this.numeroCuotas > 244 || this.numeroCuotas<12) {
-      this.numeroCuotas
-      this.toastr.warning('Tiempo Maximo 20 Años, Tiempo Minimo 1 Año', 'Limite Superado', {
+      this.numeroCuotas=12;
+      this.toastr.warning('Tiempo Maximo 244 Meses, Tiempo Minimo 12 Meses', 'Tiempo Fuera de Rango', {
         timeOut: 4500,
       });
     } else {
@@ -393,10 +395,13 @@ ngOnInit(): void {
         this.interesDelPeriodoF = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
         this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA + this.valorSeguroDesgravamen;
+        // this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaFrancesa = this.valorSeguroDesgravamen + this.cuotaPagarF;
+        // this.cuotaFrancesa =  this.cuotaPagarF;
         this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
+
         this.dataFrances.push({
           numeroCuota: i + 1,
           interesPeriodo: this.interesDelPeriodoF,
@@ -405,7 +410,6 @@ ngOnInit(): void {
           cuotaPagar: this.cuotaFrancesa,
           saldoRemanente: this.saldoRemanenteF
         });
-        this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
         this.sumaInteresesF = this.sumaInteresesF + this.interesDelPeriodoF;
         this.dataAleman.push({
           numeroCuota: i + 1,
@@ -436,20 +440,16 @@ ngOnInit(): void {
     this.sumaInteresesF = 0;
     this.base = 1 + this.tasaInteresPeriodica / 100;
     this.saldoRemanenteF = this.valorPrestamo;
-    // this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
-    this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
+  this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
     if (this.valorPrestamo > this.montoMaxCreditoEducativo || this.valorPrestamo<this.montoMinCreditoEducativo) {
       this.valorPrestamo = this.montoMinCreditoEducativo;
-      // this.tiempoPrestamo=0;
-      this.toastr.warning('Monto Maximo $30.000, Monto Minimo $1000 ', 'Valor Fuera de Rango', {
+      this.toastr.warning('Monto Maximo $30.000, Monto Minimo $1000 ', 'Monto Fuera de Rango', {
         timeOut: 4500,
-
       });
     } else if (this.numeroCuotas > this.tiempoMaxCreditoEducativo || this.numeroCuotas<this.tiempoMinCreditoEducativo ) {
       this.numeroCuotas = this.tiempoMinCreditoEducativo;
-      this.toastr.warning('Tiempo Maximo 48 Meses, Tiempo Minimo 6 Meses', 'Valor Fuera de Rango', {
+      this.toastr.warning('Tiempo Maximo 48 Meses, Tiempo Minimo 6 Meses', 'Tiempo Fuera de Rango', {
         timeOut: 4500,
-
       });
     }
     else {
@@ -464,7 +464,6 @@ ngOnInit(): void {
         // this.cuotaFrancesa =  this.cuotaPagarF;
         this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
-
         this.dataFrances.push({
           numeroCuota: i + 1,
           interesPeriodo: this.interesDelPeriodoF,
