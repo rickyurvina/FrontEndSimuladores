@@ -34,10 +34,10 @@
                       Monto
                     </label>
                     <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoMonto" tickInterval="1" min="1000" max="30000"
+                      <mat-slider thumbLabel [displayWith]="formatoMonto" tickInterval="1" min="{{montoMinCreditoEducativo}}" max="{{montoMaxCreditoEducativo}}"
                         [(ngModel)]="valorPrestamo" (ngModelChange)="simuladorEducativo()" style="min-width: 280px;">
                       </mat-slider>
-                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto" min="1000" max="30000"
+                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"   min="{{montoMinCreditoEducativo}}" max="{{montoMaxCreditoEducativo}}"
                         [(ngModel)]="valorPrestamo" name="valorPrestamo" (ngModelChange)="simuladorEducativo()" size=40
                         style="width:100px; flex:none">
                     </div>
@@ -45,10 +45,10 @@
                       Plazo (Meses)
                     </label>
                     <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" min="6" max="48"
+                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" min="{{tiempoMinCreditoEducativo}}" max="{{tiempoMaxCreditoEducativo}}"
                         [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorEducativo()" style="min-width: 280px; ">
                       </mat-slider>
-                      <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Plazo" min="6" max="48"
+                      <input type="number" class="form-control" id="exampleInputPassword1" value="{{numeroCuotas}}" placeholder="Plazo" min="{{tiempoMinCreditoEducativo}}" max="{{tiempoMaxCreditoEducativo}}"
                         [(ngModel)]="numeroCuotas" name="numeroCuotas" (ngModelChange)="simuladorEducativo()"
                         size=40 style="width:100px; flex:none; ">
                     </div>
@@ -65,13 +65,13 @@
                       <label style="font-size:30px;">Tasa de Interés</label>
                       <br>
                       <label>
-                        <h1 style="font-size: 50px;">8.5 % </h1>
+                        <h1 style="font-size: 50px;">{{tasaCreditoEducativo}} % </h1>
                       </label>
                       <h2>Anual</h2>
                       <br>
                       <div style="text-align: center;" style="background-color: black; text-align: center;">
-                        <label style="background-color: black; color: white; text-align: center;">Tiempo mínimo 6 meses,
-                          máximo 48 meses</label>
+                        <label style="background-color: black; color: white; text-align: center;">Tiempo mínimo {{tiempoMinCreditoEducativo}} meses,
+                          máximo {{tiempoMaxCreditoEducativo}}  meses</label>
                       </div>
                     </div>
                     <div class="button-group" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible">
@@ -82,29 +82,6 @@
                   </div>
                   <div class="col-md-6"
                     style="margin-left: auto; text-align: left; background-color: #d4232e; color: white; ">
-                    <!-- <div *ngIf="alemana.is_visible">
-                      <h2>Simulador Alemán</h2>
-                      <table style="width:100%" class="table table-active" rules="none"
-                        style="background-color: #d4232e; color: white; ">
-                        <tr>
-                          <th>Tasa Interés Periódica</th>
-                          <td> 0.71%</td>
-                        </tr>
-                        <tr>
-                          <th> Seguro Desgravamen</th>
-                          <td> 0.068%</td>
-                        </tr>
-                        <tr>
-                          <th> # Cuotas</th>
-                          <td> {{numeroCuotas}}</td>
-                        </tr>
-                        <tr>
-                          <th> Total Interés a Pagar</th>
-                          <td> {{sumaIntereses | currency}}</td>
-                        </tr>
-                      </table>
-                    </div> -->
-
                     <div *ngIf="alemana.is_visible" >
                       <h2>Detalles de la Simulación Alemana</h2>
                       <table width="100%"  cellspacing="10px" cellpadding="10px"
@@ -115,18 +92,17 @@
                       -moz-border-radius: 20px;
                       padding: 2px;
                       -webkit-border-radius: 5px;">
-
                         <tr>
-                          <th>Tasa Interés  Periódica</th>
+                          <th>Tasa Interés Periódica</th>
                           <td>
-                            <input value="0.71%" readonly style="width:120px;  border-radius: 10px;
+                            <input value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly  style="width:120px;  border-radius: 10px;
                             border: 1px solid white ;">
                           </td>
                         </tr>
                         <tr>
                           <th> Seguro Desgravamen</th>
                           <td>
-                            <input value="0.068%" readonly style="width:120px;  border-radius: 10px;
+                            <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly style="width:120px;  border-radius: 10px;
                             border: 1px solid white ;">
                           </td>
                         </tr>
@@ -158,18 +134,17 @@
                       -moz-border-radius: 20px;
                       padding: 2px;
                       -webkit-border-radius: 5px;">
-
                         <tr>
                           <th>Tasa Interés  Periódica</th>
                           <td>
-                            <input value="0.71%" readonly style="width:120px;  border-radius: 10px;
+                            <input value="{{tasaInteresPeriodica | number:'1.0-2' }}%"  readonly style="width:120px;  border-radius: 10px;
                             border: 1px solid white ;">
                           </td>
                         </tr>
                         <tr>
                           <th> Seguro Desgravamen</th>
                           <td>
-                            <input value="0.068%" readonly style="width:120px;  border-radius: 10px;
+                            <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly style="width:120px;  border-radius: 10px;
                             border: 1px solid white ;">
                           </td>
                         </tr>
@@ -813,9 +788,9 @@
                       <br>
                       <label>Tasa de Interés</label>
                       <br>
-                      <label> 5% </label>
+                      <label> {{tasaAhorroDpf}} </label>
                       <br>
-                      <label>Tiempo mínimo 6 meses, máximo 36 meses</label>
+                      <label>Tiempo mínimo {{tiempoMinAhorroDpf}} meses, máximo {{tiempoMaxAhorroDpf}} meses</label>
                     </div>
                   </div>
                   <div class="col-md-6" style="margin-left: auto; text-align: center;">

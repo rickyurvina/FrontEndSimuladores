@@ -118,6 +118,8 @@ datosCreditoEducativo=null;
 datosCreditoInversion=null;
 datosCreditoInmobiliario=null;
 
+porcentajeSD=null;
+
 ngOnInit(): void {
   this.service.getFlexSaving().subscribe(
     (datos)=>{
@@ -160,7 +162,7 @@ ngOnInit(): void {
        this.tiempoMinCreditoEducativo=x.tiempomin;
        this.tiempoMaxCreditoEducativo=x.tiempomax;
       }
-      console.log(this.tiempoMaxCreditoEducativo);
+      console.log("tiempo min educativo",this.tiempoMinCreditoEducativo);
     },
     (error)=>{
       console.log(error);
@@ -200,6 +202,9 @@ ngOnInit(): void {
       console.log(error);
     }
   )
+  this.porcentajeSD = 0.0688;
+  console.log("segurod",this.porcentajeSeguroDesgravamen);
+
 }
 
 
@@ -298,6 +303,8 @@ ngOnInit(): void {
     this.limpiarTabla();
     // this.verFrancesa();
     // this.numeroCuotas = this.tiempoPrestamo * 12;
+    // this.valorPrestamo = 5000;
+    // this.numeroCuotas= 6;
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
@@ -310,13 +317,13 @@ ngOnInit(): void {
     this.saldoRemanenteF = this.valorPrestamo;
     this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
     if (this.valorPrestamo > 100000 || this.valorPrestamo < 5000) {
-      this.valorPrestamo = 0;
+      this.valorPrestamo = 5000;
       // this.tiempoPrestamo=0;
       this.toastr.warning('Monto Maximo $30.000 Monto Minimo $5.000 ', 'Limite Superado', {
         timeOut: 4500,
       });
     } else if (this.numeroCuotas > 60 || this.numeroCuotas <6) {
-      this.numeroCuotas= 0;
+      this.numeroCuotas= 6;
       this.toastr.warning('Tiempo Maximo 20 Años, Tiempo Minimo 1 Año', 'Limite Superado', {
         timeOut: 4500,
       });
@@ -418,11 +425,11 @@ ngOnInit(): void {
     this.limpiarTabla();
     // this.verFrancesa();
     // this.numeroCuotas = this.tiempoPrestamo * 12;
-    // this.numeroCuotas=0;
+    // this.numeroCuotas=6;
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
-    this.tasaInteresAnual = 8.5;
+    this.tasaInteresAnual = this.tasaCreditoEducativo;
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
     this.porcentajeSeguroDesgravamen = 0.0688 / 100;
     this.sumaIntereses = 0;
@@ -431,16 +438,16 @@ ngOnInit(): void {
     this.saldoRemanenteF = this.valorPrestamo;
     // this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
     this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
-    if (this.valorPrestamo > 30000 || this.valorPrestamo<1000) {
-      this.valorPrestamo = 0;
+    if (this.valorPrestamo > this.montoMaxCreditoEducativo || this.valorPrestamo<this.montoMinCreditoEducativo) {
+      this.valorPrestamo = this.montoMinCreditoEducativo;
       // this.tiempoPrestamo=0;
-      this.toastr.warning('Monto Maximo $30.000, Monto Minimo $1000 ', 'Limite Superado', {
+      this.toastr.warning('Monto Maximo $30.000, Monto Minimo $1000 ', 'Valor Fuera de Rango', {
         timeOut: 4500,
 
       });
-    } else if (this.numeroCuotas > 48 || this.numeroCuotas<6 ) {
-      this.numeroCuotas = 0;
-      this.toastr.warning('Tiempo Maximo 48 Meses, Tiempo Minimo 6 Meses', 'Limite Superado', {
+    } else if (this.numeroCuotas > this.tiempoMaxCreditoEducativo || this.numeroCuotas<this.tiempoMinCreditoEducativo ) {
+      this.numeroCuotas = this.tiempoMinCreditoEducativo;
+      this.toastr.warning('Tiempo Maximo 48 Meses, Tiempo Minimo 6 Meses', 'Valor Fuera de Rango', {
         timeOut: 4500,
 
       });
@@ -451,7 +458,7 @@ ngOnInit(): void {
         this.interesDelPeriodoF = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
         this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA + this.valorSeguroDesgravamen;
-        this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA;
+        // this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaFrancesa = this.valorSeguroDesgravamen + this.cuotaPagarF;
         // this.cuotaFrancesa =  this.cuotaPagarF;
@@ -487,12 +494,12 @@ ngOnInit(): void {
   //Funciones Simuladores de Ahorro
 
   flexSave(): void {
-    this.returnRate = this.amount * this.term * 3.5 / 360 / 100;
+    this.returnRate = this.amount * this.term * this.tasaAhorroFlexSave / 360 / 100;
     this.retention = this.returnRate * 0.02;
     this.total = this.amount + this.returnRate - this.retention;
   }
   dpfSave(): void {
-    this.returnRateDpf = this.amountDpf * this.termDpf * 5 / 360 / 100 * 30.4167;
+    this.returnRateDpf = this.amountDpf * this.termDpf * this.tasaAhorroDpf / 360 / 100 * 30.4167;
     this.retentionDpf = this.returnRateDpf * 0.02;
     this.totalDpf = this.amountDpf + this.returnRateDpf - this.retentionDpf;
   }
