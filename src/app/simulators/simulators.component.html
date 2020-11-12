@@ -82,7 +82,7 @@
                   </div>
                   <div class="col-md-6"
                     style="margin-left: auto; text-align: left; background-color: #d4232e; color: white; ">
-                    <div *ngIf="alemana.is_visible" >
+                    <div *ngIf="alemana.is_visible" id="htmlData">
                       <h2>Detalles de la Simulación Alemana</h2>
                       <table width="100%"  cellspacing="10px" cellpadding="10px"
                       style="border-collapse: separate;
@@ -124,7 +124,7 @@
                         </tr>
                       </table>
                     </div>
-                    <div *ngIf="francesa.is_visible" >
+                    <div *ngIf="francesa.is_visible"  >
                       <h2>Detalles de la Simulación Francesa</h2>
                       <table width="100%"  cellspacing="10px" cellpadding="10px"
                       style="border-collapse: separate;
@@ -176,7 +176,7 @@
                   <div style="margin-left: 15%;">
                     <div *ngIf="amortizacionF.is_visible">
 
-                      <div style="text-align: center;">
+                      <div style="text-align: center;" >
                         <h2>Tabla de Amortización Francesa</h2>
                       </div>
                       <table class="table table-bordered table-hover">
@@ -214,8 +214,8 @@
                         </tbody>
                       </table>
                     </div>
-                    <div *ngIf="amortizacionIA.is_visible">
 
+                    <div *ngIf="amortizacionIA.is_visible" >
                       <div style="text-align: center;">
                         <h2>Tabla de Amortización Alemana</h2>
                       </div>
@@ -242,7 +242,7 @@
                             </th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
                           <tr *ngFor="let data of dataAleman">
                             <td>{{data.numeroCuota}}</td>
                             <td>{{data.interesPeriodo | currency}}</td>
@@ -368,46 +368,6 @@
                         </tr>
                       </table>
                     </div>
-                    <!-- <table class="table table-bordered table-hover">
-                      <thead>
-                        <tr class="table-success">
-                          <th>
-                            Interes Anual
-                          </th>
-                          <th>
-                            Tasa Interes Periódica
-                          </th>
-                          <th>
-                            Seguro Desgravamen
-                          </th>
-                          <th>
-                            # Cuotas
-                          </th>
-                          <th>
-                            Total Interes a Pagar
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="table-warning">
-                          <td>
-                            9.00%
-                          </td>
-                          <td>
-                            0.75%
-                          </td>
-                          <td>
-                            0.068%
-                          </td>
-                          <td>
-                            {{numeroCuotas}}
-                          </td>
-                          <td>
-                            {{sumaIntereses | currency}}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table> -->
                   </div>
                   <div style="margin-left: 15%;">
                     <div *ngIf="amortizacionF.is_visible">
@@ -757,11 +717,11 @@
           </div>
         </mat-tab>
         <mat-tab label="Ahorro DPF">
-          <div class="container-fluid">
+          <div class="container-fluid" >
             <div class="row">
               <div class="col-md-12">
                 <br>
-                <div class="row">
+                <div class="row" id="htmlData">
                   <div class="col-md-6">
                     <label for="exampleInputEmail1">
                       Monto
@@ -841,7 +801,9 @@
         <button *ngIf="francesa.is_visible" class="btn btn-info" (click)="vetTablaFrancesa()"
           style="background-color: #291d19;">Detalles Simulación
         </button>
-        <button class="btn btn-info" style="background-color: #da1d2c;">Descargar</button>
+        <button class="btn btn-info" style="background-color: #da1d2c;" (click)="generatePDF()">Descargar</button>
+        <!-- <button class="btn btn-info" style="background-color: #da1d2c;" (click)="downloadPDF()">Descargar2</button> -->
+
       </div>
     </div>
     <div class="form-group" *ngIf="crud_operation.is_visible">
