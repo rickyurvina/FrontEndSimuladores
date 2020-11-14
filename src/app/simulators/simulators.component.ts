@@ -7,7 +7,11 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { MatDialog } from '@angular/material/dialog';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import { DialogExampleComponent } from '../dialog-example/dialog-example.component';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+declare var hbspt: any // put this at the top
 
 class Product {
   name: string;
@@ -47,13 +51,6 @@ export class SimulatorsComponent implements OnInit {
   //francesa y alemana variables para uardar el estado de las tablas de datos de simuladores
   francesa = { is_visible: true };
   alemana = { is_visible: false };
-
-  constructor(private service: ClientService, private toastr: ToastrService) {
-    this.data = [];
-    this.itemS = 0;
-    this.nombreProducto = "Crédito Educativo";
-    // this.downloadPDF();
-  }
 
   //*****************************************************
   /*Variables Simuladores Ahorro*/
@@ -139,17 +136,33 @@ export class SimulatorsComponent implements OnInit {
 
   porcentajeSD = null;
   nombreProducto: string;
+  itemS: number;
+
+
+  constructor(private service: ClientService, private toastr: ToastrService, public dialog: MatDialog) {
+    this.data = [];
+    this.itemS = 0;
+    this.nombreProducto = "Ahorro DPF";
+    this.francesa.is_visible = false;
+    this.termDpf=6;
+    this.term=this.tiempoMinAhorroFlexSave;
+    this.amountDpf=5000;
+    this.amount=1;
+
+  }
+
+  openDialog() {
+    this.dialog.open(DialogExampleComponent)
+  }
 
   ngOnInit(): void {
     this.service.getFlexSaving().subscribe(
       (datos) => {
         this.datosFlexSaving = datos;
         for (let x of this.datosFlexSaving) {
-          // console.log(x.name);
           this.tasaAhorroFlexSave = x.rate;
           this.tiempoMinAhorroFlexSave = x.minimum_time;
           this.tiempoMaxAhorroFlexSave = x.maximum_time;
-          // console.log(this.tiempoMaxAhorroDpf);
         }
       },
       (error) => {
@@ -160,11 +173,9 @@ export class SimulatorsComponent implements OnInit {
       (datos) => {
         this.datosDpfSaving = datos;
         for (let x of this.datosDpfSaving) {
-          // console.log(x.name);
           this.tasaAhorroDpf = x.rate;
           this.tiempoMinAhorroDpf = x.minimum_time;
           this.tiempoMaxAhorroDpf = x.maximum_time;
-          // console.log(this.tiempoMaxAhorroDpf);
         }
       },
       (error) => {
@@ -175,14 +186,12 @@ export class SimulatorsComponent implements OnInit {
       (datos) => {
         this.datosCreditoEducativo = datos;
         for (let x of this.datosCreditoEducativo) {
-          // console.log(x.name);
           this.tasaCreditoEducativo = x.tasa;
           this.montoMinCreditoEducativo = x.montomin;
           this.montoMaxCreditoEducativo = x.montomax;
           this.tiempoMinCreditoEducativo = x.tiempomin;
           this.tiempoMaxCreditoEducativo = x.tiempomax;
         }
-        console.log("tiempo min educativo", this.tiempoMinCreditoEducativo);
       },
       (error) => {
         console.log(error);
@@ -192,14 +201,12 @@ export class SimulatorsComponent implements OnInit {
       (datos) => {
         this.datosCreditoInversion = datos;
         for (let x of this.datosCreditoInversion) {
-          // console.log(x.name);
           this.tasaCreditoInversion = x.tasa;
           this.montoMinCreditoInversion = x.montomin;
           this.montoMaxCreditoInversion = x.montomax;
           this.tiempoMinCreditoInversion = x.tiempomin;
           this.tiempoMaxCreditoInversion = x.tiempomax;
         }
-        console.log(this.tiempoMaxCreditoInversion);
       },
       (error) => {
         console.log(error);
@@ -209,21 +216,24 @@ export class SimulatorsComponent implements OnInit {
       (datos) => {
         this.datosCreditoInmobiliario = datos;
         for (let x of this.datosCreditoInmobiliario) {
-          // console.log(x.name);
           this.tasaCreditoInmobiliario = x.tasa;
           this.montoMinCreditoInmobiliario = x.montomin;
           this.montoMaxCreditoInmobiliario = x.montomax;
           this.tiempoMinCreditoInmobiliario = x.tiempomin;
           this.tiempoMaxCreditoInmobiliario = x.tiempomax;
         }
-        console.log(this.tiempoMaxCreditoInmobiliario);
       },
       (error) => {
         console.log(error);
       }
     )
     this.porcentajeSD = 0.0688;
-    console.log("segurod", this.porcentajeSeguroDesgravamen);
+    // this.amountDpf=5000;
+    // this.termDpf=6
+    // this.dpfSave();
+    // console.log("segurod", this.porcentajeSeguroDesgravamen);
+    // this.termDpf=this.tiempoMinAhorroDpf;
+    // this.dpfSave();
 
   }
 
@@ -259,11 +269,11 @@ export class SimulatorsComponent implements OnInit {
   //Funciones para capturar cambio de pestana
 
   @ViewChild("mattabgroup", { static: false }) mattabgroup: MatTabGroup;
-  itemS: number;
+
   _selectedTabChange(index: number) {
     console.log("_selectTabChange " + index);
     this.limpiarDatos();
-    if (index == 3 || index == 4) {
+    if (index == 0 || index == 1) {
       this.francesa.is_visible = false;
     }
     else {
@@ -271,19 +281,36 @@ export class SimulatorsComponent implements OnInit {
     }
     if (index == 0) {
       this.itemS = 0;
-      this.nombreProducto = "Crédito Educativo";
+      this.termDpf=this.tiempoMinAhorroDpf;
+      this.nombreProducto = "Ahorro DPF";
+      this.dpfSave();
+
     } else if (index == 1) {
       this.itemS = 1;
-      this.nombreProducto = "Credito Inversion";
-    } else if (index == 2) {
-      this.itemS = 2;
-      this.nombreProducto = "Credito Inmobilirio ";
-    } else if (index == 3) {
-      this.itemS = 3;
       this.nombreProducto = "Ahorro Flex Save";
+      this.term=this.tiempoMinAhorroFlexSave;
+      this.flexSave();
+
+    } else if (index == 2) {
+      this.nombreProducto = "Crédito Educativo";
+      this.itemS = 2;
+      this.valorPrestamo=this.montoMinCreditoEducativo;
+      this.numeroCuotas=this.tiempoMinCreditoEducativo;
+      this.simuladorEducativo();
+
+    } else if (index == 3) {
+      this.nombreProducto = "Credito Inversion";
+      this.itemS = 3;
+      this.valorPrestamo=this.montoMinCreditoInversion;
+      this.numeroCuotas=this.tiempoMinCreditoInversion;
+      this.simuladorInversion();
+
     } else {
       this.itemS = 4;
-      this.nombreProducto = "Ahorro DPF";
+      this.nombreProducto = "Credito Inmobilirio ";
+      this.valorPrestamo=this.montoMinCreditoInmobiliario;
+      this.numeroCuotas=this.tiempoMinCreditoInmobiliario;
+      this.simuladorInmobiliario();
     }
   }
 
@@ -337,14 +364,10 @@ export class SimulatorsComponent implements OnInit {
 
   simuladorInversion(): void {
     this.limpiarTabla();
-    // this.verFrancesa();
-    // this.numeroCuotas = this.tiempoPrestamo * 12;
-    // this.valorPrestamo = 5000;
-    // this.numeroCuotas= 6;
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
-    this.tasaInteresAnual = 13;
+    this.tasaInteresAnual = this.tasaCreditoInversion;
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
     this.porcentajeSeguroDesgravamen = 0.0688 / 100;
     this.sumaIntereses = 0;
@@ -352,30 +375,27 @@ export class SimulatorsComponent implements OnInit {
     this.base = 1 + this.tasaInteresPeriodica / 100;
     this.saldoRemanenteF = this.valorPrestamo;
     this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
-    if (this.valorPrestamo > 100000 || this.valorPrestamo < 5000) {
-      this.valorPrestamo = 5000;
-      // this.tiempoPrestamo=0;
-      this.toastr.warning('Monto Maximo $30.000 Monto Minimo $5.000 ', 'Monto Fuera de Rango', {
+    if (this.valorPrestamo > this.montoMaxCreditoInversion || this.valorPrestamo < this.montoMinCreditoInversion) {
+      this.valorPrestamo = this.montoMinCreditoInversion;
+      this.toastr.warning('Monto Maximo $30.000, Monto Minimo $1000 ', 'Monto Fuera de Rango', {
         timeOut: 4500,
       });
-    } else if (this.numeroCuotas > 60 || this.numeroCuotas < 6) {
-      this.numeroCuotas = 6;
-      this.toastr.warning('Tiempo Maximo 60 Meses, Tiempo Minimo 6 Meses', 'Tiempo Fuera de Rango', {
+    } else if (this.numeroCuotas > this.tiempoMaxCreditoInversion || this.numeroCuotas < this.tiempoMinCreditoInversion) {
+      this.numeroCuotas = this.tiempoMinCreditoInversion;
+      this.toastr.warning('Tiempo Maximo 48 Meses, Tiempo Minimo 6 Meses', 'Tiempo Fuera de Rango', {
         timeOut: 4500,
       });
-    } else {
+    }
+    else {
       for (let i = 0; i < this.numeroCuotas; i++) {
         this.interesDelPeriodoIA = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.interesDelPeriodoF = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
         this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA + this.valorSeguroDesgravamen;
-        // this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaFrancesa = this.valorSeguroDesgravamen + this.cuotaPagarF;
-        // this.cuotaFrancesa =  this.cuotaPagarF;
         this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
-
         this.dataFrances.push({
           numeroCuota: i + 1,
           interesPeriodo: this.interesDelPeriodoF,
@@ -401,12 +421,10 @@ export class SimulatorsComponent implements OnInit {
 
   simuladorInmobiliario(): void {
     this.limpiarTabla();
-    // this.verFrancesa();
-    // this.numeroCuotas = this.tiempoPrestamo * 12;
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
-    this.tasaInteresAnual = 9;
+    this.tasaInteresAnual = this.tasaCreditoInmobiliario;
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
     this.porcentajeSeguroDesgravamen = 0.0688 / 100;
     this.sumaIntereses = 0;
@@ -414,30 +432,27 @@ export class SimulatorsComponent implements OnInit {
     this.base = 1 + this.tasaInteresPeriodica / 100;
     this.saldoRemanenteF = this.valorPrestamo;
     this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
-    if (this.valorPrestamo > 100000 || this.valorPrestamo < 50000) {
-      this.valorPrestamo = 50000;
-      // this.tiempoPrestamo=0;
-      this.toastr.warning('Monto Maximo $100.000 Monto Minimo $50.000 ', 'Monto Fuera de Rango', {
+    if (this.valorPrestamo > this.montoMaxCreditoInmobiliario || this.valorPrestamo < this.montoMinCreditoInmobiliario) {
+      this.valorPrestamo = this.montoMinCreditoInmobiliario;
+      this.toastr.warning('Monto Maximo $30.000, Monto Minimo $1000 ', 'Monto Fuera de Rango', {
         timeOut: 4500,
       });
-    } else if (this.numeroCuotas > 244 || this.numeroCuotas < 12) {
-      this.numeroCuotas = 12;
-      this.toastr.warning('Tiempo Maximo 244 Meses, Tiempo Minimo 12 Meses', 'Tiempo Fuera de Rango', {
+    } else if (this.numeroCuotas > this.tiempoMaxCreditoInmobiliario || this.numeroCuotas < this.tiempoMinCreditoInmobiliario) {
+      this.numeroCuotas = this.tiempoMinCreditoInmobiliario;
+      this.toastr.warning('Tiempo Maximo 48 Meses, Tiempo Minimo 6 Meses', 'Tiempo Fuera de Rango', {
         timeOut: 4500,
       });
-    } else {
+    }
+    else {
       for (let i = 0; i < this.numeroCuotas; i++) {
         this.interesDelPeriodoIA = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.interesDelPeriodoF = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
         this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA + this.valorSeguroDesgravamen;
-        // this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaFrancesa = this.valorSeguroDesgravamen + this.cuotaPagarF;
-        // this.cuotaFrancesa =  this.cuotaPagarF;
         this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
-
         this.dataFrances.push({
           numeroCuota: i + 1,
           interesPeriodo: this.interesDelPeriodoF,
@@ -463,9 +478,6 @@ export class SimulatorsComponent implements OnInit {
 
   simuladorEducativo(): void {
     this.limpiarTabla();
-    // this.verFrancesa();
-    // this.numeroCuotas = this.tiempoPrestamo * 12;
-    // this.numeroCuotas=6;
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
@@ -494,10 +506,8 @@ export class SimulatorsComponent implements OnInit {
         this.interesDelPeriodoF = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
         this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA + this.valorSeguroDesgravamen;
-        // this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaFrancesa = this.valorSeguroDesgravamen + this.cuotaPagarF;
-        // this.cuotaFrancesa =  this.cuotaPagarF;
         this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
         this.dataFrances.push({
@@ -529,9 +539,9 @@ export class SimulatorsComponent implements OnInit {
   //Funciones Simuladores de Ahorro
 
   flexSave(): void {
-    if (this.term < 1 || this.term > 365) {
-      // this.amount=5000;
-      this.term = 1;
+    console.log("tiempo min felxsave", this.tiempoMinAhorroFlexSave)
+    if (this.term < this.tiempoMinAhorroFlexSave || this.term > this.tiempoMaxAhorroFlexSave ) {
+      this.term = this.tiempoMinAhorroFlexSave;
       this.toastr.warning('Limites Fuera de Rango ', 'Advertencia', {
         timeOut: 4500,
       });
@@ -544,9 +554,10 @@ export class SimulatorsComponent implements OnInit {
 
   }
   dpfSave(): void {
-    if (this.amountDpf < 5000 || this.termDpf < 6 || this.termDpf > 36) {
+    console.log("tiempo min dpf", this.tiempoMinAhorroDpf);
+    if (this.termDpf < this.tiempoMinAhorroDpf || this.termDpf > this.tiempoMaxAhorroDpf) {
       this.amountDpf = 5000;
-      this.termDpf = 6;
+      this.termDpf = this.tiempoMinAhorroDpf;
       this.toastr.warning('Limites Fuera de Rango ', 'Advertencia', {
         timeOut: 4500,
       });
@@ -556,6 +567,7 @@ export class SimulatorsComponent implements OnInit {
       this.retentionDpf = this.returnRateDpf * 0.02;
       this.totalDpf = this.amountDpf + this.returnRateDpf - this.retentionDpf;
     }
+
   }
 
   /******************************************************************************** */
@@ -566,6 +578,12 @@ export class SimulatorsComponent implements OnInit {
     this.current_clien = new Client();
     this.crud_operation.is_visible = true;
     this.crud_operation.is_new = true;
+    hbspt.forms.create({
+      portalId: "8821548",
+      formId: "b3e4925e-7ec3-45ef-b106-e085420d9091",
+      target: "#hubspotForm"
+    });
+    window.scrollTo(0, 0);
   }
 
   save() {
@@ -599,7 +617,8 @@ export class SimulatorsComponent implements OnInit {
 
   generatePDF(action = 'open') {
 
-    if (this.itemS == 0) {
+    if (this.itemS == 2 && this.francesa.is_visible) {
+      //credito educativo
       let docDefinition = {
         content: [
           {
@@ -644,7 +663,7 @@ export class SimulatorsComponent implements OnInit {
             }
           },
           {
-            text: 'Tabla de Amortizacion',
+            text: 'Tabla de Amortizacion Francesa',
             style: 'sectionHeader'
           },
 
@@ -655,7 +674,7 @@ export class SimulatorsComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{text:'#Cuotas',style:'tableHeader'}, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
                 ...this.dataFrances.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
 
               ],
@@ -675,11 +694,11 @@ export class SimulatorsComponent implements OnInit {
 
         ],
         styles: {
-          table:{
-            bold:true,
-            fontSize:10,
-            alignment:'center',
-            decorationColor:'red'
+          table: {
+            bold: true,
+            fontSize: 10,
+            alignment: 'center',
+            decorationColor: 'red'
 
           },
           sectionHeader: {
@@ -710,7 +729,837 @@ export class SimulatorsComponent implements OnInit {
             bold: true,
             fontSize: 13,
             color: 'red',
-            background:'black'
+            background: 'black'
+          }
+        }
+      };
+      if (action === 'download') {
+        pdfMake.createPdf(docDefinition).download();
+      } else if (action === 'print') {
+        pdfMake.createPdf(docDefinition).print();
+      } else {
+        pdfMake.createPdf(docDefinition).open();
+      }
+    }else if(this.itemS == 2 && this.alemana.is_visible){
+      // credito educativo Simulacion Alemana
+      let docDefinition = {
+        content: [
+          {
+            text: 'BANCO PROCREDIT',
+            fontSize: 16,
+            alignment: 'center',
+            color: '#da1d2c'
+          },
+
+          {
+            columns: [
+
+              [
+                {
+                  text: `Fecha: ${new Date().toLocaleString()}`,
+                  alignment: 'right'
+                },
+                {
+                  text: `Producto : ${this.nombreProducto}`,
+                  alignment: 'right'
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Detalles Simulacion',
+            style: 'sectionHeader'
+          },
+
+          {
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto'],
+              body: [
+                [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
+                [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
+                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                // [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
+                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
+              ]
+            }
+          },
+          {
+            text: 'Tabla de Amortizacion Alemana',
+            style: 'sectionHeader'
+          },
+
+          {
+            style: 'tableExample',
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+              body: [
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                ...this.dataAleman.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
+
+              ],
+
+            }
+          },
+
+          {
+            text: 'Visita Nuestra Pagina',
+            style: 'sectionHeader'
+          },
+          {
+            columns: [
+              [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
+            ]
+          },
+
+        ],
+        styles: {
+          table: {
+            bold: true,
+            fontSize: 10,
+            alignment: 'center',
+            decorationColor: 'red'
+
+          },
+          sectionHeader: {
+            bold: true,
+            decoration: 'underline',
+            fontSize: 14,
+            margin: [0, 15, 0, 15]
+          },
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+          },
+          subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+          },
+          tableExample: {
+            margin: [0, 5, 0, 15]
+          },
+          tableOpacityExample: {
+            margin: [0, 5, 0, 15],
+            fillColor: 'blue',
+            fillOpacity: 0.3
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'red',
+            background: 'black'
+          }
+        }
+      };
+      if (action === 'download') {
+        pdfMake.createPdf(docDefinition).download();
+      } else if (action === 'print') {
+        pdfMake.createPdf(docDefinition).print();
+      } else {
+        pdfMake.createPdf(docDefinition).open();
+      }
+
+    }else if(this.itemS==3 && this.francesa.is_visible){
+      //credito inversion francesa
+      let docDefinition = {
+        content: [
+          {
+            text: 'BANCO PROCREDIT',
+            fontSize: 16,
+            alignment: 'center',
+            color: '#da1d2c'
+          },
+
+          {
+            columns: [
+
+              [
+                {
+                  text: `Fecha: ${new Date().toLocaleString()}`,
+                  alignment: 'right'
+                },
+                {
+                  text: `Producto : ${this.nombreProducto}`,
+                  alignment: 'right'
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Detalles Simulacion',
+            style: 'sectionHeader'
+          },
+
+          {
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto'],
+              body: [
+                [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
+                [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
+                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
+                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
+              ]
+            }
+          },
+          {
+            text: 'Tabla de Amortizacion Francesa',
+            style: 'sectionHeader'
+          },
+
+          {
+            style: 'tableExample',
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+              body: [
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                ...this.dataFrances.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
+
+              ],
+
+            }
+          },
+
+          {
+            text: 'Visita Nuestra Pagina',
+            style: 'sectionHeader'
+          },
+          {
+            columns: [
+              [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
+            ]
+          },
+
+        ],
+        styles: {
+          table: {
+            bold: true,
+            fontSize: 10,
+            alignment: 'center',
+            decorationColor: 'red'
+
+          },
+          sectionHeader: {
+            bold: true,
+            decoration: 'underline',
+            fontSize: 14,
+            margin: [0, 15, 0, 15]
+          },
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+          },
+          subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+          },
+          tableExample: {
+            margin: [0, 5, 0, 15]
+          },
+          tableOpacityExample: {
+            margin: [0, 5, 0, 15],
+            fillColor: 'blue',
+            fillOpacity: 0.3
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'red',
+            background: 'black'
+          }
+        }
+      };
+      if (action === 'download') {
+        pdfMake.createPdf(docDefinition).download();
+      } else if (action === 'print') {
+        pdfMake.createPdf(docDefinition).print();
+      } else {
+        pdfMake.createPdf(docDefinition).open();
+      }
+
+    }else if(this.itemS==3 && this.alemana.is_visible){
+       // credito inversion Simulacion Alemana
+       let docDefinition = {
+        content: [
+          {
+            text: 'BANCO PROCREDIT',
+            fontSize: 16,
+            alignment: 'center',
+            color: '#da1d2c'
+          },
+
+          {
+            columns: [
+
+              [
+                {
+                  text: `Fecha: ${new Date().toLocaleString()}`,
+                  alignment: 'right'
+                },
+                {
+                  text: `Producto : ${this.nombreProducto}`,
+                  alignment: 'right'
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Detalles Simulacion',
+            style: 'sectionHeader'
+          },
+
+          {
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto'],
+              body: [
+                [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
+                [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
+                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                // [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
+                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
+              ]
+            }
+          },
+          {
+            text: 'Tabla de Amortizacion Alemana',
+            style: 'sectionHeader'
+          },
+
+          {
+            style: 'tableExample',
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+              body: [
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                ...this.dataAleman.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
+
+              ],
+
+            }
+          },
+
+          {
+            text: 'Visita Nuestra Pagina',
+            style: 'sectionHeader'
+          },
+          {
+            columns: [
+              [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
+            ]
+          },
+
+        ],
+        styles: {
+          table: {
+            bold: true,
+            fontSize: 10,
+            alignment: 'center',
+            decorationColor: 'red'
+
+          },
+          sectionHeader: {
+            bold: true,
+            decoration: 'underline',
+            fontSize: 14,
+            margin: [0, 15, 0, 15]
+          },
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+          },
+          subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+          },
+          tableExample: {
+            margin: [0, 5, 0, 15]
+          },
+          tableOpacityExample: {
+            margin: [0, 5, 0, 15],
+            fillColor: 'blue',
+            fillOpacity: 0.3
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'red',
+            background: 'black'
+          }
+        }
+      };
+      if (action === 'download') {
+        pdfMake.createPdf(docDefinition).download();
+      } else if (action === 'print') {
+        pdfMake.createPdf(docDefinition).print();
+      } else {
+        pdfMake.createPdf(docDefinition).open();
+      }
+
+
+
+    }else if(this.itemS==4 && this.francesa.is_visible){
+      //credito inmobiliario frnaces
+      let docDefinition = {
+        content: [
+          {
+            text: 'BANCO PROCREDIT',
+            fontSize: 16,
+            alignment: 'center',
+            color: '#da1d2c'
+          },
+
+          {
+            columns: [
+
+              [
+                {
+                  text: `Fecha: ${new Date().toLocaleString()}`,
+                  alignment: 'right'
+                },
+                {
+                  text: `Producto : ${this.nombreProducto}`,
+                  alignment: 'right'
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Detalles Simulacion',
+            style: 'sectionHeader'
+          },
+
+          {
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto'],
+              body: [
+                [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
+                [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
+                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
+                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
+              ]
+            }
+          },
+          {
+            text: 'Tabla de Amortizacion Francesa',
+            style: 'sectionHeader'
+          },
+
+          {
+            style: 'tableExample',
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+              body: [
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                ...this.dataFrances.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
+
+              ],
+
+            }
+          },
+
+          {
+            text: 'Visita Nuestra Pagina',
+            style: 'sectionHeader'
+          },
+          {
+            columns: [
+              [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
+            ]
+          },
+
+        ],
+        styles: {
+          table: {
+            bold: true,
+            fontSize: 10,
+            alignment: 'center',
+            decorationColor: 'red'
+
+          },
+          sectionHeader: {
+            bold: true,
+            decoration: 'underline',
+            fontSize: 14,
+            margin: [0, 15, 0, 15]
+          },
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+          },
+          subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+          },
+          tableExample: {
+            margin: [0, 5, 0, 15]
+          },
+          tableOpacityExample: {
+            margin: [0, 5, 0, 15],
+            fillColor: 'blue',
+            fillOpacity: 0.3
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'red',
+            background: 'black'
+          }
+        }
+      };
+      if (action === 'download') {
+        pdfMake.createPdf(docDefinition).download();
+      } else if (action === 'print') {
+        pdfMake.createPdf(docDefinition).print();
+      } else {
+        pdfMake.createPdf(docDefinition).open();
+      }
+
+    }else if(this.itemS==4 && this.alemana.is_visible){
+       // credito inmobiliario Simulacion Alemana
+       let docDefinition = {
+        content: [
+          {
+            text: 'BANCO PROCREDIT',
+            fontSize: 16,
+            alignment: 'center',
+            color: '#da1d2c'
+          },
+
+          {
+            columns: [
+
+              [
+                {
+                  text: `Fecha: ${new Date().toLocaleString()}`,
+                  alignment: 'right'
+                },
+                {
+                  text: `Producto : ${this.nombreProducto}`,
+                  alignment: 'right'
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Detalles Simulacion',
+            style: 'sectionHeader'
+          },
+
+          {
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto'],
+              body: [
+                [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
+                [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
+                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                // [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
+                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
+              ]
+            }
+          },
+          {
+            text: 'Tabla de Amortizacion Alemana',
+            style: 'sectionHeader'
+          },
+
+          {
+            style: 'tableExample',
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+              body: [
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                ...this.dataAleman.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
+
+              ],
+
+            }
+          },
+
+          {
+            text: 'Visita Nuestra Pagina',
+            style: 'sectionHeader'
+          },
+          {
+            columns: [
+              [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
+            ]
+          },
+
+        ],
+        styles: {
+          table: {
+            bold: true,
+            fontSize: 10,
+            alignment: 'center',
+            decorationColor: 'red'
+
+          },
+          sectionHeader: {
+            bold: true,
+            decoration: 'underline',
+            fontSize: 14,
+            margin: [0, 15, 0, 15]
+          },
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+          },
+          subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+          },
+          tableExample: {
+            margin: [0, 5, 0, 15]
+          },
+          tableOpacityExample: {
+            margin: [0, 5, 0, 15],
+            fillColor: 'blue',
+            fillOpacity: 0.3
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'red',
+            background: 'black'
+          }
+        }
+      };
+      if (action === 'download') {
+        pdfMake.createPdf(docDefinition).download();
+      } else if (action === 'print') {
+        pdfMake.createPdf(docDefinition).print();
+      } else {
+        pdfMake.createPdf(docDefinition).open();
+      }
+    }else if(this.itemS==0){
+      //credito educativo
+      let docDefinition = {
+        content: [
+          {
+            text: 'BANCO PROCREDIT',
+            fontSize: 16,
+            alignment: 'center',
+            color: '#da1d2c'
+          },
+
+          {
+            columns: [
+
+              [
+                {
+                  text: `Fecha: ${new Date().toLocaleString()}`,
+                  alignment: 'right'
+                },
+                {
+                  text: `Producto : ${this.nombreProducto}`,
+                  alignment: 'right'
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Detalles Simulacion',
+            style: 'sectionHeader'
+          },
+
+          {
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto'],
+              body: [
+                [{ text: 'Monto del Prestamo', bold: true }, `$${this.amountDpf.toFixed(2)}`],
+                [{ text: 'Tasa Nominal Vigente (Meses)', bold: true }, `${this.tasaAhorroDpf}%`],
+                [{ text: 'Plazo (Meses)', bold: true }, `${this.termDpf}`],
+                [{ text: 'Interes Ganado Referencial', bold: true }, `$${this.returnRateDpf.toFixed(2)}`],
+                [{ text: 'Retencion IR', bold: true }, `$${this.retentionDpf.toFixed(2)}`],
+                [{ text: 'Total a Recibir', bold: true }, `$${this.totalDpf.toFixed(2)}`],
+              ]
+            }
+          },
+          {
+            text: 'Visita Nuestra Pagina',
+            style: 'sectionHeader'
+          },
+          {
+            columns: [
+              [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
+            ]
+          },
+
+        ],
+        styles: {
+          table: {
+            bold: true,
+            fontSize: 10,
+            alignment: 'center',
+            decorationColor: 'red'
+
+          },
+          sectionHeader: {
+            bold: true,
+            decoration: 'underline',
+            fontSize: 14,
+            margin: [0, 15, 0, 15]
+          },
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+          },
+          subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+          },
+          tableExample: {
+            margin: [0, 5, 0, 15]
+          },
+          tableOpacityExample: {
+            margin: [0, 5, 0, 15],
+            fillColor: 'blue',
+            fillOpacity: 0.3
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'red',
+            background: 'black'
+          }
+        }
+      };
+      if (action === 'download') {
+        pdfMake.createPdf(docDefinition).download();
+      } else if (action === 'print') {
+        pdfMake.createPdf(docDefinition).print();
+      } else {
+        pdfMake.createPdf(docDefinition).open();
+      }
+
+    }else if(this.itemS==1){
+      //credito educativo
+      let docDefinition = {
+        content: [
+          {
+            text: 'BANCO PROCREDIT',
+            fontSize: 16,
+            alignment: 'center',
+            color: '#da1d2c'
+          },
+
+          {
+            columns: [
+
+              [
+                {
+                  text: `Fecha: ${new Date().toLocaleString()}`,
+                  alignment: 'right'
+                },
+                {
+                  text: `Producto : ${this.nombreProducto}`,
+                  alignment: 'right'
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Detalles Simulacion',
+            style: 'sectionHeader'
+          },
+
+          {
+            table: {
+              layout: 'lightHorizontalLines', // optional
+              headerRows: 1,
+              widths: ['auto', 'auto'],
+              body: [
+                [{ text: 'Monto del Prestamo', bold: true }, `$${this.amount.toFixed(2)}`],
+                [{ text: 'Tasa Nominal Vigente (Meses)', bold: true }, `${this.tasaAhorroFlexSave}%`],
+                [{ text: 'Plazo (Meses)', bold: true }, `${this.term}`],
+                [{ text: 'Interes Ganado Referencial', bold: true }, `$${this.returnRate.toFixed(2)}`],
+                [{ text: 'Retencion IR', bold: true }, `$${this.retention.toFixed(2)}`],
+                [{ text: 'Total a Recibir', bold: true }, `$${this.total.toFixed(2)}`],
+              ]
+            }
+          },
+          {
+            text: 'Visita Nuestra Pagina',
+            style: 'sectionHeader'
+          },
+          {
+            columns: [
+              [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
+            ]
+          },
+
+        ],
+        styles: {
+          table: {
+            bold: true,
+            fontSize: 10,
+            alignment: 'center',
+            decorationColor: 'red'
+
+          },
+          sectionHeader: {
+            bold: true,
+            decoration: 'underline',
+            fontSize: 14,
+            margin: [0, 15, 0, 15]
+          },
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+          },
+          subheader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5]
+          },
+          tableExample: {
+            margin: [0, 5, 0, 15]
+          },
+          tableOpacityExample: {
+            margin: [0, 5, 0, 15],
+            fillColor: 'blue',
+            fillOpacity: 0.3
+          },
+          tableHeader: {
+            bold: true,
+            fontSize: 13,
+            color: 'red',
+            background: 'black'
           }
         }
       };
@@ -723,6 +1572,9 @@ export class SimulatorsComponent implements OnInit {
       }
     }
 
+
   }
+
+
 
 }
