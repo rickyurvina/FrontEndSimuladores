@@ -644,7 +644,7 @@ export class SimulatorsComponent implements OnInit {
             ]
           },
           {
-            text: 'Detalles Simulacion',
+            text: 'Detalles Simulación',
             style: 'sectionHeader'
           },
 
@@ -656,14 +656,14 @@ export class SimulatorsComponent implements OnInit {
               body: [
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
-                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
                 [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
-                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
+                [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
               ]
             }
           },
           {
-            text: 'Tabla de Amortizacion Francesa',
+            text: 'Tabla de Amortización Francesa',
             style: 'sectionHeader'
           },
 
@@ -674,7 +674,7 @@ export class SimulatorsComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interés del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
                 ...this.dataFrances.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
 
               ],
@@ -683,7 +683,7 @@ export class SimulatorsComponent implements OnInit {
           },
 
           {
-            text: 'Visita Nuestra Pagina',
+            text: 'Visita Nuestra Página',
             style: 'sectionHeader'
           },
           {
@@ -767,7 +767,7 @@ export class SimulatorsComponent implements OnInit {
             ]
           },
           {
-            text: 'Detalles Simulacion',
+            text: 'Detalles Simulación',
             style: 'sectionHeader'
           },
 
@@ -779,14 +779,14 @@ export class SimulatorsComponent implements OnInit {
               body: [
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
-                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
                 // [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
-                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
+                [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
               ]
             }
           },
           {
-            text: 'Tabla de Amortizacion Alemana',
+            text: 'Tabla de Amortización Alemana',
             style: 'sectionHeader'
           },
 
@@ -797,7 +797,7 @@ export class SimulatorsComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interés del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
                 ...this.dataAleman.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
 
               ],
@@ -806,7 +806,7 @@ export class SimulatorsComponent implements OnInit {
           },
 
           {
-            text: 'Visita Nuestra Pagina',
+            text: 'Visita Nuestra Página',
             style: 'sectionHeader'
           },
           {
@@ -891,7 +891,7 @@ export class SimulatorsComponent implements OnInit {
             ]
           },
           {
-            text: 'Detalles Simulacion',
+            text: 'Detalles Simulación',
             style: 'sectionHeader'
           },
 
@@ -903,14 +903,14 @@ export class SimulatorsComponent implements OnInit {
               body: [
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
-                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
                 [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
-                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
+                [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
               ]
             }
           },
           {
-            text: 'Tabla de Amortizacion Francesa',
+            text: 'Tabla de Amortización Francesa',
             style: 'sectionHeader'
           },
 
@@ -921,7 +921,7 @@ export class SimulatorsComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interés del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
                 ...this.dataFrances.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
 
               ],
@@ -930,7 +930,7 @@ export class SimulatorsComponent implements OnInit {
           },
 
           {
-            text: 'Visita Nuestra Pagina',
+            text: 'Visita Nuestra Página',
             style: 'sectionHeader'
           },
           {
@@ -1015,7 +1015,7 @@ export class SimulatorsComponent implements OnInit {
             ]
           },
           {
-            text: 'Detalles Simulacion',
+            text: 'Detalles Simulación',
             style: 'sectionHeader'
           },
 
@@ -1027,14 +1027,14 @@ export class SimulatorsComponent implements OnInit {
               body: [
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
-                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
                 // [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
-                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
+                [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
               ]
             }
           },
           {
-            text: 'Tabla de Amortizacion Alemana',
+            text: 'Tabla de Amortización Alemana',
             style: 'sectionHeader'
           },
 
@@ -1045,7 +1045,7 @@ export class SimulatorsComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interés del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
                 ...this.dataAleman.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
 
               ],
@@ -1054,7 +1054,7 @@ export class SimulatorsComponent implements OnInit {
           },
 
           {
-            text: 'Visita Nuestra Pagina',
+            text: 'Visita Nuestra Página',
             style: 'sectionHeader'
           },
           {
@@ -1141,7 +1141,7 @@ export class SimulatorsComponent implements OnInit {
             ]
           },
           {
-            text: 'Detalles Simulacion',
+            text: 'Detalles Simulación',
             style: 'sectionHeader'
           },
 
@@ -1153,14 +1153,14 @@ export class SimulatorsComponent implements OnInit {
               body: [
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
-                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
                 [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
-                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
+                [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
               ]
             }
           },
           {
-            text: 'Tabla de Amortizacion Francesa',
+            text: 'Tabla de Amortización Francesa',
             style: 'sectionHeader'
           },
 
@@ -1171,7 +1171,7 @@ export class SimulatorsComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interés del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
                 ...this.dataFrances.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
 
               ],
@@ -1180,7 +1180,7 @@ export class SimulatorsComponent implements OnInit {
           },
 
           {
-            text: 'Visita Nuestra Pagina',
+            text: 'Visita Nuestra Página',
             style: 'sectionHeader'
           },
           {
@@ -1265,7 +1265,7 @@ export class SimulatorsComponent implements OnInit {
             ]
           },
           {
-            text: 'Detalles Simulacion',
+            text: 'Detalles Simulación',
             style: 'sectionHeader'
           },
 
@@ -1277,14 +1277,14 @@ export class SimulatorsComponent implements OnInit {
               body: [
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
-                [{ text: 'Tasa Interes Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
                 // [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
-                [{ text: 'Total Interes a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
+                [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
               ]
             }
           },
           {
-            text: 'Tabla de Amortizacion Alemana',
+            text: 'Tabla de Amortización Alemana',
             style: 'sectionHeader'
           },
 
@@ -1295,7 +1295,7 @@ export class SimulatorsComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interes del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interés del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
                 ...this.dataAleman.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
 
               ],
@@ -1304,7 +1304,7 @@ export class SimulatorsComponent implements OnInit {
           },
 
           {
-            text: 'Visita Nuestra Pagina',
+            text: 'Visita Nuestra Página',
             style: 'sectionHeader'
           },
           {
@@ -1388,7 +1388,7 @@ export class SimulatorsComponent implements OnInit {
             ]
           },
           {
-            text: 'Detalles Simulacion',
+            text: 'Detalles Simulación',
             style: 'sectionHeader'
           },
 
@@ -1401,14 +1401,14 @@ export class SimulatorsComponent implements OnInit {
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.amountDpf.toFixed(2)}`],
                 [{ text: 'Tasa Nominal Vigente (Meses)', bold: true }, `${this.tasaAhorroDpf}%`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.termDpf}`],
-                [{ text: 'Interes Ganado Referencial', bold: true }, `$${this.returnRateDpf.toFixed(2)}`],
+                [{ text: 'Interés Ganado Referencial', bold: true }, `$${this.returnRateDpf.toFixed(2)}`],
                 [{ text: 'Retencion IR', bold: true }, `$${this.retentionDpf.toFixed(2)}`],
                 [{ text: 'Total a Recibir', bold: true }, `$${this.totalDpf.toFixed(2)}`],
               ]
             }
           },
           {
-            text: 'Visita Nuestra Pagina',
+            text: 'Visita Nuestra Página',
             style: 'sectionHeader'
           },
           {
@@ -1493,7 +1493,7 @@ export class SimulatorsComponent implements OnInit {
             ]
           },
           {
-            text: 'Detalles Simulacion',
+            text: 'Detalles Simulación',
             style: 'sectionHeader'
           },
 
@@ -1506,14 +1506,14 @@ export class SimulatorsComponent implements OnInit {
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.amount.toFixed(2)}`],
                 [{ text: 'Tasa Nominal Vigente (Meses)', bold: true }, `${this.tasaAhorroFlexSave}%`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.term}`],
-                [{ text: 'Interes Ganado Referencial', bold: true }, `$${this.returnRate.toFixed(2)}`],
+                [{ text: 'Interés Ganado Referencial', bold: true }, `$${this.returnRate.toFixed(2)}`],
                 [{ text: 'Retencion IR', bold: true }, `$${this.retention.toFixed(2)}`],
                 [{ text: 'Total a Recibir', bold: true }, `$${this.total.toFixed(2)}`],
               ]
             }
           },
           {
-            text: 'Visita Nuestra Pagina',
+            text: 'Visita Nuestra Página',
             style: 'sectionHeader'
           },
           {

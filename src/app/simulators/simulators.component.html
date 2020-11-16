@@ -11,20 +11,26 @@
 </head>
 
 <body>
-  <div>
+  <div style="padding-bottom: 25px; margin-top:5%;">
 
-    <div class="container-fluid">
+    <div class="container-fluid" >
       <div style="text-align: left;" class="col-lg-12 col-sm-12">
-        <img src="https://bancadirecta.bancoprocredit.com.ec/Content/Images/logo_1000.png" width="265px" height="100px">
-        <br><br>
+        <!-- <img src="https://bancadirecta.bancoprocredit.com.ec/Content/Images/logo_1000.png" width="265px" height="100px">
+        -->
+
+          <br><br>
       </div>
+
       <mat-tab-group #mattabgroup (selectedTabChange)="_selectedTabChange($event.index)"
-        (selectedIndexChange)="_selectedIndexChange($event)" [selectedIndex]="selectedIndex" mat-align-tabs="center">
+        (selectedIndexChange)="_selectedIndexChange($event)"
+        [selectedIndex]="selectedIndex" mat-align-tabs="center">
         <mat-tab label="Ahorro DPF">
-          <div class="container-fluid" ng-init="dpfSave()">
+          <br><br>
+          <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <br>
+                <h2>Simulador</h2>
+
                 <div class="row" id="htmlData">
                   <div class="col-md-6">
                     <label for="exampleInputEmail1">
@@ -91,9 +97,11 @@
           </div>
         </mat-tab>
         <mat-tab label="Ahorro Flex Save ">
+          <br><br>
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
+                <h2>Simulador</h2>
                 <br>
                 <div class="row">
                   <div class="col-md-6">
@@ -161,11 +169,12 @@
           </div>
         </mat-tab>
         <mat-tab label="Crédito Educativo">
+          <br><br>
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
+                <h2>Simulador</h2>
 
-                <br>
                 <div class="row">
                   <div class="col-md-6" style="background-color: #e3e9e9;">
                     <label for="exampleInputEmail1">
@@ -324,7 +333,7 @@
                         <thead>
                           <tr>
                             <th>
-                              #Cuotas
+                              #Cuota
                             </th>
                             <th>
                               Interés del Periodo
@@ -364,7 +373,7 @@
                         <thead>
                           <tr>
                             <th>
-                              #Cuotas
+                              #Cuota
                             </th>
                             <th>
                               Interés del Periodo
@@ -402,13 +411,12 @@
           </div>
         </mat-tab>
         <mat-tab label="Crédito Inversión">
+          <br><br>
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <!-- <h3 style="text-align: center;">
-                  Simulador de Inversión
-                </h3> -->
-                <br>
+                <h2>Simulador</h2>
+
                 <div class="row">
                   <div class="col-md-6">
                     <label for="exampleInputEmail1">
@@ -470,7 +478,7 @@
                           <td> {{porcentajeSD| number:'1.0-4'}}%</td>
                         </tr>
                         <tr>
-                          <th> # Cuotas</th>
+                          <th> # Cuota</th>
                           <td> {{numeroCuotas}}</td>
                         </tr>
                         <tr>
@@ -495,7 +503,7 @@
                           <td> {{porcentajeSD| number:'1.0-4'}}%</td>
                         </tr>
                         <tr>
-                          <th> # Cuotas</th>
+                          <th> # Cuota</th>
                           <td> {{numeroCuotas}}</td>
                         </tr>
                         <tr>
@@ -596,10 +604,12 @@
           </div>
         </mat-tab>
         <mat-tab label="Crédito Inmobiliario">
+          <br><br>
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <br>
+                <h2>Simulador</h2>
+
                 <div class="row">
                   <div class="col-md-6">
                     <label for="exampleInputEmail1">
