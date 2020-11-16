@@ -105,6 +105,7 @@ export class SimulatorsComponent implements OnInit {
   tasaCreditoEducativo: number;
   tasaCreditoInversion: number;
   tasaCreditoInmobiliario: number;
+  tasaEcoCreditoInmobiliario:number;
   montoMinCreditoEducativo: number;
   montoMinCreditoInversion: number;
   montoMinCreditoInmobiliario: number;
@@ -137,6 +138,7 @@ export class SimulatorsComponent implements OnInit {
   porcentajeSD = null;
   nombreProducto: string;
   itemS: number;
+  checked = false;
 
 
   constructor(private service: ClientService, private toastr: ToastrService, public dialog: MatDialog) {
@@ -221,7 +223,10 @@ export class SimulatorsComponent implements OnInit {
           this.montoMaxCreditoInmobiliario = x.montomax;
           this.tiempoMinCreditoInmobiliario = x.tiempomin;
           this.tiempoMaxCreditoInmobiliario = x.tiempomax;
+          this.tasaEcoCreditoInmobiliario=x.tasa_ecologica;
         }
+        console.log("Tasa ecologica", this.tasaEcoCreditoInmobiliario);
+
       },
       (error) => {
         console.log(error);
@@ -421,10 +426,16 @@ export class SimulatorsComponent implements OnInit {
 
   simuladorInmobiliario(): void {
     this.limpiarTabla();
+    console.log("Checked",this.checked);
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
-    this.tasaInteresAnual = this.tasaCreditoInmobiliario;
+    if(this.checked){
+      this.tasaInteresAnual=this.tasaEcoCreditoInmobiliario;
+    }
+    else{
+      this.tasaInteresAnual = this.tasaCreditoInmobiliario;
+    }
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
     this.porcentajeSeguroDesgravamen = 0.0688 / 100;
     this.sumaIntereses = 0;
@@ -478,6 +489,7 @@ export class SimulatorsComponent implements OnInit {
 
   simuladorEducativo(): void {
     this.limpiarTabla();
+
     this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
     this.capitalAmortizadoF = 0;
     this.saldoRemanenteIA = this.valorPrestamo;
@@ -863,7 +875,6 @@ export class SimulatorsComponent implements OnInit {
       } else {
         pdfMake.createPdf(docDefinition).open();
       }
-
     }else if(this.itemS==3 && this.francesa.is_visible){
       //credito inversion francesa
       let docDefinition = {
@@ -987,7 +998,6 @@ export class SimulatorsComponent implements OnInit {
       } else {
         pdfMake.createPdf(docDefinition).open();
       }
-
     }else if(this.itemS==3 && this.alemana.is_visible){
        // credito inversion Simulacion Alemana
        let docDefinition = {
@@ -1111,9 +1121,6 @@ export class SimulatorsComponent implements OnInit {
       } else {
         pdfMake.createPdf(docDefinition).open();
       }
-
-
-
     }else if(this.itemS==4 && this.francesa.is_visible){
       //credito inmobiliario frnaces
       let docDefinition = {

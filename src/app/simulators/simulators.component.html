@@ -634,6 +634,9 @@
                         max="244" [(ngModel)]="numeroCuotas" name="numeroCuotas"
                         (ngModelChange)="simuladorInmobiliario()" size=40 style="width:100px; flex:none; ">
                     </div>
+                    <section class="example-section">
+                      <mat-checkbox class="example-margin" [(ngModel)]="checked" (ngModelChange)="simuladorInmobiliario()">Vivienda Ecológica</mat-checkbox>
+                    </section>
                     <div class="button-group">
                       <label>Tabla de Amortización</label>
                       <br>
@@ -644,7 +647,10 @@
                       <br>
                       <label>Tasa de Interés</label>
                       <br>
-                      <label> {{tasaCreditoInmobiliario}}% Anual</label>
+                      <!-- <label> {{tasaCreditoInmobiliario}}% Anual</label> -->
+                      <label *ngIf="checked==false"> {{tasaCreditoInmobiliario}}% Anual</label>
+                      <label *ngIf="checked"> {{tasaEcoCreditoInmobiliario}}% Anual</label>
+
                       <br>
                       <label>Tiempo mínimo {{tiempoMinCreditoInmobiliario}} meses, máximo {{tiempoMaxCreditoInmobiliario}} meses</label>
                     </div>
@@ -660,11 +666,13 @@
                       <table style="width:100%" class="table table-bordered table-hover">
                         <tr>
                           <th>Interés Anual:</th>
-                          <td> {{tasaCreditoInmobiliario}}%</td>
+                          <td *ngIf="checked==false"> {{tasaCreditoInmobiliario}}%</td>
+                          <td *ngIf="checked"> {{tasaEcoCreditoInmobiliario}}%</td>
+
                         </tr>
                         <tr>
                           <th>Tasa Interés Periódica</th>
-                          <td> {{tasaInteresPeriodica}}%</td>
+                          <td> {{tasaInteresPeriodica | number}}%</td>
                         </tr>
                         <tr>
                           <th> Seguro Desgravamen</th>
@@ -685,11 +693,14 @@
                       <table style="width:100%" class="table table-bordered table-hover">
                         <tr>
                           <th>Interés Anual:</th>
-                          <td> {{tasaCreditoInmobiliario}}%</td>
+                          <!-- <td> {{tasaCreditoInmobiliario}}%</td> -->
+                          <td *ngIf="checked==false"> {{tasaCreditoInmobiliario}}%</td>
+                          <td *ngIf="checked"> {{tasaEcoCreditoInmobiliario}}%</td>
+
                         </tr>
                         <tr>
                           <th>Tasa Interés Periódica</th>
-                          <td> {{tasaInteresPeriodica}}%</td>
+                          <td> {{tasaInteresPeriodica | number}}%</td>
                         </tr>
                         <tr>
                           <th> Seguro Desgravamen</th>
