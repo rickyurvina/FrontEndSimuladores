@@ -622,9 +622,38 @@ export class SimulatorsComponent implements OnInit {
   }
   formatoMonto(value: number) {
     if (value >= 1000) {
+      this.valorPrestamo=value;
       return Math.round(value / 1000) + 'k';
     }
     return value;
+  }
+  onInputChangeMonto(event: any) {
+    console.log(event.value);
+    this.valorPrestamo=event.value;
+  }
+
+  onInputChangeMontoFlex(event: any) {
+    console.log(event.value);
+    this.amount=event.value;
+  }
+
+  onInputChangeMontoDpf(event: any) {
+    console.log(event.value);
+    this.amountDpf=event.value;
+
+  }
+
+  onInputChangeTiempo(event: any) {
+    console.log(event.value);
+    this.numeroCuotas=event.value;
+  }
+  onInputChangeTiempoFlex(event: any) {
+    console.log(event.value);
+   this.term=event.value;
+  }
+  onInputChangeTiempoDpf(event: any) {
+    console.log(event.value);
+   this.termDpf=event.value;
   }
 
   generatePDF(action = 'download') {
