@@ -5,22 +5,14 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap 4, from LayoutIt!</title>
   <meta name="description" content="Source code generated using layoutit.com">
   <meta name="author" content="LayoutIt!">
 </head>
 
 <body>
-  <div style="padding-bottom: 25px; margin-top:5%;">
+  <div >
 
-    <div class="container-fluid" >
-      <div style="text-align: left;" class="col-lg-12 col-sm-12">
-        <!-- <img src="https://bancadirecta.bancoprocredit.com.ec/Content/Images/logo_1000.png" width="265px" height="100px">
-        -->
-
-          <br><br>
-      </div>
-
+    <div class="container-fluid  div-principal">
       <mat-tab-group #mattabgroup (selectedTabChange)="_selectedTabChange($event.index)"
         (selectedIndexChange)="_selectedIndexChange($event)"
         [selectedIndex]="selectedIndex" mat-align-tabs="center">
@@ -29,30 +21,33 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <h2>Simulador</h2>
-
+                <h2>Simulador ahorro deposito plazo fijo</h2>
                 <div class="row" id="htmlData">
                   <div class="col-md-6">
-                    <label for="exampleInputEmail1">
+                    <label for="exampleInputEmail1" class="label-monto">
                       Monto
                     </label>
                     <div class="input-group">
-
-                      <mat-slider thumbLabel [displayWith]="formatoMonto" tickInterval="1" min="5000" max="1000000"
-                        [(ngModel)]="amountDpf" (ngModelChange)="dpfSave()" style="min-width: 280px;"></mat-slider>
-                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
+                      <mat-slider class="mat-slider" thumbLabel [displayWith]="formatoMonto"
+                      tickInterval="1" min="5000" max="1000000"
+                        [(ngModel)]="amountDpf" (ngModelChange)="dpfSave()"
+                      ></mat-slider>
+                      <input type="number" class="form-control input-monto-tiempo"
+                      id="exampleInputEmail1" placeholder="Monto"
                         [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40 min="5000"
-                        max="1000000" style="width:100px; flex:none;">
+                        max="1000000">
                     </div>
                     <label for="exampleInputPassword1">
                       Plazo (Meses)
                     </label>
                     <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" min="6" max="36"
-                        [(ngModel)]="termDpf" (ngModelChange)="dpfSave()" style="min-width: 280px;"> </mat-slider>
-                      <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo"
+                      <mat-slider thumbLabel [displayWith]="formatoTiempo"
+                      class="mat-slider" tickInterval="1" min="6" max="36"
+                        [(ngModel)]="termDpf" (ngModelChange)="dpfSave()"
+                     > </mat-slider>
+                      <input type="number" class="form-control input-monto-tiempo" id="exampleInputPassword1" placeholder="Pazo"
                         [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()" size=40 min="6" max="36"
-                        style="width:100px; flex:none;">
+                     >
                     </div>
                     <div>
                       <br>
@@ -169,71 +164,109 @@
           </div>
         </mat-tab>
         <mat-tab label="Crédito Educativo">
-          <br><br>
+          <br><br><br>
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
-                <h2>Simulador</h2>
+                <h2 class="titulo-simulador">Simulador crédito educativo</h2>
 
                 <div class="row">
-                  <div class="col-md-6" style="background-color: #e3e9e9;">
-                    <label for="exampleInputEmail1">
+                  <div class="col-md-6 div-lado-izq">
+                    <label for="exampleInputEmail1" class="label-monto">
                       Monto
                     </label>
-                    <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoMonto" tickInterval="1"
+                    <div class="input-group" style="margin-left: 3%;">
+                      <mat-slider thumbLabel [displayWith]="formatoMonto" tickInterval="1" class="mat-slider"
                         min="{{montoMinCreditoEducativo}}" max="{{montoMaxCreditoEducativo}}"
-                        [(ngModel)]="valorPrestamo" (ngModelChange)="simuladorEducativo()" style="min-width: 280px;">
+                        [(ngModel)]="valorPrestamo" (ngModelChange)="simuladorEducativo()">
                       </mat-slider>
-                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
+                      <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1" placeholder="Monto"
                         min="{{montoMinCreditoEducativo}}" max="{{montoMaxCreditoEducativo}}"
                         [(ngModel)]="valorPrestamo" name="valorPrestamo" (ngModelChange)="simuladorEducativo()" size=40
-                        style="width:100px; flex:none">
+                       style="margin-left: -1.5%;">
                     </div>
-                    <label for="exampleInputPassword1">
+                    <br>
+                    <label for="exampleInputPassword1" style="margin-left: 3%;">
                       Plazo (Meses)
                     </label>
-                    <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1"
+                    <div class="input-group" style="margin-left: 3%;">
+                      <mat-slider thumbLabel [displayWith]="formatoTiempo" tickInterval="1" class="mat-slider"
                         min="{{tiempoMinCreditoEducativo}}" max="{{tiempoMaxCreditoEducativo}}"
-                        [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorEducativo()" style="min-width: 280px; ">
+                        [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorEducativo()">
                       </mat-slider>
-                      <input type="number" class="form-control" id="exampleInputPassword1" value="{{numeroCuotas}}"
+                      <input type="number" class="input-monto-tiempo form-control " id="exampleInputPassword1" value="{{numeroCuotas}}"
                         placeholder="Plazo" min="{{tiempoMinCreditoEducativo}}" max="{{tiempoMaxCreditoEducativo}}"
                         [(ngModel)]="numeroCuotas" name="numeroCuotas" (ngModelChange)="simuladorEducativo()" size=40
-                        style="width:100px; flex:none; ">
+                        style="margin-left: -1.5%;">
                     </div>
-                    <div class="button-group">
-                      <label style="color: #0d0c0e;">Tabla de Amortización</label>
-                      <br>
+                    <br><br>
+                      <label style="color: #0d0c0e; margin-bottom: -1%; margin-left: 3%;">Tabla de </label> <br>
+                      <label style="color: #0d0c0e; margin-left: 3%;">amortización</label>
+                    <div class="button-group" style="margin-left: 3%;">
                       <button class="btn btn-light" (click)="verFrancesa()"
-                        style="background-color: #d4232e;">Francesa</button>
+                        style="background-color: #f4d900; border-radius: 12px;
+                        border: none;
+                        color: white;
+                        padding: 1px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        /* font-size: 16px; */
+                        /* height: 10%; */
+                        /* margin: 4px 2px; */
+                        width: 20%;">Francesa</button>
                       <button class="btn btn-light" (click)="verAlemana()"
-                        style="background-color: #b4b3b5;">Alemana</button>
+                        style="background-color: #959398;  border-radius: 12px;
+                        border: none;
+                        color: white;
+                        padding: 1px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        /* font-size: 16px; */
+                        /* height: 10%; */
+                        /* margin: 4px 2px; */
+                        width: 20%; margin-left: 2%;">Alemana</button>
                     </div>
                     <div style="color:#b4b3b5">
+                      <br> <br>
+                      <h2 style="margin-left: 3%; font-size: 25px; font-weight: 700;">Tasa de Interés</h2>
+                      <div class="row" style="">
+                        <div class="col-md-4" style="margin-left: 3%;">
+                        <h1 style="font-size: 100px; font-weight: 1000; padding-top: 20%; ">{{tasaCreditoEducativo}}  </h1>
+                        </div>
+                        <div class="col-md-8" style="margin-right: -3%; margin-left: -7%; margin-top: 2%;">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h1 style="font-size: 60px; font-weight: 1000;  ">%</h1>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <h1 style="font-size: 20px; font-weight: 1000; ">anual</h1>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <br>
-                      <label style="font-size:30px;">Tasa de Interés</label>
-                      <br>
-                      <label>
-                        <h1 style="font-size: 50px;">{{tasaCreditoEducativo}} % </h1>
-                      </label>
-                      <h2>Anual</h2>
-                      <br>
-                      <div style="text-align: center;" style="background-color: black; text-align: center;">
-                        <label style="background-color: black; color: white; text-align: center;">Tiempo mínimo
+                      <div class="button-group"
+                      style="background-color: #f4d900; text-align: center; width: 100%;">
+                        <label style=" color: black; text-align: center; font-size: 14px; ">Tiempo mínimo
                           {{tiempoMinCreditoEducativo}} meses,
                           máximo {{tiempoMaxCreditoEducativo}} meses</label>
+                          <label style=" color: black; text-align: center; font-size: 18px;">Monto mínimo {{montoMinCreditoEducativo | currency}}
+                            monto máximo {{montoMaxCreditoEducativo | currency}}
+                           </label>
                       </div>
                     </div>
-                    <div class="button-group" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible">
+                    <div class="button-group" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible" style="margin-left: 3%;">
                       <br>
                       <button class="btn btn-outline-secondary" (click)="cerrarTablas()">
                         Cerrar Tabla</button>
                     </div>
                   </div>
                   <div class="col-md-6"
-                    style="margin-left: auto; text-align: left; background-color: #d4232e; color: white; ">
+                    style="margin-left: auto; text-align: left; background-color: #f4d900; color:black; ">
                     <div *ngIf="alemana.is_visible" id="htmlData">
                       <h2>Detalles de la Simulación Alemana</h2>
                       <table width="100%" cellspacing="10px" cellpadding="10px" style="border-collapse: separate;

@@ -1,3 +1,4 @@
+
 .example-container .mat-form-field + .mat-form-field {
   margin-left: 8px;
 }
@@ -36,16 +37,26 @@ example-button-toggle-label {
 
 /* CSS to change Default/'Accent' color */
 ::ng-deep .mat-accent .mat-slider-thumb {
-  background-color: #696c72;
+  background-color: #959398;
+
+
 }
 ::ng-deep .mat-accent .mat-slider-thumb-label {
-  background-color: #d4232e;
+  background-color: black;
+
+
 }
 ::ng-deep .mat-accent .mat-slider-track-fill {
-  background-color: #d4232e;
+  background-color: #959398;
+
 }
 
 
+ ::ng-deep .mat-tab-label, .mat-tab-link {
+  font-family: amaranth-regular;
+  font-size: 18px;
+  font-weight: 1000;
+}
 
 
 
@@ -56,9 +67,68 @@ example-button-toggle-label {
   z-index: 1;
   background-color: #ecebeb;
 }
-
-
-::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-  background-color: #d4232e;
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+  /* top: 18px; */
+}
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 4px;
+  /* border-radius: 10px */
+}
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-background,
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  height: 100%;
+}
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  background-color: #959398;
+}
+::ng-deep .mat-accent .mat-slider-thumb {
+  /* height: 30px; */
+  /* width: 30px; */
+  background-color: #959398;
+  /* border: solid 2px #959398; */
+  /* bottom: -20px; */
+  /* right: -20px; */
+}
+::ng-deep .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+  background-color: #959398;
 }
 
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #b40c15;
+}
+
+/**CSS CREDITO EDUCATIVO**/
+.div-principal{
+  padding-bottom: 25px;
+  margin-top: 5%;
+}
+
+.mat-slider{
+  min-width: 280px;
+  margin-top: -4%;
+  width: 300px;
+  line-height: 4;
+  /* font-family: amaranth-regular; */
+  /* margin-left: -2%; */
+}
+
+.input-monto-tiempo{
+  width:100px;
+  flex:none;
+  margin-top: -4%;
+}
+
+.label-monto{
+  padding-top: 7%;
+  margin-left: 3%;
+}
+
+.div-lado-izq{
+  background-color: #eff0f1;
+  padding:inherit;
+}
+
+.titulo-simulador{
+  font-family: amaranth-bold;
+  /* font-style: bold; */
+}

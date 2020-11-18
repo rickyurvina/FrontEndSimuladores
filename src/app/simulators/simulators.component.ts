@@ -153,7 +153,7 @@ export class SimulatorsComponent implements OnInit {
 
   }
 
-  openDialog() {
+  downloadDialog() {
     this.dialog.open(DialogExampleComponent)
   }
 
@@ -627,7 +627,7 @@ export class SimulatorsComponent implements OnInit {
     return value;
   }
 
-  generatePDF(action = 'open') {
+  generatePDF(action = 'download') {
 
     if (this.itemS == 2 && this.francesa.is_visible) {
       //credito educativo
@@ -750,7 +750,7 @@ export class SimulatorsComponent implements OnInit {
       } else if (action === 'print') {
         pdfMake.createPdf(docDefinition).print();
       } else {
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition).download();
       }
     }else if(this.itemS == 2 && this.alemana.is_visible){
       // credito educativo Simulacion Alemana
@@ -873,7 +873,7 @@ export class SimulatorsComponent implements OnInit {
       } else if (action === 'print') {
         pdfMake.createPdf(docDefinition).print();
       } else {
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition).download();
       }
     }else if(this.itemS==3 && this.francesa.is_visible){
       //credito inversion francesa
@@ -996,7 +996,7 @@ export class SimulatorsComponent implements OnInit {
       } else if (action === 'print') {
         pdfMake.createPdf(docDefinition).print();
       } else {
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition).download();
       }
     }else if(this.itemS==3 && this.alemana.is_visible){
        // credito inversion Simulacion Alemana
@@ -1119,7 +1119,7 @@ export class SimulatorsComponent implements OnInit {
       } else if (action === 'print') {
         pdfMake.createPdf(docDefinition).print();
       } else {
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition).download();
       }
     }else if(this.itemS==4 && this.francesa.is_visible){
       //credito inmobiliario frnaces
@@ -1242,7 +1242,7 @@ export class SimulatorsComponent implements OnInit {
       } else if (action === 'print') {
         pdfMake.createPdf(docDefinition).print();
       } else {
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition).download();
       }
 
     }else if(this.itemS==4 && this.alemana.is_visible){
@@ -1366,7 +1366,7 @@ export class SimulatorsComponent implements OnInit {
       } else if (action === 'print') {
         pdfMake.createPdf(docDefinition).print();
       } else {
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition).download();
       }
     }else if(this.itemS==0){
       //credito educativo
@@ -1470,7 +1470,7 @@ export class SimulatorsComponent implements OnInit {
       } else if (action === 'print') {
         pdfMake.createPdf(docDefinition).print();
       } else {
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition).download();
       }
 
     }else if(this.itemS==1){
@@ -1575,7 +1575,7 @@ export class SimulatorsComponent implements OnInit {
       } else if (action === 'print') {
         pdfMake.createPdf(docDefinition).print();
       } else {
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(docDefinition).download();
       }
     }
 
