@@ -205,15 +205,16 @@
               <br>
               <label class="label-tabla-de">Tabla de </label> <br>
               <label class="label-amortizacion">amortización</label>
-              <div class="button-group margin-left-3"  style="margin-top: 2%;">
+              <div class="button-group margin-left-3" style="margin-top: 2%;">
                 <button class="btn btn-light boton-simuladores" (click)="verFrancesa()"
-                style="background-color: #f4d900; ">Francesa</button>
+                  style="background-color: #f4d900; ">Francesa</button>
                 <button class="btn btn-light boton-simuladores" (click)="verAlemana()"
-                style="background-color: #959398;  margin-left: 2%;">Alemana</button>
+                  style="background-color: #959398;  margin-left: 2%;">Alemana</button>
               </div>
               <div class="div-bg-gray">
                 <br>
-                <h2 style="margin-left: 3%; font-size: 25px; font-weight: 700; font-family: amaranth-regular; margin-bottom: -0.5%;">
+                <h2
+                  style="margin-left: 3%; font-size: 25px; font-weight: 700; font-family: amaranth-regular; margin-bottom: -0.5%;">
                   Tasa de Interés</h2>
                 <div class="row" style="">
                   <div class="col-md-4" style="margin-left: 3%;">
@@ -236,7 +237,8 @@
                   </div>
                 </div>
                 <br>
-                <div class="button-group" style="background-color: #f4d900; text-align: center; width: 100%; margin-top:-4%">
+                <div class="button-group"
+                  style="background-color: #f4d900; text-align: center; width: 100%; margin-top:-4%">
                   <label style=" color: black; text-align: center; font-size: 14px; font-weight: 600;">Tiempo mínimo
                     {{tiempoMinCreditoEducativo}} meses,
                     máximo {{tiempoMaxCreditoEducativo}} meses</label>
@@ -274,7 +276,8 @@
                 /* background-image: url('../../assets/images/marco-rojo.jpeg'); */
                 ">
                   <div *ngIf="alemana.is_visible" id="htmlData">
-                    <h3 style="font-weight: 600;">Detalles de la simulación Alemana</h3>
+                    <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px;">Detalle de la simulación
+                      Alemana:</h3>
                     <table width="100%" cellspacing="7px" cellpadding="7px" style="border-collapse: separate;
                     border-spacing: 10;
                     border: 2px solid white;
@@ -283,22 +286,22 @@
                     padding: 2px;
                     -webkit-border-radius: 5px;">
                       <tr>
-                        <th>Tasa Periódica</th>
+                        <th>Tasa periódica:</th>
                         <td>
                           <input value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly style="width:120px;  border-radius: 10px;
                           border: 1px solid white ;">
                         </td>
                       </tr>
                       <tr>
-                        <th> Seguro Desgravamen</th>
+                        <th> Seguro desgravamen:</th>
                         <td>
                           <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly style="width:120px;  border-radius: 10px;
                           border: 1px solid white ;">
                         </td>
                       </tr>
                       <tr>
-                        <th> # Cuotas</th>
-                        <td>
+                        <th> # Cuotas:</th>
+                        <td style="text-align: right;">
 
                           <input value="{{numeroCuotas}}" readonly style="width:90px;  border-radius: 10px;
                           border: 1px solid white ;">
@@ -306,17 +309,16 @@
                       </tr>
                       <div style="background-color: #fbcb0c ; position: absolute; width: 88%;">
                         <tr>
-                          <th>Total Interés a Pagar</th>
-                          <td>
-                            <input value="{{sumaIntereses | currency}}" readonly
-                            style="width:90px;  border-radius: 10px;
-                            border: 1px solid white ;">
+                          <th>Total interés a pagar:</th>
+                          <td style="text-align: right;">
+                            <input value="{{sumaIntereses | currency}}" readonly style="width:90px;  border-radius: 10px;
+                            border: 1px solid white ; margin-left: 33%;">
                           </td>
                         </tr>
                       </div>
                       <tr>
                         <th style="padding-top:17%"> # De pagos por año</th>
-                        <td style="padding-top:17%">
+                        <td style="padding-top:17%; text-align: right;">
                           <input value="12" readonly style="width:90px;  border-radius: 10px;
                           border: 1px solid white ;">
                         </td>
@@ -324,7 +326,8 @@
                     </table>
                   </div>
                   <div *ngIf="francesa.is_visible">
-                    <h3 style="font-weight: 600;">Detalles de la simulación Francesa</h3>
+                    <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px;">Detalle de la simulación
+                      Francesa:</h3>
                     <table width="100%" cellspacing="7px" cellpadding="7px" style="border-collapse: separate;
                     border-spacing: 10;
                     border: 2px solid white;
@@ -333,22 +336,22 @@
                     padding: 2px;
                     -webkit-border-radius: 5px;">
                       <tr>
-                        <th>Tasa Periódica</th>
+                        <th>Tasa periódica:</th>
                         <td>
                           <input value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly style="width:120px;  border-radius: 10px;
                           border: 1px solid white ;">
                         </td>
                       </tr>
                       <tr>
-                        <th> Seguro Desgravamen</th>
+                        <th> Seguro desgravamen:</th>
                         <td>
                           <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly style="width:120px;  border-radius: 10px;
                           border: 1px solid white ;">
                         </td>
                       </tr>
                       <tr>
-                        <th> # Cuotas</th>
-                        <td>
+                        <th> # Cuotas:</th>
+                        <td style="text-align: right;">
 
                           <input value="{{numeroCuotas}}" readonly style="width:90px;  border-radius: 10px;
                           border: 1px solid white ;">
@@ -356,17 +359,16 @@
                       </tr>
                       <div style="background-color: #fbcb0c ; position: absolute; width: 88%;">
                         <tr>
-                          <th> Cuota a Pagar</th>
-                          <td>
-                            <input value="{{cuotaPagarF | currency}}" readonly
-                            style="width:90px;  border-radius: 10px;
-                            border: 1px solid white ; margin-left: 50%;">
+                          <th> Cuota a pagar:</th>
+                          <td style="text-align: right;">
+                            <input value="{{cuotaPagarF | currency}}" readonly style="width:90px;  border-radius: 10px;
+                            border: 1px solid white ; margin-left: 82%;">
                           </td>
                         </tr>
                       </div>
                       <tr>
-                        <th style="padding-top:17%"> Total Interés a Pagar</th>
-                        <td style="padding-top:17%">
+                        <th style="padding-top:17%"> Total interés a pagar:</th>
+                        <td style="padding-top:17%; text-align: right;">
                           <input value="{{sumaInteresesF | currency}}" readonly style="width:90px;  border-radius: 10px;
                           border: 1px solid white ; ">
                         </td>
@@ -383,10 +385,21 @@
                     height="600" style="    position: absolute;
                   height: 22em;
                   width: 11em;
-                  margin-left: -8%;
-                  margin-top: -1em;" />
+                  margin-left: -13%;
+                  margin-top: -0.7em;" />
                 </div>
               </div>
+              <img src="../../assets/images/flechas_amarillas.PNG" width="10%" height="15" style="
+              text-align: center;
+              display: inline-block;
+              /* font-size: 16px; */
+              /* height: 10%; */
+              /* margin: 4px 2px; */
+              /* width: 20%; */
+              margin-top: 10.5%;
+              margin-left: 63%;
+              /* font-weight: 500; */
+              position: absolute;">
               <button class="btn btn-info" style="background-color: #f4d900; border-radius: 12px;
               border: none;
               color: black;
@@ -397,7 +410,8 @@
               /* font-size: 16px; */
               /* height: 10%; */
               /* margin: 4px 2px; */
-              width: 20%; margin-top: 12%; margin-left: 80%; font-weight: 500;" (click)="generatePDF()">Descargar</button>
+              width: 20%; margin-top: 10%; margin-left: 80%; font-weight: 500;"
+                (click)="generatePDF()">Descargar</button>
 
             </div>
             <div style="margin-left: 15%;">

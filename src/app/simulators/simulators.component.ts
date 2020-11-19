@@ -147,9 +147,25 @@ export class SimulatorsComponent implements OnInit {
     this.nombreProducto = "Ahorro DPF";
     this.francesa.is_visible = false;
     this.termDpf=6;
+
     this.term=this.tiempoMinAhorroFlexSave;
+
     this.amountDpf=5000;
     this.amount=1;
+    //  if(this.tasaAhorroDpf==null || this.tasaEcoCreditoInmobiliario==null || this.term==null || this.tasaEcoCreditoInmobiliario==null || this.tasaCreditoInversion==null || this.tasaAhorroFlexSave==null || this.tasaCreditoEducativo==null){
+    //   this.ngOnInit();
+    //  this.refresh();
+    // }
+    //    if(this.term==undefined){
+    //   // this.ngOnInit();
+    //  this.refresh();
+    //    }
+
+    //   if(this.tasaAhorroDpf==undefined ){
+    //  this.refresh();
+    // }
+
+
 
   }
 
@@ -166,9 +182,11 @@ export class SimulatorsComponent implements OnInit {
           this.tiempoMinAhorroFlexSave = x.minimum_time;
           this.tiempoMaxAhorroFlexSave = x.maximum_time;
         }
+        console.log("TasaFlex", this.tasaAhorroFlexSave);
       },
       (error) => {
-        console.log(error);
+        console.log("ERROR DE CONEXION",error);
+        this.refresh();
       }
     )
     this.service.getDpfSaving().subscribe(
@@ -179,9 +197,11 @@ export class SimulatorsComponent implements OnInit {
           this.tiempoMinAhorroDpf = x.minimum_time;
           this.tiempoMaxAhorroDpf = x.maximum_time;
         }
+        console.log("tasadpf",this.tasaAhorroDpf)
       },
       (error) => {
-        console.log(error);
+        console.log("ERROR DE CONEXION",error);
+        this.refresh();
       }
     )
     this.service.getCreditoEducativo().subscribe(
@@ -194,9 +214,11 @@ export class SimulatorsComponent implements OnInit {
           this.tiempoMinCreditoEducativo = x.tiempomin;
           this.tiempoMaxCreditoEducativo = x.tiempomax;
         }
+        console.log("tasaeducativo",this.tasaCreditoEducativo)
       },
       (error) => {
-        console.log(error);
+        console.log("ERROR DE CONEXION",error);
+        this.refresh();
       }
     )
     this.service.getCreditoInversion().subscribe(
@@ -208,10 +230,13 @@ export class SimulatorsComponent implements OnInit {
           this.montoMaxCreditoInversion = x.montomax;
           this.tiempoMinCreditoInversion = x.tiempomin;
           this.tiempoMaxCreditoInversion = x.tiempomax;
+
         }
+        console.log("tasainversion",this.tasaCreditoInversion);
       },
       (error) => {
-        console.log(error);
+        console.log("ERROR DE CONEXION",error);
+        this.refresh();
       }
     )
     this.service.getCreditoInmobiliario().subscribe(
@@ -229,19 +254,22 @@ export class SimulatorsComponent implements OnInit {
 
       },
       (error) => {
-        console.log(error);
+        console.log("ERROR DE CONEXION",error);
+        this.refresh();
       }
     )
     this.porcentajeSD = 0.0688;
-    // this.amountDpf=5000;
-    // this.termDpf=6
-    // this.dpfSave();
-    // console.log("segurod", this.porcentajeSeguroDesgravamen);
-    // this.termDpf=this.tiempoMinAhorroDpf;
-    // this.dpfSave();
+
 
   }
 
+  refresh(): void {
+    //  if(this.tasaAhorroDpf==null || this.tasaEcoCreditoInmobiliario==null || this.tasaEcoCreditoInmobiliario==null || this.tasaCreditoInversion==null || this.tasaAhorroFlexSave==null || this.tasaCreditoEducativo==null){
+    //   // this.ngOnInit();
+    //   window.location.reload();
+    // }
+    window.location.reload();
+}
 
   cerrarTablas(): void {
     this.amortizacionF.is_visible = false;
@@ -567,19 +595,25 @@ export class SimulatorsComponent implements OnInit {
 
   }
   dpfSave(): void {
-    console.log("tiempo min dpf", this.tiempoMinAhorroDpf);
-    if (this.termDpf < this.tiempoMinAhorroDpf || this.termDpf > this.tiempoMaxAhorroDpf) {
-      this.amountDpf = 5000;
-      this.termDpf = this.tiempoMinAhorroDpf;
-      this.toastr.warning('Limites Fuera de Rango ', 'Advertencia', {
-        timeOut: 4500,
-      });
-
-    } else {
-      this.returnRateDpf = this.amountDpf * this.termDpf * this.tasaAhorroDpf / 360 / 100 * 30.4167;
-      this.retentionDpf = this.returnRateDpf * 0.02;
-      this.totalDpf = this.amountDpf + this.returnRateDpf - this.retentionDpf;
+    if(this.tasaAhorroDpf==null){
+      this.ngOnInit();
     }
+    else{
+      console.log("tiempo min dpf", this.tiempoMinAhorroDpf);
+      if (this.termDpf < this.tiempoMinAhorroDpf || this.termDpf > this.tiempoMaxAhorroDpf) {
+        this.amountDpf = 5000;
+        this.termDpf = this.tiempoMinAhorroDpf;
+        this.toastr.warning('Limites Fuera de Rango ', 'Advertencia', {
+          timeOut: 4500,
+        });
+
+      } else {
+        this.returnRateDpf = this.amountDpf * this.termDpf * this.tasaAhorroDpf / 360 / 100 * 30.4167;
+        this.retentionDpf = this.returnRateDpf * 0.02;
+        this.totalDpf = this.amountDpf + this.returnRateDpf - this.retentionDpf;
+      }
+    }
+
 
   }
 
