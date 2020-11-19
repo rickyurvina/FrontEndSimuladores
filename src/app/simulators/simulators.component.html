@@ -22,78 +22,6 @@
     <div class="container-fluid  div-principal">
       <mat-tab-group #mattabgroup (selectedTabChange)="_selectedTabChange($event.index)"
         (selectedIndexChange)="_selectedIndexChange($event)" [selectedIndex]="selectedIndex" mat-align-tabs="center">
-        <mat-tab label="Depósito a Plazo Fijo">
-          <br><br>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12">
-                <h2>Simulador Depósito a Plazo Fijo</h2>
-                <div class="row" id="htmlData">
-                  <div class="col-md-6">
-                    <label for="exampleInputEmail1" class="label-monto">
-                      Monto
-                    </label>
-                    <div class="input-group">
-                      <mat-slider class="mat-slider" (input)="onInputChangeMontoDpf($event)" thumbLabel
-                        [displayWith]="formatoMonto" tickInterval="1" min="5000" max="1000000" [(ngModel)]="amountDpf"
-                        (ngModelChange)="dpfSave()"></mat-slider>
-                      <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1"
-                        placeholder="Monto" [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40
-                        min="5000" max="1000000">
-                    </div>
-                    <label for="exampleInputPassword1">
-                      Plazo (Meses)
-                    </label>
-                    <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempoDpf($event)"
-                        class="mat-slider" tickInterval="1" min="6" max="36" [(ngModel)]="termDpf"
-                        (ngModelChange)="dpfSave()"> </mat-slider>
-                      <input type="number" class="form-control input-monto-tiempo" id="exampleInputPassword1"
-                        placeholder="Pazo" [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()" size=40
-                        min="6" max="36">
-                    </div>
-                    <div>
-                      <br>
-                      <label>Tasa de Interés</label>
-                      <br>
-                      <label> {{tasaAhorroDpf}} </label>
-                      <br>
-                      <label>Tiempo mínimo {{tiempoMinAhorroDpf}} meses, máximo {{tiempoMaxAhorroDpf}} meses</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6" style="margin-left: auto; text-align: center;">
-                    <table style="width:100%" class="table table-bordered table-hover">
-                      <tr>
-                        <th>Monto:</th>
-                        <td>{{amountDpf | currency}}</td>
-                      </tr>
-                      <!-- <tr>
-                        <th>Tasa Nominal Vigente:</th>
-                        <td>{{tasaAhorroDpf}}%</td>
-                      </tr> -->
-                      <tr>
-                        <th>Plazo Meses:</th>
-                        <td>{{termDpf}}</td>
-                      </tr>
-                      <tr>
-                        <th>Interés Ganado Referencial:</th>
-                        <td>{{returnRateDpf | currency}}</td>
-                      </tr>
-                      <tr>
-                        <th>Retención IR:</th>
-                        <td> {{retentionDpf | currency}}</td>
-                      </tr>
-                      <tr>
-                        <th>Total Recibir:</th>
-                        <td>{{totalDpf | currency}}</td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
         <mat-tab label="Cuenta de Ahorro FlexSave">
           <br><br>
           <div class="container-fluid">
@@ -108,8 +36,8 @@
                     </label>
                     <div class="input-group">
                       <mat-slider thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMontoFlex($event)"
-                        tickInterval="1" min="1" max="1000000" [(ngModel)]="amount" (ngModelChange)="flexSave()"
-                        style="min-width: 280px;"></mat-slider>
+                        tickInterval="100" min="1" max="1000000" [(ngModel)]="amount" (ngModelChange)="flexSave()"
+                        style="min-width: 280px;" step="100"></mat-slider>
                       <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
                         [(ngModel)]="amount" name="amount" (ngModelChange)="flexSave()" size=40
                         style="width:100px; flex:none;">
@@ -169,6 +97,79 @@
             </div>
           </div>
         </mat-tab>
+        <mat-tab label="Depósito a Plazo Fijo">
+          <br><br>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <h2>Simulador Depósito a Plazo Fijo</h2>
+                <div class="row" id="htmlData">
+                  <div class="col-md-6">
+                    <label for="exampleInputEmail1" class="label-monto">
+                      Monto
+                    </label>
+                    <div class="input-group">
+                      <mat-slider class="mat-slider" (input)="onInputChangeMontoDpf($event)" thumbLabel
+                        [displayWith]="formatoMonto" tickInterval="1" min="5000" max="1000000" [(ngModel)]="amountDpf"
+                        (ngModelChange)="dpfSave()" step="100"></mat-slider>
+                      <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1"
+                        placeholder="Monto" [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40
+                        min="5000" max="1000000">
+                    </div>
+                    <label for="exampleInputPassword1">
+                      Plazo (Meses)
+                    </label>
+                    <div class="input-group">
+                      <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempoDpf($event)"
+                        class="mat-slider" tickInterval="1" min="6" max="36" [(ngModel)]="termDpf"
+                        (ngModelChange)="dpfSave()"> </mat-slider>
+                      <input type="number" class="form-control input-monto-tiempo" id="exampleInputPassword1"
+                        placeholder="Pazo" [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()" size=40
+                        min="6" max="36">
+                    </div>
+                    <div>
+                      <br>
+                      <label>Tasa de Interés</label>
+                      <br>
+                      <label> {{tasaAhorroDpf}} </label>
+                      <br>
+                      <label>Tiempo mínimo {{tiempoMinAhorroDpf}} meses, máximo {{tiempoMaxAhorroDpf}} meses</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6" style="margin-left: auto; text-align: center;">
+                    <table style="width:100%" class="table table-bordered table-hover">
+                      <tr>
+                        <th>Monto:</th>
+                        <td>{{amountDpf | currency}}</td>
+                      </tr>
+                      <!-- <tr>
+                        <th>Tasa Nominal Vigente:</th>
+                        <td>{{tasaAhorroDpf}}%</td>
+                      </tr> -->
+                      <tr>
+                        <th>Plazo Meses:</th>
+                        <td>{{termDpf}}</td>
+                      </tr>
+                      <tr>
+                        <th>Interés Ganado Referencial:</th>
+                        <td>{{returnRateDpf | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Retención IR:</th>
+                        <td> {{retentionDpf | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Total Recibir:</th>
+                        <td>{{totalDpf | currency}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
         <mat-tab label="Crédito Educativo">
 
           <br><br>
@@ -510,7 +511,7 @@
                     </label>
                     <div class="input-group">
                       <mat-slider thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMonto($event)"
-                        tickInterval="1" min="5000" max="30000" [(ngModel)]="valorPrestamo"
+                        tickInterval="1" min="5000" max="30000" [(ngModel)]="valorPrestamo" step="100"
                         (ngModelChange)="simuladorInversion()" style="min-width: 280px;">
                       </mat-slider>
                       <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
@@ -706,7 +707,7 @@
                     </label>
                     <div class="input-group">
                       <mat-slider thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMonto($event)"
-                        tickInterval="1" min="50000" max="100000" [(ngModel)]="valorPrestamo"
+                        tickInterval="1" min="50000" max="100000" [(ngModel)]="valorPrestamo" step="100"
                         (ngModelChange)="simuladorInmobiliario()" style="min-width: 280px;">
                       </mat-slider>
                       <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto" min="50000"

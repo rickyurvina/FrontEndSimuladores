@@ -314,16 +314,16 @@ export class SimulatorsComponent implements OnInit {
     }
     if (index == 0) {
       this.itemS = 0;
-      this.termDpf=this.tiempoMinAhorroDpf;
-      this.nombreProducto = "Ahorro DPF";
-      this.dpfSave();
-
-    } else if (index == 1) {
-      this.itemS = 1;
       this.nombreProducto = "Ahorro Flex Save";
       this.term=this.tiempoMinAhorroFlexSave;
       this.crud_operation.is_visible=false;
       this.flexSave();
+
+    } else if (index == 1) {
+      this.itemS = 1;
+      this.termDpf=this.tiempoMinAhorroDpf;
+      this.nombreProducto = "Ahorro DPF";
+      this.dpfSave();
 
     } else if (index == 2) {
       this.nombreProducto = "Crédito Educativo";
