@@ -153,7 +153,7 @@ export class SimulatorsComponent implements OnInit {
 
   }
 
-  downloadDialog() {
+  openDialog() {
     this.dialog.open(DialogExampleComponent)
   }
 
@@ -294,6 +294,7 @@ export class SimulatorsComponent implements OnInit {
       this.itemS = 1;
       this.nombreProducto = "Ahorro Flex Save";
       this.term=this.tiempoMinAhorroFlexSave;
+      this.crud_operation.is_visible=false;
       this.flexSave();
 
     } else if (index == 2) {
