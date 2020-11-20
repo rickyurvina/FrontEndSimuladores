@@ -58,7 +58,7 @@
                       <br>
                       <label>Tasa de Interés</label>
                       <br>
-                      <label> {{tasaAhorroFlexSave}}% </label>
+                      <label> {{tasaAhorroFlexSave | number: '1.2-2'}}% </label>
                       <br>
                       <label>Tiempo mínimo {{tiempoMinAhorroFlexSave}} día, máximo {{tiempoMaxAhorroFlexSave}}
                         días</label>
@@ -131,7 +131,7 @@
                       <br>
                       <label>Tasa de Interés</label>
                       <br>
-                      <label> {{tasaAhorroDpf}} </label>
+                      <label> {{tasaAhorroDpf | number: '1.2-2'}} %</label>
                       <br>
                       <label>Tiempo mínimo {{tiempoMinAhorroDpf}} meses, máximo {{tiempoMaxAhorroDpf}} meses</label>
                     </div>
@@ -169,12 +169,10 @@
             </div>
           </div>
         </mat-tab>
-
         <mat-tab label="Crédito Educativo">
 
           <br><br>
           <h2 class="titulo-simulador">Simulador Crédito Educativo</h2>
-
           <div class="row div-principal-2">
             <div class="col-md-6 div-lado-izq">
               <label for="exampleInputEmail1" class="label-monto">
@@ -190,7 +188,7 @@
                   name="valorPrestamo" (ngModelChange)="simuladorEducativo()" size=40>
               </div>
               <br>
-              <label for="exampleInputPassword1" class="margin-left-3" style="font-weight: 900;">
+              <label for="exampleInputPassword1" class="label-plazo">
                 Plazo (Meses)
               </label>
               <div class="input-group margin-left-3">
@@ -206,214 +204,154 @@
               <br>
               <label class="label-tabla-de">Tabla de </label> <br>
               <label class="label-amortizacion">amortización</label>
-              <div class="button-group margin-left-3" style="margin-top: 2%;">
+              <div class="button-group div-botones-francesa-alemana">
                 <button class="btn btn-light boton-simuladores" (click)="verFrancesa()"
                   style="background-color: #f4d900; ">Francesa</button>
                 <button class="btn btn-light boton-simuladores" (click)="verAlemana()"
                   style="background-color: #959398;  margin-left: 2%;">Alemana</button>
               </div>
               <div class="div-bg-gray">
-                <br>
-                <h2
-                  style="margin-left: 3%; font-size: 25px; font-weight: 700; font-family: amaranth-regular; margin-bottom: -0.5%;">
+                <br><br>
+                <h2 class="h3-tasa-interes">
                   Tasa de Interés</h2>
-                <div class="row" style="">
-                  <div class="col-md-4" style="margin-left: 3%;">
-                    <h1
-                      style="font-size: 100px; font-weight: 1000; padding-top: 20%; color:#959398; font-family: amaranth-regular;">
-                      {{tasaCreditoEducativo}} </h1>
+                <div class="row">
+                  <div class="col-md-4 margin-left-3">
+                    <h1 class="h1-tasa-credito">
+                      {{tasaCreditoEducativo | number: '1.2-2'}} </h1>
                   </div>
-                  <div class="col-md-8"
-                    style="margin-right: -3%; margin-left: -7%; margin-top: 2%;  font-family: amaranth-regular;">
+                  <div class="col-md-8 div-porcentaje-anual">
                     <div class="row">
                       <div class="col-md-12">
-                        <h1 style="font-size: 60px; font-weight: 1000; color:#959398 ">%</h1>
+                        <h1 class="h1-porcentaje">%</h1>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <h1 style="font-size: 20px; font-weight: 1000; ">anual</h1>
+                        <h1 class="h1-anual">anual</h1>
                       </div>
                     </div>
                   </div>
                 </div>
-                <br>
-                <div class="button-group"
-                  style="background-color: #f4d900; text-align: center; width: 100%; margin-top:-4%">
-                  <label style=" color: black; text-align: center; font-size: 14px; font-weight: 600;">Tiempo mínimo
+                <!-- <br> -->
+                <div class="button-group div-tiempos-y-montos" style="background-color: #f4d900; ">
+                  <label class="label-limites-tiempos">Tiempo mínimo
                     {{tiempoMinCreditoEducativo}} meses,
                     máximo {{tiempoMaxCreditoEducativo}} meses</label>
-                  <label style=" color: black; text-align: center; font-size: 18px; font-weight: 600;">Monto mínimo
+                  <label class="label-limites-montos">Monto mínimo
                     {{montoMinCreditoEducativo | currency}}
                     monto máximo {{montoMaxCreditoEducativo | currency}}
                   </label>
                 </div>
               </div>
-              <div class="button-group" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible"
-                style="margin-left: 3%;">
+              <div class="button-group margin-left-3" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible">
                 <br>
-                <button class="btn btn-light" style="border-radius: 12px;
-                background-color: #f4d900;
-                    border: none;
-                    color: black;
-                    padding: 1px;
-                    /* text-align: center;
-                    /* text-decoration: none; */
-                    display: inline-block;
-                    /* font-size: 16px; */
-                    /* height: 10%; */
-                    /* margin: 4px 2px; */
-                    width: 20%;
-                    /* margin-top: 10em; margin-left: 80%; */" (click)="cerrarTablas()">
+                <button class="btn btn-light boton-cerrar-tabla" style="background-color: #f4d900;"
+                  (click)="cerrarTablas()">
                   Cerrar Tabla</button>
               </div>
             </div>
-            <div class="col-md-6" style="margin-left: -10%; margin-top:4%">
+            <div class="col-md-6 div-lado-derecho">
               <div class="row">
-                <div class="col-md-8" style="margin-left: auto;
-                text-align: left;
-                background-color: #f4d900;
-                color:black; padding-bottom: 2%;
-                /* background-image: url('../../assets/images/marco-rojo.jpeg'); */
-                ">
+                <div class="col-md-8 div-detalle-simulacion" style="background-color: #f4d900;">
                   <div *ngIf="alemana.is_visible" id="htmlData">
-                    <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px;">Detalle de la simulación
-                      Alemana:</h3>
-                    <table width="100%" cellspacing="7px" cellpadding="7px" style="border-collapse: separate;
-                    border-spacing: 10;
-                    border: 2px solid white;
-                    border-radius: 15px;
-                    -moz-border-radius: 20px;
-                    padding: 2px;
-                    -webkit-border-radius: 5px;">
+                    <h3 class="h3-detalle-alemana">
+                      Detalle de la simulación Alemana:</h3>
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana">
                       <tr>
                         <th>Tasa periódica:</th>
-                        <td>
-                          <input value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly style="width:120px;  border-radius: 10px;
-                          border: 1px solid white ;">
+                        <td class="txt-align-r">
+                          <input class="input-td" value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly>
                         </td>
                       </tr>
                       <tr>
                         <th> Seguro desgravamen:</th>
-                        <td>
-                          <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly style="width:120px;  border-radius: 10px;
-                          border: 1px solid white ;">
+                        <td class="txt-align-r">
+                          <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Total seguro :</th>
+                        <td class="txt-align-r">
+                          <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
                         </td>
                       </tr>
                       <tr>
                         <th> # Cuotas:</th>
-                        <td style="text-align: right;">
-
-                          <input value="{{numeroCuotas}}" readonly style="width:90px;  border-radius: 10px;
-                          border: 1px solid white ;">
+                        <td class="txt-align-r">
+                          <input value="{{numeroCuotas}}" readonly class="input-td-2">
                         </td>
                       </tr>
-                      <div style="background-color: #fbcb0c ; position: absolute; width: 88%;">
+                      <div class="div-td" style="background-color: #fbcb0c;">
                         <tr>
-                          <th>Total interés a pagar:</th>
-                          <td style="text-align: right;">
-                            <input value="{{sumaIntereses | currency}}" readonly style="width:90px;  border-radius: 10px;
-                            border: 1px solid white ; margin-left: 33%;">
+                          <th>Cuota inicial:</th>
+                          <td class="txt-align-r">
+                            <input class="input-td-2" value="{{cuotaInicial | currency}}" readonly
+                              style="margin-left: 110%;">
                           </td>
                         </tr>
                       </div>
                       <tr>
-                        <th style="padding-top:17%"> # De pagos por año</th>
-                        <td style="padding-top:17%; text-align: right;">
-                          <input value="12" readonly style="width:90px;  border-radius: 10px;
-                          border: 1px solid white ;">
+                        <th class="th-total-interes">Total interés a pagar:</th>
+                        <td class="th-total-interes txt-align-r">
+                          <input value="{{sumaIntereses | currency}}" readonly class="input-td-2">
                         </td>
-
+                      </tr>
                     </table>
                   </div>
                   <div *ngIf="francesa.is_visible">
                     <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px;">Detalle de la simulación
                       Francesa:</h3>
-                    <table width="100%" cellspacing="7px" cellpadding="7px" style="border-collapse: separate;
-                    border-spacing: 10;
-                    border: 2px solid white;
-                    border-radius: 15px;
-                    -moz-border-radius: 20px;
-                    padding: 2px;
-                    -webkit-border-radius: 5px;">
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana">
                       <tr>
                         <th>Tasa periódica:</th>
-                        <td>
-                          <input value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly style="width:120px;  border-radius: 10px;
-                          border: 1px solid white ;">
+                        <td class="txt-align-r">
+                          <input class="input-td" value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly>
                         </td>
                       </tr>
                       <tr>
                         <th> Seguro desgravamen:</th>
-                        <td>
-                          <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly style="width:120px;  border-radius: 10px;
-                          border: 1px solid white ;">
+                        <td class="txt-align-r">
+                          <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Total seguro :</th>
+                        <td class="txt-align-r">
+                          <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
                         </td>
                       </tr>
                       <tr>
                         <th> # Cuotas:</th>
-                        <td style="text-align: right;">
-
-                          <input value="{{numeroCuotas}}" readonly style="width:90px;  border-radius: 10px;
-                          border: 1px solid white ;">
+                        <td class="txt-align-r">
+                          <input class="input-td-2" value="{{numeroCuotas}}" readonly class="input-td-2">
                         </td>
                       </tr>
-                      <div style="background-color: #fbcb0c ; position: absolute; width: 88%;">
+                      <div class="div-td-2" style="background-color: #fbcb0c ; ">
                         <tr>
                           <th> Cuota a pagar:</th>
-                          <td style="text-align: right;">
-                            <input value="{{cuotaPagarF | currency}}" readonly style="width:90px;  border-radius: 10px;
-                            border: 1px solid white ; margin-left: 82%;">
+                          <td class="txt-align-r">
+                            <input class="input-td-2" value="{{cuotaPagarF | currency}}" readonly
+                              style="margin-left: 95%;">
                           </td>
                         </tr>
                       </div>
                       <tr>
-                        <th style="padding-top:17%"> Total interés a pagar:</th>
-                        <td style="padding-top:17%; text-align: right;">
-                          <input value="{{sumaInteresesF | currency}}" readonly style="width:90px;  border-radius: 10px;
-                          border: 1px solid white ; ">
+                        <th class="th-total-interes"> Total interés a pagar:</th>
+                        <td class="th-total-interes txt-align-r ">
+                          <input class="input-td-2" value="{{sumaInteresesF | currency}}" readonly>
                         </td>
                       </tr>
                     </table>
                   </div>
                 </div>
-                <div class="col-md-4" style=" background-color: #f4d900;
-                /* color:black; padding-bottom: 2%; */
-                 /* background-image: url('../../assets/images/img-educativo.jpg');
-                 background-repeat: no-repeat, repeat; */
-                  background-size: cover; /* Resize the background image to cover the entire container */">
-                  <img alt="Bootstrap Image Preview" src="../../assets/images/img-educativo.jpg" width="500"
-                    height="600" style="    position: absolute;
-                  height: 22em;
-                  width: 11em;
-                  margin-left: -13%;
-                  margin-top: -0.7em;" />
+                <div class="col-md-4 div-img-detalle" style=" background-color: #f4d900;">
+                  <img alt="ImgImgImg" src="../../assets/images/img-educativo.jpg" width="500" height="600"
+                    class="img-detalle" />
                 </div>
               </div>
-              <img src="../../assets/images/flechas_amarillas.PNG" width="10%" height="15" style="
-              text-align: center;
-              display: inline-block;
-              /* font-size: 16px; */
-              /* height: 10%; */
-              /* margin: 4px 2px; */
-              /* width: 20%; */
-              margin-top: 10.5%;
-              margin-left: 63%;
-              /* font-weight: 500; */
-              position: absolute;">
-              <button class="btn btn-info" style="background-color: #f4d900; border-radius: 12px;
-              border: none;
-              color: black;
-              padding: 1px;
-              text-align: center;
-              text-decoration: none;
-              display: inline-block;
-              /* font-size: 16px; */
-              /* height: 10%; */
-              /* margin: 4px 2px; */
-              width: 20%; margin-top: 10%; margin-left: 80%; font-weight: 500;"
+              <img src="../../assets/images/flechas_amarillas.PNG" width="10%" height="15" class="img-flechas">
+              <button class="btn btn-info boton-descargar" style="background-color: #f4d900; "
                 (click)="generatePDF()">Descargar</button>
-
             </div>
             <div style="margin-left: 15%;">
               <div *ngIf="amortizacionF.is_visible">
@@ -497,7 +435,269 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Crédito de Inversión Personal">
+        <mat-tab label="Crédito Inversion Personal">
+          <br><br>
+          <h2 class="titulo-simulador">Simulador Crédito Inversion Personal</h2>
+          <div class="row div-principal-2">
+            <div class="col-md-6 div-lado-izq">
+              <label for="exampleInputEmail1" class="label-monto">
+                Monto
+              </label>
+              <div class="input-group margin-left-3">
+                <mat-slider thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMonto($event)" step="100"
+                  tickInterval="100" class="mat-slider" min="{{montoMinCreditoInversion}}" max="{{montoMaxCreditoInversion}}"
+                  [(ngModel)]="valorPrestamo" (ngModelChange)="simuladorInversion()">
+                </mat-slider>
+                <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1" placeholder="Monto"
+                  min="{{montoMinCreditoInversion}}" max="{{montoMaxCreditoInversion}}" [(ngModel)]="valorPrestamo"
+                  name="valorPrestamo" (ngModelChange)="simuladorInversion()" size=40>
+              </div>
+              <br>
+              <label for="exampleInputPassword1" class="label-plazo">
+                Plazo (Meses)
+              </label>
+              <div class="input-group margin-left-3">
+                <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempo($event)" tickInterval="1"
+                  class="mat-slider" min="{{tiempoMinCreditoInversion}}" max="{{tiempoMaxCreditoInversion}}"
+                  [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorInversion()">
+                </mat-slider>
+                <input type="number" class="input-monto-tiempo form-control " id="exampleInputPassword1"
+                  value="{{numeroCuotas}}" placeholder="Plazo" min="{{tiempoMinCreditoInversion}}"
+                  max="{{tiempoMaxCreditoInversion}}" [(ngModel)]="numeroCuotas" name="numeroCuotas"
+                  (ngModelChange)="simuladorInversion()" size=40>
+              </div>
+              <br>
+              <label class="label-tabla-de">Tabla de </label> <br>
+              <label class="label-amortizacion">amortización</label>
+              <div class="button-group div-botones-francesa-alemana">
+                <button class="btn btn-light boton-simuladores" (click)="verFrancesa()"
+                  style="background-color: #f46c24; ">Francesa</button>
+                <button class="btn btn-light boton-simuladores" (click)="verAlemana()"
+                  style="background-color: #959398;  margin-left: 2%;">Alemana</button>
+              </div>
+              <div class="div-bg-gray">
+                <br><br>
+                <h2 class="h3-tasa-interes">
+                  Tasa de Interés</h2>
+                <div class="row">
+                  <div class="col-md-4 margin-left-3">
+                    <h1 class="h1-tasa-credito">
+                      {{tasaCreditoInversion | number: '1.2-2'}} </h1>
+                  </div>
+                  <div class="col-md-8 div-porcentaje-anual" style="margin-right: -10%; margin-left: 7%;">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h1 class="h1-porcentaje">%</h1>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h1 class="h1-anual">anual</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <br> -->
+                <div class="button-group div-tiempos-y-montos" style="background-color: #f46c24; color:white ">
+                  <label class="label-limites-tiempos" style="color:white">Tiempo mínimo
+                    {{tiempoMinCreditoInversion}} meses,
+                    máximo {{tiempoMaxCreditoInversion}} meses</label>
+                  <label class="label-limites-montos" style="color:white">Monto mínimo
+                    {{montoMinCreditoInversion | currency}}
+                    monto máximo {{montoMaxCreditoInversion | currency}}
+                  </label>
+                </div>
+              </div>
+              <div class="button-group margin-left-3" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible">
+                <br>
+                <button class="btn btn-light boton-cerrar-tabla" style="background-color: #f46c24; color:white" (click)="cerrarTablas()">
+                  Cerrar Tabla</button>
+              </div>
+            </div>
+            <div class="col-md-6 div-lado-derecho">
+              <div class="row">
+                <div class="col-md-8 div-detalle-simulacion" style="background-color: #f46c24;">
+                  <div *ngIf="alemana.is_visible" id="htmlData">
+                    <h3 class="h3-detalle-alemana" style="color:white">
+                      Detalle de la simulación Alemana:</h3>
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana" style="color:white">
+                      <tr>
+                        <th>Tasa periódica:</th>
+                        <td class="txt-align-r">
+                          <input class="input-td" value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Seguro desgravamen:</th>
+                        <td class="txt-align-r">
+                          <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Total seguro :</th>
+                        <td class="txt-align-r">
+                          <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> # Cuotas:</th>
+                        <td class="txt-align-r">
+                          <input value="{{numeroCuotas}}" readonly class="input-td-2">
+                        </td>
+                      </tr>
+                      <div class="div-td" style="background-color: #f45424;">
+                        <tr>
+                          <th>Cuota inicial:</th>
+                          <td class="txt-align-r">
+                            <input class="input-td-2" value="{{cuotaInicial | currency}}" readonly style="margin-left: 110%;">
+                          </td>
+                        </tr>
+                      </div>
+                      <tr>
+                        <th class="th-total-interes">Total interés a pagar:</th>
+                        <td class="th-total-interes txt-align-r">
+                          <input value="{{sumaIntereses | currency}}" readonly class="input-td-2">
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div *ngIf="francesa.is_visible">
+                    <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px; color:white">Detalle de la simulación
+                      Francesa:</h3>
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana" style="color:white">
+                      <tr>
+                        <th>Tasa periódica:</th>
+                        <td class="txt-align-r">
+                          <input class="input-td" value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Seguro desgravamen:</th>
+                        <td class="txt-align-r">
+                          <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Total seguro :</th>
+                        <td class="txt-align-r">
+                          <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> # Cuotas:</th>
+                        <td class="txt-align-r">
+                          <input class="input-td-2" value="{{numeroCuotas}}" readonly class="input-td-2">
+                        </td>
+                      </tr>
+                      <div class="div-td-2" style="background-color: #f45424 ; ">
+                        <tr>
+                          <th> Cuota a pagar:</th>
+                          <td class="txt-align-r">
+                            <input class="input-td-2" value="{{cuotaPagarF | currency}}" readonly style="margin-left: 95%;">
+                          </td>
+                        </tr>
+                      </div>
+                      <tr>
+                        <th class="th-total-interes"> Total interés a pagar:</th>
+                        <td class="th-total-interes txt-align-r ">
+                          <input class="input-td-2" value="{{sumaInteresesF | currency}}" readonly>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-4 div-img-detalle" style=" background-color: #f46c24;">
+                  <img alt="ImgImgImg" src="../../assets/images/img-inversion.jpg" width="500" height="600"
+                    class="img-detalle" />
+                </div>
+              </div>
+              <img src="../../assets/images/flechas_naranjas.PNG" width="10%" height="15" class="img-flechas">
+              <button class="btn btn-info boton-descargar" style="background-color: #f46c24;  color:white"
+                (click)="generatePDF()">Descargar</button>
+            </div>
+            <div style="margin-left: 15%;">
+              <div *ngIf="amortizacionF.is_visible">
+                <div style="text-align: center;">
+                  <h2>Tabla de Amortización Francesa</h2>
+                </div>
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>
+                        #Cuota
+                      </th>
+                      <th>
+                        Interés del Periodo
+                      </th>
+                      <th>
+                        Capital Amortizado
+                      </th>
+                      <th>
+                        Seguro
+                      </th>
+                      <th>
+                        Cuota a Pagar
+                      </th>
+                      <th>
+                        Saldo Remanente
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of dataFrances">
+                      <td>{{data.numeroCuota}}</td>
+                      <td>{{data.interesPeriodo | currency}}</td>
+                      <td>{{data.capitalAmortizado | currency}}</td>
+                      <td>{{data.seguro | currency}}</td>
+                      <td>{{data.cuotaPagar | currency}}</td>
+                      <td>{{data.saldoRemanente | currency}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngIf="amortizacionIA.is_visible">
+                <div style="text-align: center;">
+                  <h2>Tabla de Amortización Alemana</h2>
+                </div>
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>
+                        #Cuota
+                      </th>
+                      <th>
+                        Interés del Periodo
+                      </th>
+                      <th>
+                        Capital Amortizado
+                      </th>
+                      <th>
+                        Seguro
+                      </th>
+                      <th>
+                        Cuota a Pagar
+                      </th>
+                      <th>
+                        Saldo Remanente
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of dataAleman">
+                      <td>{{data.numeroCuota}}</td>
+                      <td>{{data.interesPeriodo | currency}}</td>
+                      <td>{{data.capitalAmortizado | currency}}</td>
+                      <td>{{data.seguro | currency}}</td>
+                      <td>{{data.cuotaPagar | currency}}</td>
+                      <td>{{data.saldoRemanente | currency}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <!-- <mat-tab label="Crédito de Inversión Personal">
           <br><br>
           <div class="container-fluid">
             <div class="row">
@@ -692,8 +892,277 @@
               </div>
             </div>
           </div>
-        </mat-tab>
+        </mat-tab> -->
         <mat-tab label="Crédito de Vivienda">
+          <br><br>
+          <h2 class="titulo-simulador">Simulador Crédito de Vivienda</h2>
+          <div class="row div-principal-2">
+            <div class="col-md-6 div-lado-izq">
+              <label for="exampleInputEmail1" class="label-monto">
+                Monto
+              </label>
+              <div class="input-group margin-left-3">
+                <mat-slider thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMonto($event)" step="100"
+                  tickInterval="100" class="mat-slider" min="{{montoMinCreditoInmobiliario}}" max="{{montoMaxCreditoInmobiliario}}"
+                  [(ngModel)]="valorPrestamo" (ngModelChange)="simuladorInmobiliario()">
+                </mat-slider>
+                <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1" placeholder="Monto"
+                  min="{{montoMinCreditoInmobiliario}}" max="{{montoMaxCreditoInmobiliario}}" [(ngModel)]="valorPrestamo"
+                  name="valorPrestamo" (ngModelChange)="simuladorInmobiliario()" size=40>
+              </div>
+              <br>
+              <label for="exampleInputPassword1" class="label-plazo">
+                Plazo (Meses)
+              </label>
+              <div class="input-group margin-left-3">
+                <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempo($event)" tickInterval="1"
+                  class="mat-slider" min="{{tiempoMinCreditoInmobiliario}}" max="{{tiempoMaxCreditoInmobiliario}}"
+                  [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorInmobiliario()">
+                </mat-slider>
+                <input type="number" class="input-monto-tiempo form-control " id="exampleInputPassword1"
+                  value="{{numeroCuotas}}" placeholder="Plazo" min="{{tiempoMinCreditoInmobiliario}}"
+                  max="{{tiempoMaxCreditoInmobiliario}}" [(ngModel)]="numeroCuotas" name="numeroCuotas"
+                  (ngModelChange)="simuladorInmobiliario()" size=40>
+              </div>
+              <section class="example-section">
+                <mat-checkbox class="example-margin" [(ngModel)]="checked"
+                  (ngModelChange)="simuladorInmobiliario()">Vivienda Ecológica</mat-checkbox>
+              </section>
+              <br>
+              <label class="label-tabla-de">Tabla de </label> <br>
+              <label class="label-amortizacion">amortización</label>
+              <div class="button-group div-botones-francesa-alemana">
+                <button class="btn btn-light boton-simuladores" (click)="verFrancesa()"
+                  style="background-color: #970077; ">Francesa</button>
+                <button class="btn btn-light boton-simuladores" (click)="verAlemana()"
+                  style="background-color: #959398;  margin-left: 2%;">Alemana</button>
+              </div>
+              <div class="div-bg-gray">
+                <br><br>
+                <h2 class="h3-tasa-interes">
+                  Tasa de Interés</h2>
+                <div class="row">
+                  <div class="col-md-4 margin-left-3">
+                    <h1 class="h1-tasa-credito" *ngIf="checked==false">{{tasaCreditoInmobiliario | number: '1.2-2'}} </h1>
+                    <h1 class="h1-tasa-credito" *ngIf="checked">{{tasaEcoCreditoInmobiliario | number: '1.2-2'}} </h1>
+
+                      <!-- <label *ngIf="checked==false"> {{tasaCreditoInmobiliario}}% Anual</label>
+                      <label *ngIf="checked"> {{tasaEcoCreditoInmobiliario}}% Anual</label> -->
+                    </div>
+                  <div class="col-md-8 div-porcentaje-anual">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h1 class="h1-porcentaje">%</h1>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h1 class="h1-anual">anual</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <br> -->
+                <div class="button-group div-tiempos-y-montos" style="background-color: #970077; ">
+                  <label class="label-limites-tiempos" style="color:white">Tiempo mínimo
+                    {{tiempoMinCreditoInmobiliario}} meses,
+                    máximo {{tiempoMaxCreditoInmobiliario}} meses</label>
+                  <label class="label-limites-montos" style="color:white">Monto mínimo
+                    {{montoMinCreditoInmobiliario | currency}}
+                    monto máximo {{montoMaxCreditoInmobiliario | currency}}
+                  </label>
+                </div>
+              </div>
+              <div class="button-group margin-left-3" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible">
+                <br>
+                <button class="btn btn-light boton-cerrar-tabla" style="background-color: #970077; color:white" (click)="cerrarTablas()">
+                  Cerrar Tabla</button>
+              </div>
+            </div>
+            <div class="col-md-6 div-lado-derecho">
+              <div class="row">
+                <div class="col-md-8 div-detalle-simulacion" style="background-color: #970077;">
+                  <div *ngIf="alemana.is_visible" id="htmlData">
+                    <h3 class="h3-detalle-alemana" style="color:white">
+                      Detalle de la simulación Alemana:</h3>
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana" style="color:white">
+                      <tr>
+                        <th>Tasa periódica:</th>
+                        <td class="txt-align-r">
+                          <input class="input-td" value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Seguro desgravamen:</th>
+                        <td class="txt-align-r">
+                          <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Total seguro :</th>
+                        <td class="txt-align-r">
+                          <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> # Cuotas:</th>
+                        <td class="txt-align-r">
+                          <input value="{{numeroCuotas}}" readonly class="input-td-2">
+                        </td>
+                      </tr>
+                      <div class="div-td" style="background-color: #ec047c;">
+                        <tr>
+                          <th>Cuota inicial:</th>
+                          <td class="txt-align-r">
+                            <input class="input-td-2" value="{{cuotaInicial | currency}}" readonly style="margin-left: 110%;">
+                          </td>
+                        </tr>
+                      </div>
+                      <tr>
+                        <th class="th-total-interes">Total interés a pagar:</th>
+                        <td class="th-total-interes txt-align-r">
+                          <input value="{{sumaIntereses | currency}}" readonly class="input-td-2">
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div *ngIf="francesa.is_visible">
+                    <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px; color:white">Detalle de la simulación
+                      Francesa:</h3>
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana" style="color:white">
+                      <tr>
+                        <th>Tasa periódica:</th>
+                        <td class="txt-align-r">
+                          <input class="input-td" value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Seguro desgravamen:</th>
+                        <td class="txt-align-r">
+                          <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Total seguro :</th>
+                        <td class="txt-align-r">
+                          <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> # Cuotas:</th>
+                        <td class="txt-align-r">
+                          <input class="input-td-2" value="{{numeroCuotas}}" readonly class="input-td-2">
+                        </td>
+                      </tr>
+                      <div class="div-td-2" style="background-color: #ec047c ; ">
+                        <tr>
+                          <th> Cuota a pagar:</th>
+                          <td class="txt-align-r">
+                            <input class="input-td-2" value="{{cuotaPagarF | currency}}" readonly style="margin-left: 95%;">
+                          </td>
+                        </tr>
+                      </div>
+                      <tr>
+                        <th class="th-total-interes"> Total interés a pagar:</th>
+                        <td class="th-total-interes txt-align-r ">
+                          <input class="input-td-2" value="{{sumaInteresesF | currency}}" readonly>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-4 div-img-detalle" style=" background-color: #970077;">
+                  <img alt="ImgImgImg" src="../../assets/images/img-vivienda.jpg" width="500" height="600"
+                    class="img-detalle" />
+                </div>
+              </div>
+              <img src="../../assets/images/flechas_naranjas.PNG" width="10%" height="15" class="img-flechas">
+              <button class="btn btn-info boton-descargar" style="background-color: #970077; color:white "
+                (click)="generatePDF()">Descargar</button>
+            </div>
+            <div style="margin-left: 15%;">
+              <div *ngIf="amortizacionF.is_visible">
+                <div style="text-align: center;">
+                  <h2>Tabla de Amortización Francesa</h2>
+                </div>
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>
+                        #Cuota
+                      </th>
+                      <th>
+                        Interés del Periodo
+                      </th>
+                      <th>
+                        Capital Amortizado
+                      </th>
+                      <th>
+                        Seguro
+                      </th>
+                      <th>
+                        Cuota a Pagar
+                      </th>
+                      <th>
+                        Saldo Remanente
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of dataFrances">
+                      <td>{{data.numeroCuota}}</td>
+                      <td>{{data.interesPeriodo | currency}}</td>
+                      <td>{{data.capitalAmortizado | currency}}</td>
+                      <td>{{data.seguro | currency}}</td>
+                      <td>{{data.cuotaPagar | currency}}</td>
+                      <td>{{data.saldoRemanente | currency}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngIf="amortizacionIA.is_visible">
+                <div style="text-align: center;">
+                  <h2>Tabla de Amortización Alemana</h2>
+                </div>
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>
+                        #Cuota
+                      </th>
+                      <th>
+                        Interés del Periodo
+                      </th>
+                      <th>
+                        Capital Amortizado
+                      </th>
+                      <th>
+                        Seguro
+                      </th>
+                      <th>
+                        Cuota a Pagar
+                      </th>
+                      <th>
+                        Saldo Remanente
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of dataAleman">
+                      <td>{{data.numeroCuota}}</td>
+                      <td>{{data.interesPeriodo | currency}}</td>
+                      <td>{{data.capitalAmortizado | currency}}</td>
+                      <td>{{data.seguro | currency}}</td>
+                      <td>{{data.cuotaPagar | currency}}</td>
+                      <td>{{data.saldoRemanente | currency}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <!-- <mat-tab label="Crédito de Vivienda">
           <br><br>
           <div class="container-fluid">
             <div class="row">
@@ -740,7 +1209,7 @@
                       <br>
                       <label>Tasa de Interés</label>
                       <br>
-                      <!-- <label> {{tasaCreditoInmobiliario}}% Anual</label> -->
+
                       <label *ngIf="checked==false"> {{tasaCreditoInmobiliario}}% Anual</label>
                       <label *ngIf="checked"> {{tasaEcoCreditoInmobiliario}}% Anual</label>
 
@@ -787,7 +1256,7 @@
                       <table style="width:100%" class="table table-bordered table-hover">
                         <tr>
                           <th>Interés Anual:</th>
-                          <!-- <td> {{tasaCreditoInmobiliario}}%</td> -->
+
                           <td *ngIf="checked==false"> {{tasaCreditoInmobiliario}}%</td>
                           <td *ngIf="checked"> {{tasaEcoCreditoInmobiliario}}%</td>
 
@@ -899,7 +1368,7 @@
               </div>
             </div>
           </div>
-        </mat-tab>
+        </mat-tab> -->
       </mat-tab-group>
     </div>
   </div>
@@ -908,80 +1377,21 @@
     <div>
       <br>
       <div class="form-group" style="text-align: center;">
-        <button class="btn btn-light" *ngIf="itemS==1" style="background-color: #959398;
-        border-radius: 12px;
-        border: none;
-        color: white;
-        padding: 1px;
-        /* text-align: center;
-        text-decoration: none;
-        display: inline-block; */
-        /* font-size: 16px; */
-        /* height: 10%; */
-        /* margin: 4px 2px; */
-        width: 10%;
-        /* margin-top: 10em; margin-left: 80%; */" (click)="openDialog()">Lo Quiero!</button>
+        <button class="btn btn-light boton-lq-dialog" *ngIf="itemS==0" (click)="openDialog()">Lo Quiero!</button>
 
-        <button class="btn btn-light" *ngIf="itemS!=1 && crud_operation.is_visible==false" (click)="new()" style="background-color: #959398;
-        border-radius: 12px;
-        border: none;
-        color: white;
-        padding: 1px;
-        /* text-align: center;
-        text-decoration: none;
-        display: inline-block; */
-        /* font-size: 16px; */
-        /* height: 10%; */
-        /* margin: 4px 2px; */
-        width: 10%;
-        /* margin-top: 10em; margin-left: 80%; */">Lo Quiero!</button>
-        <button *ngIf="alemana.is_visible" class="btn btn-light" (click)="vetTablaIA()" style="background-color: #291d19; border-radius: 12px;
-          border: none;
-          color: white;
-          padding: 1px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          /* font-size: 16px; */
-          /* height: 10%; */
-          /* margin: 4px 2px; */
-          width: 20%;
-          /* margin-top: 10em; margin-left: 80%; */">Simulación detallada
+        <button class="btn btn-light boton-lq-cliente" *ngIf="itemS!=0 && crud_operation.is_visible==false"
+          (click)="new()">Lo Quiero!</button>
+        <button *ngIf="alemana.is_visible" class="btn btn-light boton-sd" (click)="vetTablaIA()" style="">Simulación
+          detallada
         </button>
-        <button *ngIf="francesa.is_visible" class="btn btn-light" (click)="vetTablaFrancesa()" style="background-color: #291d19; border-radius: 12px;
-          border: none;
-          color: white;
-          padding: 1px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          /* font-size: 16px; */
-          /* height: 10%; */
-          /* margin: 4px 2px; */
-          width: 20%;
-          /* margin-top: 10em; margin-left: 80%; */
-           ">Simulación detallada
+        <button *ngIf="francesa.is_visible" class="btn btn-light boton-sd" (click)="vetTablaFrancesa()">Simulación
+          detallada
         </button>
       </div>
     </div>
-
-
     <div class="form-group" *ngIf="crud_operation.is_visible" style="text-align: center;">
       <div id="hubspotForm"></div>
-
-      <button class="btn btn-light" style="background-color: #b40c15;
-      border-radius: 12px;
-      border: none;
-      color: white;
-      padding: 1px;
-      /* text-align: center;
-      text-decoration: none;
-      display: inline-block; */
-      /* font-size: 16px; */
-      /* height: 10%; */
-      /* margin: 4px 2px; */
-      width: 10%;
-      /* margin-top: 10em; margin-left: 80%; */" (click)="crud_operation.is_visible=false">Cancelar</button>
+      <button class="btn btn-light boton-cancelar" (click)="crud_operation.is_visible=false">Cancelar</button>
     </div>
   </div>
   <div>
