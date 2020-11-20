@@ -1,43 +1,32 @@
-<mat-tab label="Crédito Inversion Personal">
+<mat-tab label="Depósito a Plazo Fijo">
   <br><br>
-  <h2 class="titulo-simulador">Simulador Crédito Inversion Personal</h2>
+  <h2 class="titulo-simulador">Simulador Depósito a Plazo Fijo</h2>
   <div class="row div-principal-2">
-    <div class="col-md-6 div-lado-izq">
+    <div class="col-md-6 div-lado-izq" style="height: auto;">
       <label for="exampleInputEmail1" class="label-monto">
         Monto
       </label>
       <div class="input-group margin-left-3">
-        <mat-slider thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMonto($event)" step="100"
-          tickInterval="100" class="mat-slider" min="{{montoMinCreditoInversion}}" max="{{montoMaxCreditoInversion}}"
-          [(ngModel)]="valorPrestamo" (ngModelChange)="simuladorInversion()">
-        </mat-slider>
-        <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1" placeholder="Monto"
-          min="{{montoMinCreditoInversion}}" max="{{montoMaxCreditoInversion}}" [(ngModel)]="valorPrestamo"
-          name="valorPrestamo" (ngModelChange)="simuladorInversion()" size=40>
+        <mat-slider class="mat-slider" (input)="onInputChangeMontoDpf($event)" thumbLabel
+        [displayWith]="formatoMonto" tickInterval="1" min="5000" max="1000000" [(ngModel)]="amountDpf"
+        (ngModelChange)="dpfSave()" step="100"></mat-slider>
+        <input class="form-control input-monto-tiempo" type="number" id="exampleInputEmail1"
+        placeholder="Monto" [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40
+        min="5000" max="1000000">
       </div>
       <br>
       <label for="exampleInputPassword1" class="label-plazo">
         Plazo (Meses)
       </label>
       <div class="input-group margin-left-3">
-        <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempo($event)" tickInterval="1"
-          class="mat-slider" min="{{tiempoMinCreditoInversion}}" max="{{tiempoMaxCreditoInversion}}"
-          [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorInversion()">
-        </mat-slider>
-        <input type="number" class="input-monto-tiempo form-control " id="exampleInputPassword1"
-          value="{{numeroCuotas}}" placeholder="Plazo" min="{{tiempoMinCreditoInversion}}"
-          max="{{tiempoMaxCreditoInversion}}" [(ngModel)]="numeroCuotas" name="numeroCuotas"
-          (ngModelChange)="simuladorInversion()" size=40>
+        <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempoDpf($event)"
+        class="mat-slider" tickInterval="1" min="6" max="36" [(ngModel)]="termDpf"
+        (ngModelChange)="dpfSave()"> </mat-slider>
+      <input type="number" class="form-control input-monto-tiempo" id="exampleInputPassword1"
+        placeholder="Pazo" [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()" size=40
+        min="6" max="36">
       </div>
       <br>
-      <label class="label-tabla-de">Tabla de </label> <br>
-      <label class="label-amortizacion">amortización</label>
-      <div class="button-group div-botones-francesa-alemana">
-        <button class="btn btn-light boton-simuladores" (click)="verFrancesa()"
-          style="background-color: #f46c24; ">Francesa</button>
-        <button class="btn btn-light boton-simuladores" (click)="verAlemana()"
-          style="background-color: #959398;  margin-left: 2%;">Alemana</button>
-      </div>
       <div class="div-bg-gray">
         <br><br>
         <h2 class="h3-tasa-interes">
@@ -45,218 +34,90 @@
         <div class="row">
           <div class="col-md-4 margin-left-3">
             <h1 class="h1-tasa-credito">
-              {{tasaCreditoInversion | number: '1.2-2'}} </h1>
+              {{tasaAhorroDpf | number: '1.2-2'}} </h1>
           </div>
           <div class="col-md-8 div-porcentaje-anual" style="margin-right: -10%; margin-left: 7%;">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="margin-left: -10%;">
                 <h1 class="h1-porcentaje">%</h1>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
-                <h1 class="h1-anual">anual</h1>
+                <!-- <h1 class="h1-anual">anual</h1> -->
               </div>
             </div>
           </div>
         </div>
         <!-- <br> -->
-        <div class="button-group div-tiempos-y-montos" style="background-color: #f46c24; ">
-          <label class="label-limites-tiempos">Tiempo mínimo
-            {{tiempoMinCreditoInversion}} meses,
-            máximo {{tiempoMaxCreditoInversion}} meses</label>
-          <label class="label-limites-montos">Monto mínimo
+        <div class="button-group div-tiempos-y-montos"
+          style="background-color: #005294; color:white; font-weight: 500; margin-top: 12%; ">
+          <label class="label-limites-tiempos" style="color:white; font-weight: 500">Tiempo mínimo {{tiempoMinAhorroDpf}} meses, máximo {{tiempoMaxAhorroDpf}} meses
+          </label>
+          <!-- <label class="label-limites-montos" style="color:white; font-weight: 500">Monto mínimo
             {{montoMinCreditoInversion | currency}}
             monto máximo {{montoMaxCreditoInversion | currency}}
-          </label>
+          </label> -->
         </div>
       </div>
-      <div class="button-group margin-left-3" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible">
-        <br>
-        <button class="btn btn-light boton-cerrar-tabla" style="background-color: #f46c24;" (click)="cerrarTablas()">
-          Cerrar Tabla</button>
-      </div>
+
     </div>
     <div class="col-md-6 div-lado-derecho">
       <div class="row">
-        <div class="col-md-8 div-detalle-simulacion" style="background-color: #f46c24;">
-          <div *ngIf="alemana.is_visible" id="htmlData">
-            <h3 class="h3-detalle-alemana">
+        <div class="col-md-8 div-detalle-simulacion" style="background-color: #005294;">
+          <div id="htmlData">
+            <h3 class="h3-detalle-alemana" style="color:white; ">
               Detalle de la simulación Alemana:</h3>
-            <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana">
+            <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana"
+              style="color:white; font-weight: 500">
               <tr>
-                <th>Tasa periódica:</th>
+                <th>Monto:</th>
                 <td class="txt-align-r">
-                  <input class="input-td" value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly>
+                  <input class="input-td" value="{{amountDpf | currency}}" readonly>
                 </td>
               </tr>
               <tr>
-                <th> Seguro desgravamen:</th>
+                <th>Plazo Días:</th>
                 <td class="txt-align-r">
-                  <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly class="input-td">
+                  <input value="{{termDpf}}" readonly class="input-td">
                 </td>
               </tr>
               <tr>
-                <th> Total seguro :</th>
+                <th>Interés Ganado Referencial:</th>
                 <td class="txt-align-r">
-                  <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
+                  <input value="{{returnRateDpf | currency}}" readonly class="input-td">
                 </td>
               </tr>
               <tr>
-                <th> # Cuotas:</th>
+                <th>Retención IR:</th>
                 <td class="txt-align-r">
-                  <input value="{{numeroCuotas}}" readonly class="input-td-2">
+                  <input value=" {{retentionDpf | currency}}" readonly class="input-td-2">
                 </td>
               </tr>
-              <div class="div-td" style="background-color: #f45424;">
+              <div class="div-td" style="background-color: #cc242c;">
                 <tr>
-                  <th>Cuota inicial:</th>
+                  <th>Total Recibir:</th>
                   <td class="txt-align-r">
-                    <input class="input-td-2" value="{{cuotaInicial | currency}}" readonly style="margin-left: 110%;">
+                    <input class="input-td-2" value="{{totalDpf | currency}}" readonly style="margin-left: 110%;">
                   </td>
                 </tr>
               </div>
               <tr>
-                <th class="th-total-interes">Total interés a pagar:</th>
+                <th class="th-total-interes">Tasa de interés</th>
                 <td class="th-total-interes txt-align-r">
-                  <input value="{{sumaIntereses | currency}}" readonly class="input-td-2">
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div *ngIf="francesa.is_visible">
-            <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px;">Detalle de la simulación
-              Francesa:</h3>
-            <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana">
-              <tr>
-                <th>Tasa periódica:</th>
-                <td class="txt-align-r">
-                  <input class="input-td" value="{{tasaInteresPeriodica | number:'1.0-2' }}%" readonly>
-                </td>
-              </tr>
-              <tr>
-                <th> Seguro desgravamen:</th>
-                <td class="txt-align-r">
-                  <input value="{{porcentajeSD| number:'1.0-4'}}%" readonly class="input-td">
-                </td>
-              </tr>
-              <tr>
-                <th> Total seguro :</th>
-                <td class="txt-align-r">
-                  <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
-                </td>
-              </tr>
-              <tr>
-                <th> # Cuotas:</th>
-                <td class="txt-align-r">
-                  <input class="input-td-2" value="{{numeroCuotas}}" readonly class="input-td-2">
-                </td>
-              </tr>
-              <div class="div-td-2" style="background-color: #f45424 ; ">
-                <tr>
-                  <th> Cuota a pagar:</th>
-                  <td class="txt-align-r">
-                    <input class="input-td-2" value="{{cuotaPagarF | currency}}" readonly style="margin-left: 95%;">
-                  </td>
-                </tr>
-              </div>
-              <tr>
-                <th class="th-total-interes"> Total interés a pagar:</th>
-                <td class="th-total-interes txt-align-r ">
-                  <input class="input-td-2" value="{{sumaInteresesF | currency}}" readonly>
+                  <input readonly value="{{tasaAhorroDpf | number: '1.2-2'}}%" class="input-td-2">
                 </td>
               </tr>
             </table>
           </div>
         </div>
-        <div class="col-md-4 div-img-detalle" style=" background-color: #f46c24;">
-          <img alt="ImgImgImg" src="../../assets/images/img-inversion.jpg" width="500" height="600"
-            class="img-detalle" />
+        <div class="col-md-4 div-img-detalle" style=" background-color: #005294;">
+          <img alt="ImgImgImg" src="../../assets/images/img-dpf.jpg" width="500" height="600" class="img-detalle" />
         </div>
       </div>
-      <img src="../../assets/images/flechas_naranjas.PNG" width="10%" height="15" class="img-flechas">
-      <button class="btn btn-info boton-descargar" style="background-color: #f46c24; "
+      <img src="../../assets/images/flechas_azules.PNG" width="10%" height="15" class="img-flechas">
+      <button class="btn btn-info boton-descargar" style="background-color: #005294;  color:white; font-weight: 500"
         (click)="generatePDF()">Descargar</button>
-    </div>
-    <div style="margin-left: 15%;">
-      <div *ngIf="amortizacionF.is_visible">
-        <div style="text-align: center;">
-          <h2>Tabla de Amortización Francesa</h2>
-        </div>
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>
-                #Cuota
-              </th>
-              <th>
-                Interés del Periodo
-              </th>
-              <th>
-                Capital Amortizado
-              </th>
-              <th>
-                Seguro
-              </th>
-              <th>
-                Cuota a Pagar
-              </th>
-              <th>
-                Saldo Remanente
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of dataFrances">
-              <td>{{data.numeroCuota}}</td>
-              <td>{{data.interesPeriodo | currency}}</td>
-              <td>{{data.capitalAmortizado | currency}}</td>
-              <td>{{data.seguro | currency}}</td>
-              <td>{{data.cuotaPagar | currency}}</td>
-              <td>{{data.saldoRemanente | currency}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div *ngIf="amortizacionIA.is_visible">
-        <div style="text-align: center;">
-          <h2>Tabla de Amortización Alemana</h2>
-        </div>
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>
-                #Cuota
-              </th>
-              <th>
-                Interés del Periodo
-              </th>
-              <th>
-                Capital Amortizado
-              </th>
-              <th>
-                Seguro
-              </th>
-              <th>
-                Cuota a Pagar
-              </th>
-              <th>
-                Saldo Remanente
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of dataAleman">
-              <td>{{data.numeroCuota}}</td>
-              <td>{{data.interesPeriodo | currency}}</td>
-              <td>{{data.capitalAmortizado | currency}}</td>
-              <td>{{data.seguro | currency}}</td>
-              <td>{{data.cuotaPagar | currency}}</td>
-              <td>{{data.saldoRemanente | currency}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
 </mat-tab>

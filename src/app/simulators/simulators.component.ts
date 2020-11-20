@@ -250,8 +250,8 @@ export class SimulatorsComponent implements OnInit {
         this.refresh();
       }
     )
-    this.porcentajeSD = 0.0684;
-    // this.porcentajeSeguroDesgravamen = 0.0684 / 100;
+    this.porcentajeSD = 0.684;
+    // this.porcentajeSeguroDesgravamen = 0.684 / 100;
 
 
 
@@ -395,14 +395,14 @@ export class SimulatorsComponent implements OnInit {
     /**Variables globales para los dos sistemas */
     this.tasaInteresAnual = this.tasaCreditoInversion;
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
-    this.porcentajeSeguroDesgravamen = 0.0684 / 100;
+    this.porcentajeSeguroDesgravamen = 0.684 / 100;
     /**Validacion montos y tiempo */
     if (this.valorPrestamo > this.montoMaxCreditoInversion || this.valorPrestamo < this.montoMinCreditoInversion) {
       this.valorPrestamo = this.montoMinCreditoInversion;
       this.toastr.warning('Monto Maximo $30.000, Monto Minimo $1000 ', 'Monto Fuera de Rango', {
         timeOut: 4500,
       });
-    } else if (this.numeroCuotas > this.tiempoMaxCreditoInversion|| this.numeroCuotas < this.tiempoMinCreditoInversion) {
+    } else if (this.numeroCuotas > this.tiempoMaxCreditoInversion || this.numeroCuotas < this.tiempoMinCreditoInversion) {
       this.numeroCuotas = this.tiempoMinCreditoInversion;
       this.toastr.warning('Tiempo Maximo 48 Meses, Tiempo Minimo 6 Meses', 'Tiempo Fuera de Rango', {
         timeOut: 4500,
@@ -413,12 +413,14 @@ export class SimulatorsComponent implements OnInit {
       //valores calculo frances
       this.capitalAmortizadoF = 0;
       this.sumaInteresesF = 0;
+      this.sumaSeguroDesgravamenF=0;
       this.base = 1 + this.tasaInteresPeriodica / 100;
       this.saldoRemanenteF = this.valorPrestamo;
       this.valorSeguroDesgravamenF = this.saldoRemanenteF * this.porcentajeSeguroDesgravamen / 12;
       this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
+      this.cuotaFrancesa=((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
       this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
-      this.capitalAmortizadoF = this.cuotaPagarF - this.interesDelPeriodoF;
+      this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
       this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
       for (let i = 0; i < this.numeroCuotas; i++) {
 
@@ -430,17 +432,20 @@ export class SimulatorsComponent implements OnInit {
           cuotaPagar: this.cuotaPagarF,
           saldoRemanente: this.saldoRemanenteF
         });
+        this.sumaSeguroDesgravamenF=this.sumaSeguroDesgravamenF+this.valorSeguroDesgravamenF
         this.sumaInteresesF = this.sumaInteresesF + this.interesDelPeriodoF;
         this.valorSeguroDesgravamenF = this.saldoRemanenteF * this.porcentajeSeguroDesgravamen / 12;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
-        this.capitalAmortizadoF = this.cuotaPagarF - this.interesDelPeriodoF;
+        this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
       }
+      console.log("suma seguro d", this.sumaSeguroDesgravamenF);
 
        /**Calculo Aleman */
       //valor fijo capital amortizado calculo aleman
       this.sumaIntereses = 0;
+      this.sumaSeguroDesgravamenA=0;
       this.saldoRemanenteIA = this.valorPrestamo;
       this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
       //valores calculo aleman
@@ -448,8 +453,8 @@ export class SimulatorsComponent implements OnInit {
       this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
       this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA + this.valorSeguroDesgravamen;
       this.saldoRemanenteIA = this.saldoRemanenteIA - this.capitalAmortizadoIA;
-      this.cuotaInicial=this.cuotaPagarIA;
       console.log("interes aleman primera cuota", this.interesDelPeriodoIA);
+      this.cuotaInicial=this.cuotaPagarIA;
       for (let i = 0; i < this.numeroCuotas; i++) {
         /**Calculo Aleman */
         // this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
@@ -461,6 +466,7 @@ export class SimulatorsComponent implements OnInit {
           cuotaPagar: this.cuotaPagarIA,
           saldoRemanente: this.saldoRemanenteIA
         });
+        this.sumaSeguroDesgravamenA=this.sumaSeguroDesgravamenA+this.valorSeguroDesgravamen;
         this.sumaIntereses = this.sumaIntereses + this.interesDelPeriodoIA;
         this.interesDelPeriodoIA = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
@@ -468,6 +474,7 @@ export class SimulatorsComponent implements OnInit {
         this.saldoRemanenteIA = this.saldoRemanenteIA - this.capitalAmortizadoIA;
       }
     }
+
   }
 
   simuladorInmobiliario(): void {
@@ -479,9 +486,11 @@ export class SimulatorsComponent implements OnInit {
     else {
       this.tasaInteresAnual = this.tasaCreditoInmobiliario;
     }
+    // this.limpiarTabla();
     /**Variables globales para los dos sistemas */
+    // this.tasaInteresAnual = this.tasaCreditoEducativo;
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
-    this.porcentajeSeguroDesgravamen = 0.0684 / 100;
+    this.porcentajeSeguroDesgravamen = 0.684 / 100;
     /**Validacion montos y tiempo */
     if (this.valorPrestamo > this.montoMaxCreditoInmobiliario || this.valorPrestamo < this.montoMinCreditoInmobiliario) {
       this.valorPrestamo = this.montoMinCreditoInmobiliario;
@@ -499,12 +508,14 @@ export class SimulatorsComponent implements OnInit {
       //valores calculo frances
       this.capitalAmortizadoF = 0;
       this.sumaInteresesF = 0;
+      this.sumaSeguroDesgravamenF=0;
       this.base = 1 + this.tasaInteresPeriodica / 100;
       this.saldoRemanenteF = this.valorPrestamo;
       this.valorSeguroDesgravamenF = this.saldoRemanenteF * this.porcentajeSeguroDesgravamen / 12;
       this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
+      this.cuotaFrancesa=((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
       this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
-      this.capitalAmortizadoF = this.cuotaPagarF - this.interesDelPeriodoF;
+      this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
       this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
       for (let i = 0; i < this.numeroCuotas; i++) {
 
@@ -516,17 +527,20 @@ export class SimulatorsComponent implements OnInit {
           cuotaPagar: this.cuotaPagarF,
           saldoRemanente: this.saldoRemanenteF
         });
+        this.sumaSeguroDesgravamenF=this.sumaSeguroDesgravamenF+this.valorSeguroDesgravamenF
         this.sumaInteresesF = this.sumaInteresesF + this.interesDelPeriodoF;
         this.valorSeguroDesgravamenF = this.saldoRemanenteF * this.porcentajeSeguroDesgravamen / 12;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
-        this.capitalAmortizadoF = this.cuotaPagarF - this.interesDelPeriodoF;
+        this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
       }
+      console.log("suma seguro d", this.sumaSeguroDesgravamenF);
 
        /**Calculo Aleman */
       //valor fijo capital amortizado calculo aleman
       this.sumaIntereses = 0;
+      this.sumaSeguroDesgravamenA=0;
       this.saldoRemanenteIA = this.valorPrestamo;
       this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
       //valores calculo aleman
@@ -534,8 +548,8 @@ export class SimulatorsComponent implements OnInit {
       this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
       this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA + this.valorSeguroDesgravamen;
       this.saldoRemanenteIA = this.saldoRemanenteIA - this.capitalAmortizadoIA;
-      this.cuotaInicial=this.cuotaPagarIA;
       console.log("interes aleman primera cuota", this.interesDelPeriodoIA);
+      this.cuotaInicial=this.cuotaPagarIA;
       for (let i = 0; i < this.numeroCuotas; i++) {
         /**Calculo Aleman */
         // this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
@@ -547,6 +561,7 @@ export class SimulatorsComponent implements OnInit {
           cuotaPagar: this.cuotaPagarIA,
           saldoRemanente: this.saldoRemanenteIA
         });
+        this.sumaSeguroDesgravamenA=this.sumaSeguroDesgravamenA+this.valorSeguroDesgravamen;
         this.sumaIntereses = this.sumaIntereses + this.interesDelPeriodoIA;
         this.interesDelPeriodoIA = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
@@ -562,7 +577,7 @@ export class SimulatorsComponent implements OnInit {
     /**Variables globales para los dos sistemas */
     this.tasaInteresAnual = this.tasaCreditoEducativo;
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
-    this.porcentajeSeguroDesgravamen = 0.0684 / 100;
+    this.porcentajeSeguroDesgravamen = 0.684 / 100;
     /**Validacion montos y tiempo */
     if (this.valorPrestamo > this.montoMaxCreditoEducativo || this.valorPrestamo < this.montoMinCreditoEducativo) {
       this.valorPrestamo = this.montoMinCreditoEducativo;
@@ -585,8 +600,9 @@ export class SimulatorsComponent implements OnInit {
       this.saldoRemanenteF = this.valorPrestamo;
       this.valorSeguroDesgravamenF = this.saldoRemanenteF * this.porcentajeSeguroDesgravamen / 12;
       this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
+      this.cuotaFrancesa=((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
       this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
-      this.capitalAmortizadoF = this.cuotaPagarF - this.interesDelPeriodoF;
+      this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
       this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
       for (let i = 0; i < this.numeroCuotas; i++) {
 
@@ -603,7 +619,7 @@ export class SimulatorsComponent implements OnInit {
         this.valorSeguroDesgravamenF = this.saldoRemanenteF * this.porcentajeSeguroDesgravamen / 12;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
-        this.capitalAmortizadoF = this.cuotaPagarF - this.interesDelPeriodoF;
+        this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
       }
       console.log("suma seguro d", this.sumaSeguroDesgravamenF);

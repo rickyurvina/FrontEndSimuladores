@@ -22,7 +22,7 @@
     <div class="container-fluid  div-principal">
       <mat-tab-group #mattabgroup (selectedTabChange)="_selectedTabChange($event.index)"
         (selectedIndexChange)="_selectedIndexChange($event)" [selectedIndex]="selectedIndex" mat-align-tabs="center">
-        <mat-tab label="Cuenta de Ahorro FlexSave">
+        <!-- <mat-tab label="Cuenta de Ahorro FlexSave">
           <br><br>
           <div class="container-fluid">
             <div class="row">
@@ -35,10 +35,10 @@
                       Monto
                     </label>
                     <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMontoFlex($event)"
+                      <mat-slider class="mat-slider" thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMontoFlex($event)"
                         tickInterval="100" min="1" max="1000000" [(ngModel)]="amount" (ngModelChange)="flexSave()"
                         style="min-width: 280px;" step="100"></mat-slider>
-                      <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Monto"
+                      <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1" placeholder="Monto"
                         [(ngModel)]="amount" name="amount" (ngModelChange)="flexSave()" size=40
                         style="width:100px; flex:none;">
                     </div>
@@ -46,11 +46,11 @@
                       Plazo (Días)
                     </label>
                     <div class="input-group">
-                      <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempoFlex($event)"
+                      <mat-slider class="mat-slider" thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempoFlex($event)"
                         tickInterval="1" min="1" max="365" [(ngModel)]="term" (ngModelChange)="flexSave()"
                         style="min-width: 280px;">
                       </mat-slider>
-                      <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Pazo"
+                      <input type="number" class="form-control input-monto-tiempo" id="exampleInputPassword1" placeholder="Pazo"
                         [(ngModel)]="term" name="term" (ngModelChange)="flexSave()" size=40
                         style="width:100px; flex:none;">
                     </div>
@@ -70,10 +70,7 @@
                         <th>Monto:</th>
                         <td> {{amount | currency}}</td>
                       </tr>
-                      <!-- <tr>
-                        <th>Tasa Nominal Vigente:</th>
-                        <td>{{tasaAhorroFlexSave}}%</td>
-                      </tr> -->
+
                       <tr>
                         <th>Plazo Días:</th>
                         <td> {{term}}</td>
@@ -96,8 +93,134 @@
               </div>
             </div>
           </div>
+        </mat-tab> -->
+        <mat-tab label="Cuenta de Ahorro FlexSave">
+          <br><br>
+          <h2 class="titulo-simulador">Simulador Cuenta de Ahorro Flex Save</h2>
+          <div class="row div-principal-2">
+            <div class="col-md-6 div-lado-izq" style="height: auto;">
+              <label for="exampleInputEmail1" class="label-monto">
+                Monto
+              </label>
+              <div class="input-group margin-left-3">
+                <mat-slider class="mat-slider" thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMontoFlex($event)"
+                  tickInterval="100" min="1" max="1000000" [(ngModel)]="amount" (ngModelChange)="flexSave()"
+                  style="min-width: 280px;" step="100"></mat-slider>
+                <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1" placeholder="Monto"
+                  [(ngModel)]="amount" name="amount" (ngModelChange)="flexSave()" size=40 style="width:100px; flex:none;">
+              </div>
+              <br>
+              <label for="exampleInputPassword1" class="label-plazo">
+                Plazo (Días)
+              </label>
+              <div class="input-group margin-left-3">
+                <mat-slider class="mat-slider" thumbLabel [displayWith]="formatoTiempo"
+                  (input)="onInputChangeTiempoFlex($event)" tickInterval="1" min="1" max="365" [(ngModel)]="term"
+                  (ngModelChange)="flexSave()" style="min-width: 280px;">
+                </mat-slider>
+                <input type="number" class="form-control input-monto-tiempo" id="exampleInputPassword1" placeholder="Pazo"
+                  [(ngModel)]="term" name="term" (ngModelChange)="flexSave()" size=40 style="width:100px; flex:none;">
+              </div>
+              <br>
+              <div class="div-bg-gray">
+                <br><br>
+                <h2 class="h3-tasa-interes">
+                  Tasa de Interés</h2>
+                <div class="row">
+                  <div class="col-md-4 margin-left-3">
+                    <h1 class="h1-tasa-credito">
+                      {{tasaAhorroFlexSave | number: '1.2-2'}} </h1>
+                  </div>
+                  <div class="col-md-8 div-porcentaje-anual" style="margin-right: -10%; margin-left: 7%;">
+                    <div class="row">
+                      <div class="col-md-12" style="margin-left: -10%;">
+                        <h1 class="h1-porcentaje">%</h1>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <!-- <h1 class="h1-anual">anual</h1> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <br> -->
+                <div class="button-group div-tiempos-y-montos"
+                  style="background-color: #b40c15; color:white; font-weight: 500; margin-top: 12%; ">
+                  <label class="label-limites-tiempos" style="color:white; font-weight: 500">Tiempo mínimo
+                    {{tiempoMinAhorroFlexSave}} día, máximo {{tiempoMaxAhorroFlexSave}}
+                    días</label>
+                  <!-- <label class="label-limites-montos" style="color:white; font-weight: 500">Monto mínimo
+                    {{montoMinCreditoInversion | currency}}
+                    monto máximo {{montoMaxCreditoInversion | currency}}
+                  </label> -->
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6 div-lado-derecho">
+              <div class="row">
+                <div class="col-md-8 div-detalle-simulacion" style="background-color: #b40c15;">
+                  <div id="htmlData">
+                    <h3 class="h3-detalle-alemana" style="color:white; ">
+                      Detalle de la simulación Alemana:</h3>
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana"
+                      style="color:white; font-weight: 500">
+                      <tr>
+                        <th>Monto:</th>
+                        <td class="txt-align-r">
+                          <input class="input-td" value="{{amount | currency}}" readonly>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Plazo Días:</th>
+                        <td class="txt-align-r">
+                          <input value="{{term}}" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Interés Ganado Referencial:</th>
+                        <td class="txt-align-r">
+                          <input value="{{returnRate | currency}}" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Retención IR:</th>
+                        <td class="txt-align-r">
+                          <input value=" {{retention | currency}}" readonly class="input-td-2">
+                        </td>
+                      </tr>
+                      <div class="div-td" style="background-color: #cc242c;">
+                        <tr>
+                          <th>Total Recibir:</th>
+                          <td class="txt-align-r">
+                            <input class="input-td-2" value="{{total | currency}}" readonly style="margin-left: 110%;">
+                          </td>
+                        </tr>
+                      </div>
+                      <tr>
+                        <th class="th-total-interes">Tasa de interés</th>
+                        <td class="th-total-interes txt-align-r">
+                          <input readonly value="{{tasaAhorroFlexSave | number: '1.2-2'}}%" class="input-td-2">
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-4 div-img-detalle" style=" background-color: #b40c15;">
+                  <img alt="ImgImgImg" src="../../assets/images/img-flex.jpg" width="500" height="600" class="img-detalle" />
+                </div>
+              </div>
+              <img src="../../assets/images/flechas_rojas.PNG" width="10%" height="15" class="img-flechas">
+              <button class="btn btn-info boton-descargar" style="background-color: #b40c15;  color:white; font-weight: 500"
+                (click)="generatePDF()">Descargar</button>
+            </div>
+          </div>
         </mat-tab>
-        <mat-tab label="Depósito a Plazo Fijo">
+
+
+
+        <!-- <mat-tab label="Depósito a Plazo Fijo">
           <br><br>
           <div class="container-fluid">
             <div class="row">
@@ -112,7 +235,7 @@
                       <mat-slider class="mat-slider" (input)="onInputChangeMontoDpf($event)" thumbLabel
                         [displayWith]="formatoMonto" tickInterval="1" min="5000" max="1000000" [(ngModel)]="amountDpf"
                         (ngModelChange)="dpfSave()" step="100"></mat-slider>
-                      <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1"
+                      <input  class="form-control input-monto-tiempo" type="number" id="exampleInputEmail1"
                         placeholder="Monto" [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40
                         min="5000" max="1000000">
                     </div>
@@ -142,10 +265,10 @@
                         <th>Monto:</th>
                         <td>{{amountDpf | currency}}</td>
                       </tr>
-                      <!-- <tr>
+                      <tr>
                         <th>Tasa Nominal Vigente:</th>
                         <td>{{tasaAhorroDpf}}%</td>
-                      </tr> -->
+                      </tr>
                       <tr>
                         <th>Plazo Meses:</th>
                         <td>{{termDpf}}</td>
@@ -168,9 +291,132 @@
               </div>
             </div>
           </div>
-        </mat-tab>
-        <mat-tab label="Crédito Educativo">
+        </mat-tab> -->
+        <mat-tab label="Depósito a Plazo Fijo">
+          <br><br>
+          <h2 class="titulo-simulador">Simulador Depósito a Plazo Fijo</h2>
+          <div class="row div-principal-2">
+            <div class="col-md-6 div-lado-izq" style="height: auto;">
+              <label for="exampleInputEmail1" class="label-monto">
+                Monto
+              </label>
+              <div class="input-group margin-left-3">
+                <mat-slider class="mat-slider" (input)="onInputChangeMontoDpf($event)" thumbLabel
+                [displayWith]="formatoMonto" tickInterval="1" min="5000" max="1000000" [(ngModel)]="amountDpf"
+                (ngModelChange)="dpfSave()" step="100"></mat-slider>
+                <input class="form-control input-monto-tiempo" type="number" id="exampleInputEmail1"
+                placeholder="Monto" [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40
+                min="5000" max="1000000">
+              </div>
+              <br>
+              <label for="exampleInputPassword1" class="label-plazo">
+                Plazo (Meses)
+              </label>
+              <div class="input-group margin-left-3">
+                <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempoDpf($event)"
+                class="mat-slider" tickInterval="1" min="6" max="36" [(ngModel)]="termDpf"
+                (ngModelChange)="dpfSave()"> </mat-slider>
+              <input type="number" class="form-control input-monto-tiempo" id="exampleInputPassword1"
+                placeholder="Pazo" [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()" size=40
+                min="6" max="36">
+              </div>
+              <br>
+              <div class="div-bg-gray">
+                <br><br>
+                <h2 class="h3-tasa-interes">
+                  Tasa de Interés</h2>
+                <div class="row">
+                  <div class="col-md-4 margin-left-3">
+                    <h1 class="h1-tasa-credito">
+                      {{tasaAhorroDpf | number: '1.2-2'}} </h1>
+                  </div>
+                  <div class="col-md-8 div-porcentaje-anual" style="margin-right: -10%; margin-left: 7%;">
+                    <div class="row">
+                      <div class="col-md-12" style="margin-left: -10%;">
+                        <h1 class="h1-porcentaje">%</h1>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <!-- <h1 class="h1-anual">anual</h1> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <br> -->
+                <div class="button-group div-tiempos-y-montos"
+                  style="background-color: #005294; color:white; font-weight: 500; margin-top: 12%; ">
+                  <label class="label-limites-tiempos" style="color:white; font-weight: 500">Tiempo mínimo {{tiempoMinAhorroDpf}} meses, máximo {{tiempoMaxAhorroDpf}} meses
+                  </label>
+                  <!-- <label class="label-limites-montos" style="color:white; font-weight: 500">Monto mínimo
+                    {{montoMinCreditoInversion | currency}}
+                    monto máximo {{montoMaxCreditoInversion | currency}}
+                  </label> -->
+                </div>
+              </div>
 
+            </div>
+            <div class="col-md-6 div-lado-derecho">
+              <div class="row">
+                <div class="col-md-8 div-detalle-simulacion" style="background-color: #005294;">
+                  <div id="htmlData">
+                    <h3 class="h3-detalle-alemana" style="color:white; ">
+                      Detalle de la simulación Alemana:</h3>
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana"
+                      style="color:white; font-weight: 500">
+                      <tr>
+                        <th>Monto:</th>
+                        <td class="txt-align-r">
+                          <input class="input-td" value="{{amountDpf | currency}}" readonly>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Plazo Días:</th>
+                        <td class="txt-align-r">
+                          <input value="{{termDpf}}" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Interés Ganado Referencial:</th>
+                        <td class="txt-align-r">
+                          <input value="{{returnRateDpf | currency}}" readonly class="input-td">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Retención IR:</th>
+                        <td class="txt-align-r">
+                          <input value=" {{retentionDpf | currency}}" readonly class="input-td-2">
+                        </td>
+                      </tr>
+                      <div class="div-td" style="background-color: #244c8c;">
+                        <tr>
+                          <th>Total Recibir:</th>
+                          <td class="txt-align-r">
+                            <input class="input-td-2" value="{{totalDpf | currency}}" readonly style="margin-left: 110%;">
+                          </td>
+                        </tr>
+                      </div>
+                      <tr>
+                        <th class="th-total-interes">Tasa de interés</th>
+                        <td class="th-total-interes txt-align-r">
+                          <input readonly value="{{tasaAhorroDpf | number: '1.2-2'}}%" class="input-td-2">
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-md-4 div-img-detalle" style=" background-color: #005294;">
+                  <img alt="ImgImgImg" src="../../assets/images/img-dpf.jpg" width="500" height="600" class="img-detalle" />
+                </div>
+              </div>
+              <img src="../../assets/images/flechas_azules.PNG" width="10%" height="15" class="img-flechas">
+              <button class="btn btn-info boton-descargar" style="background-color: #005294;  color:white; font-weight: 500"
+                (click)="generatePDF()">Descargar</button>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Crédito Educativo">
           <br><br>
           <h2 class="titulo-simulador">Simulador Crédito Educativo</h2>
           <div class="row div-principal-2">
@@ -445,8 +691,8 @@
               </label>
               <div class="input-group margin-left-3">
                 <mat-slider thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMonto($event)" step="100"
-                  tickInterval="100" class="mat-slider" min="{{montoMinCreditoInversion}}" max="{{montoMaxCreditoInversion}}"
-                  [(ngModel)]="valorPrestamo" (ngModelChange)="simuladorInversion()">
+                  tickInterval="100" class="mat-slider" min="{{montoMinCreditoInversion}}"
+                  max="{{montoMaxCreditoInversion}}" [(ngModel)]="valorPrestamo" (ngModelChange)="simuladorInversion()">
                 </mat-slider>
                 <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1" placeholder="Monto"
                   min="{{montoMinCreditoInversion}}" max="{{montoMaxCreditoInversion}}" [(ngModel)]="valorPrestamo"
@@ -457,9 +703,9 @@
                 Plazo (Meses)
               </label>
               <div class="input-group margin-left-3">
-                <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempo($event)" tickInterval="1"
-                  class="mat-slider" min="{{tiempoMinCreditoInversion}}" max="{{tiempoMaxCreditoInversion}}"
-                  [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorInversion()">
+                <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempo($event)"
+                  tickInterval="1" class="mat-slider" min="{{tiempoMinCreditoInversion}}"
+                  max="{{tiempoMaxCreditoInversion}}" [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorInversion()">
                 </mat-slider>
                 <input type="number" class="input-monto-tiempo form-control " id="exampleInputPassword1"
                   value="{{numeroCuotas}}" placeholder="Plazo" min="{{tiempoMinCreditoInversion}}"
@@ -498,11 +744,12 @@
                   </div>
                 </div>
                 <!-- <br> -->
-                <div class="button-group div-tiempos-y-montos" style="background-color: #f46c24; color:white ">
-                  <label class="label-limites-tiempos" style="color:white">Tiempo mínimo
+                <div class="button-group div-tiempos-y-montos"
+                  style="background-color: #f46c24; color:white; font-weight: 500; ">
+                  <label class="label-limites-tiempos" style="color:white; font-weight: 500">Tiempo mínimo
                     {{tiempoMinCreditoInversion}} meses,
                     máximo {{tiempoMaxCreditoInversion}} meses</label>
-                  <label class="label-limites-montos" style="color:white">Monto mínimo
+                  <label class="label-limites-montos" style="color:white; font-weight: 500">Monto mínimo
                     {{montoMinCreditoInversion | currency}}
                     monto máximo {{montoMaxCreditoInversion | currency}}
                   </label>
@@ -510,7 +757,8 @@
               </div>
               <div class="button-group margin-left-3" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible">
                 <br>
-                <button class="btn btn-light boton-cerrar-tabla" style="background-color: #f46c24; color:white" (click)="cerrarTablas()">
+                <button class="btn btn-light boton-cerrar-tabla"
+                  style="background-color: #f46c24; color:white; font-weight: 500" (click)="cerrarTablas()">
                   Cerrar Tabla</button>
               </div>
             </div>
@@ -518,9 +766,10 @@
               <div class="row">
                 <div class="col-md-8 div-detalle-simulacion" style="background-color: #f46c24;">
                   <div *ngIf="alemana.is_visible" id="htmlData">
-                    <h3 class="h3-detalle-alemana" style="color:white">
+                    <h3 class="h3-detalle-alemana" style="color:white; ">
                       Detalle de la simulación Alemana:</h3>
-                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana" style="color:white">
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana"
+                      style="color:white; font-weight: 500">
                       <tr>
                         <th>Tasa periódica:</th>
                         <td class="txt-align-r">
@@ -549,7 +798,8 @@
                         <tr>
                           <th>Cuota inicial:</th>
                           <td class="txt-align-r">
-                            <input class="input-td-2" value="{{cuotaInicial | currency}}" readonly style="margin-left: 110%;">
+                            <input class="input-td-2" value="{{cuotaInicial | currency}}" readonly
+                              style="margin-left: 110%;">
                           </td>
                         </tr>
                       </div>
@@ -562,9 +812,11 @@
                     </table>
                   </div>
                   <div *ngIf="francesa.is_visible">
-                    <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px; color:white">Detalle de la simulación
+                    <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px; color:white">Detalle de la
+                      simulación
                       Francesa:</h3>
-                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana" style="color:white">
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana"
+                      style="color:white; font-weight: 500">
                       <tr>
                         <th>Tasa periódica:</th>
                         <td class="txt-align-r">
@@ -593,7 +845,8 @@
                         <tr>
                           <th> Cuota a pagar:</th>
                           <td class="txt-align-r">
-                            <input class="input-td-2" value="{{cuotaPagarF | currency}}" readonly style="margin-left: 95%;">
+                            <input class="input-td-2" value="{{cuotaPagarF | currency}}" readonly
+                              style="margin-left: 95%;">
                           </td>
                         </tr>
                       </div>
@@ -612,7 +865,8 @@
                 </div>
               </div>
               <img src="../../assets/images/flechas_naranjas.PNG" width="10%" height="15" class="img-flechas">
-              <button class="btn btn-info boton-descargar" style="background-color: #f46c24;  color:white"
+              <button class="btn btn-info boton-descargar"
+                style="background-color: #f46c24;  color:white; font-weight: 500"
                 (click)="generatePDF()">Descargar</button>
             </div>
             <div style="margin-left: 15%;">
@@ -903,21 +1157,23 @@
               </label>
               <div class="input-group margin-left-3">
                 <mat-slider thumbLabel [displayWith]="formatoMonto" (input)="onInputChangeMonto($event)" step="100"
-                  tickInterval="100" class="mat-slider" min="{{montoMinCreditoInmobiliario}}" max="{{montoMaxCreditoInmobiliario}}"
-                  [(ngModel)]="valorPrestamo" (ngModelChange)="simuladorInmobiliario()">
+                  tickInterval="100" class="mat-slider" min="{{montoMinCreditoInmobiliario}}"
+                  max="{{montoMaxCreditoInmobiliario}}" [(ngModel)]="valorPrestamo"
+                  (ngModelChange)="simuladorInmobiliario()">
                 </mat-slider>
                 <input type="number" class="form-control input-monto-tiempo" id="exampleInputEmail1" placeholder="Monto"
-                  min="{{montoMinCreditoInmobiliario}}" max="{{montoMaxCreditoInmobiliario}}" [(ngModel)]="valorPrestamo"
-                  name="valorPrestamo" (ngModelChange)="simuladorInmobiliario()" size=40>
+                  min="{{montoMinCreditoInmobiliario}}" max="{{montoMaxCreditoInmobiliario}}"
+                  [(ngModel)]="valorPrestamo" name="valorPrestamo" (ngModelChange)="simuladorInmobiliario()" size=40>
               </div>
               <br>
               <label for="exampleInputPassword1" class="label-plazo">
                 Plazo (Meses)
               </label>
               <div class="input-group margin-left-3">
-                <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempo($event)" tickInterval="1"
-                  class="mat-slider" min="{{tiempoMinCreditoInmobiliario}}" max="{{tiempoMaxCreditoInmobiliario}}"
-                  [(ngModel)]="numeroCuotas" (ngModelChange)="simuladorInmobiliario()">
+                <mat-slider thumbLabel [displayWith]="formatoTiempo" (input)="onInputChangeTiempo($event)"
+                  tickInterval="1" class="mat-slider" min="{{tiempoMinCreditoInmobiliario}}"
+                  max="{{tiempoMaxCreditoInmobiliario}}" [(ngModel)]="numeroCuotas"
+                  (ngModelChange)="simuladorInmobiliario()">
                 </mat-slider>
                 <input type="number" class="input-monto-tiempo form-control " id="exampleInputPassword1"
                   value="{{numeroCuotas}}" placeholder="Plazo" min="{{tiempoMinCreditoInmobiliario}}"
@@ -925,8 +1181,8 @@
                   (ngModelChange)="simuladorInmobiliario()" size=40>
               </div>
               <section class="example-section">
-                <mat-checkbox class="example-margin" [(ngModel)]="checked"
-                  (ngModelChange)="simuladorInmobiliario()">Vivienda Ecológica</mat-checkbox>
+                <mat-checkbox class="example-margin" [(ngModel)]="checked" (ngModelChange)="simuladorInmobiliario()">
+                  Vivienda Ecológica</mat-checkbox>
               </section>
               <br>
               <label class="label-tabla-de">Tabla de </label> <br>
@@ -943,12 +1199,13 @@
                   Tasa de Interés</h2>
                 <div class="row">
                   <div class="col-md-4 margin-left-3">
-                    <h1 class="h1-tasa-credito" *ngIf="checked==false">{{tasaCreditoInmobiliario | number: '1.2-2'}} </h1>
+                    <h1 class="h1-tasa-credito" *ngIf="checked==false">{{tasaCreditoInmobiliario | number: '1.2-2'}}
+                    </h1>
                     <h1 class="h1-tasa-credito" *ngIf="checked">{{tasaEcoCreditoInmobiliario | number: '1.2-2'}} </h1>
 
-                      <!-- <label *ngIf="checked==false"> {{tasaCreditoInmobiliario}}% Anual</label>
+                    <!-- <label *ngIf="checked==false"> {{tasaCreditoInmobiliario}}% Anual</label>
                       <label *ngIf="checked"> {{tasaEcoCreditoInmobiliario}}% Anual</label> -->
-                    </div>
+                  </div>
                   <div class="col-md-8 div-porcentaje-anual">
                     <div class="row">
                       <div class="col-md-12">
@@ -975,7 +1232,8 @@
               </div>
               <div class="button-group margin-left-3" *ngIf="amortizacionIA.is_visible || amortizacionF.is_visible">
                 <br>
-                <button class="btn btn-light boton-cerrar-tabla" style="background-color: #970077; color:white" (click)="cerrarTablas()">
+                <button class="btn btn-light boton-cerrar-tabla" style="background-color: #970077; color:white"
+                  (click)="cerrarTablas()">
                   Cerrar Tabla</button>
               </div>
             </div>
@@ -985,7 +1243,8 @@
                   <div *ngIf="alemana.is_visible" id="htmlData">
                     <h3 class="h3-detalle-alemana" style="color:white">
                       Detalle de la simulación Alemana:</h3>
-                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana" style="color:white">
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana"
+                      style="color:white">
                       <tr>
                         <th>Tasa periódica:</th>
                         <td class="txt-align-r">
@@ -1014,7 +1273,8 @@
                         <tr>
                           <th>Cuota inicial:</th>
                           <td class="txt-align-r">
-                            <input class="input-td-2" value="{{cuotaInicial | currency}}" readonly style="margin-left: 110%;">
+                            <input class="input-td-2" value="{{cuotaInicial | currency}}" readonly
+                              style="margin-left: 110%;">
                           </td>
                         </tr>
                       </div>
@@ -1027,9 +1287,11 @@
                     </table>
                   </div>
                   <div *ngIf="francesa.is_visible">
-                    <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px; color:white">Detalle de la simulación
+                    <h3 style="font-weight: 600; margin-top: 5%; margin-bottom: -1px; color:white">Detalle de la
+                      simulación
                       Francesa:</h3>
-                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana" style="color:white">
+                    <table width="100%" cellspacing="5px" cellpadding="5px" class="tabla-detalle-alemana"
+                      style="color:white">
                       <tr>
                         <th>Tasa periódica:</th>
                         <td class="txt-align-r">
@@ -1058,7 +1320,8 @@
                         <tr>
                           <th> Cuota a pagar:</th>
                           <td class="txt-align-r">
-                            <input class="input-td-2" value="{{cuotaPagarF | currency}}" readonly style="margin-left: 95%;">
+                            <input class="input-td-2" value="{{cuotaPagarF | currency}}" readonly
+                              style="margin-left: 95%;">
                           </td>
                         </tr>
                       </div>
