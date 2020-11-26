@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule} from '@angular/forms';
 import { SimulatorsComponent } from './simulators/simulators.component';
 
+
 import { HttpClientModule } from '@angular/common/http';
 import { ClientService } from './client.service';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -56,9 +57,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { DialogExampleComponent } from './dialog-example/dialog-example.component';
+import { SimulatorsEComponent } from './simulators-e/simulators-e.component';
 
 
-
+// import { routing } from './app.routing';
 
 
 
@@ -67,6 +69,8 @@ import { DialogExampleComponent } from './dialog-example/dialog-example.componen
     AppComponent,
     SimulatorsComponent,
     DialogExampleComponent,
+    SimulatorsEComponent,
+
   ],
   imports: [
     BrowserModule,
