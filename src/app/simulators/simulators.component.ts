@@ -20,9 +20,7 @@ class Product {
   numeroCuotas: number;
   cuotaPeriodica: number;
   totalInteres: number;
-
 }
-
 
 @Component({
   selector: 'app-simulators',
@@ -152,10 +150,7 @@ export class SimulatorsComponent implements OnInit {
     this.nombreProducto = "Ahorro DPF";
     this.francesa.is_visible = false;
     this.termDpf = 6;
-
     this.term = this.tiempoMinAhorroFlexSave;
-
-
     this.amountDpf = 5000;
     this.amount = 1;
 
@@ -243,7 +238,6 @@ export class SimulatorsComponent implements OnInit {
           this.tasaEcoCreditoInmobiliario = x.tasa_ecologica;
         }
         console.log("Tasa ecologica", this.tasaEcoCreditoInmobiliario);
-
       },
       (error) => {
         console.log("ERROR DE CONEXION", error);
@@ -251,17 +245,11 @@ export class SimulatorsComponent implements OnInit {
       }
     )
     this.porcentajeSD = 0.684;
-    // this.porcentajeSeguroDesgravamen = 0.684 / 100;
-
-
 
   }
 
   refresh(): void {
-    //  if(this.tasaAhorroDpf==null || this.tasaEcoCreditoInmobiliario==null || this.tasaEcoCreditoInmobiliario==null || this.tasaCreditoInversion==null || this.tasaAhorroFlexSave==null || this.tasaCreditoEducativo==null){
-    //   // this.ngOnInit();
-    //   window.location.reload();
-    // }
+
     window.location.reload();
   }
 
