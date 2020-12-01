@@ -76,6 +76,14 @@ example-button-toggle-label {
   transform: none;
   overflow: initial;
 }
+
+::ng-deep  .mat-tab-body-wrapper {
+  position: relative;
+  overflow: initial;
+  display: flex;
+  transition: height 500ms cubic-bezier(0.35, 0, 0.25, 1);
+  height: 40em;
+}
  ng-trigger-translateTab
 ::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
   /* top: 18px; */
@@ -335,7 +343,7 @@ example-button-toggle-label {
 
 
 .div-lado-derecho {
-  margin-left: -10%;
+  margin-left: -8%;
   margin-top: 4%;
 
 }
@@ -345,7 +353,7 @@ example-button-toggle-label {
   margin:0;
   margin-top: 4%;
   border-radius: 15px;
-  margin-left: -10%;
+  margin-left: -7%;
 }
 
 .div-interes-tasa{
@@ -400,23 +408,25 @@ padding-bottom: 2%;
   width: 120px;
   border-radius: 10px;
   border: 1px solid white;
+  text-align: right;
 }
 
 .input-td-2 {
   width: 90px;
   border-radius: 10px;
   border: 1px solid white;
+  text-align: right;
 }
 .input-td-2-creditof{
-  margin-left: 95%;
+  /* margin-left: 95%; */
 }
 
 .input-td-2-creditoA{
-  margin-left: 110%;
+  /* margin-left: 110%; */
 }
 
 .td-div-input{
-  margin-left: 110%;
+  /* margin-left: 110%; */
 }
 
 .div-td {
@@ -485,6 +495,11 @@ padding-bottom: 2%;
   margin-top: 10%;
   margin-left: 80%;
   font-weight: 500;
+}
+
+.grupo-botones{
+  text-align: center;
+  /* margin-top: -2%; */
 }
 
 
@@ -564,6 +579,10 @@ padding-bottom: 2%;
   .div-principal {
     padding-bottom: 1px;
     /* margin-top: 5%; */
+  }
+  .-grupo-botones{
+    text-align: center;
+    margin-top: 0%;
   }
 
   .mat-slider {
@@ -896,17 +915,17 @@ padding-bottom: 2%;
     border: 1px solid white;
   }
   .input-td-2-creditoA{
-    margin-left: 42%;
+    /* margin-left: 42%; */
   }
 
   .td-div-input{
 
 
-    margin-left: 45%;
+    /* margin-left: 45%; */
   }
 
   .input-td-2-creditof{
-    margin-left: 35%;
+    /* margin-left: 35%; */
   }
 
   .div-td {

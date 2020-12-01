@@ -109,17 +109,17 @@
                           <input value=" {{retention | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
-                      <div class="div-td" style="background-color: #cc242c;">
-                        <tr>
+                      <!-- <div class="div-td" style="background-color: #cc242c;"> -->
+                        <tr style="background-color: #cc242c;">
                           <th>Total Recibir:</th>
                           <td class="txt-align-r ">
                             <input class="input-td-2 td-div-input" value="{{total | currency}}" readonly>
                           </td>
                         </tr>
-                      </div>
+                      <!-- </div> -->
                       <tr>
-                        <th class="th-total-interes">Tasa de interés</th>
-                        <td class="th-total-interes txt-align-r">
+                        <th class="">Tasa de interés</th>
+                        <td class="txt-align-r">
                           <input readonly value="{{tasaAhorroFlexSave | number: '1.2-2'}}%" class="input-td-2">
                         </td>
                       </tr>
@@ -224,17 +224,17 @@
                           <input value=" {{retentionDpf | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
-                      <div class="div-td" style="background-color: #244c8c;">
-                        <tr>
+                      <!-- <div class="div-td" style="background-color: #244c8c;"> -->
+                        <tr style="background-color: #244c8c;">
                           <th>Total Recibir:</th>
                           <td class="txt-align-r">
                             <input class="input-td-2 td-div-input" value="{{totalDpf | currency}}" readonly >
                           </td>
                         </tr>
-                      </div>
+                      <!-- </div> -->
                       <tr>
-                        <th class="th-total-interes">Tasa de interés</th>
-                        <td class="th-total-interes txt-align-r">
+                        <th class="">Tasa de interés</th>
+                        <td class="txt-align-r">
                           <input readonly value="{{tasaAhorroDpf | number: '1.2-2'}}%" class="input-td-2">
                         </td>
                       </tr>
@@ -602,7 +602,7 @@
                   Cerrar Tabla</button>
               </div>
             </div>
-            <div class="col-md-6 div-lado-derecho">
+            <div class="col-md-6 div-lado-derecho-credito">
               <div class="row">
                 <div class="col-md-8 div-detalle-simulacion-credito" style="background-color: #f46c24;">
                   <div *ngIf="alemana.is_visible" id="htmlData">
@@ -634,18 +634,18 @@
                           <input value="{{numeroCuotas}}" readonly class="input-td-2">
                         </td>
                       </tr>
-                      <div class="div-td" style="background-color: #f45424;">
-                        <tr>
+                      <!-- <div class="div-td" style="background-color: #f45424;"> -->
+                        <tr style="background-color: #f45424;">
                           <th>Cuota inicial:</th>
                           <td class="txt-align-r">
                             <input class="input-td-2 input-td-2-creditoA" value="{{cuotaInicial | currency}}" readonly
                               >
                           </td>
                         </tr>
-                      </div>
+                      <!-- </div> -->
                       <tr>
-                        <th class="th-total-interes">Total interés a pagar:</th>
-                        <td class="th-total-interes txt-align-r">
+                        <th class="">Total interés a pagar:</th>
+                        <td class=" txt-align-r">
                           <input value="{{sumaIntereses | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
@@ -679,18 +679,18 @@
                           <input class="input-td-2" value="{{numeroCuotas}}" readonly class="input-td-2">
                         </td>
                       </tr>
-                      <div class="div-td-2" style="background-color: #f45424 ; ">
-                        <tr>
+                      <!-- <div class="div-td-2" style="background-color: #f45424 ; "> -->
+                        <tr style="background-color: #f45424 ; ">
                           <th> Cuota a pagar:</th>
                           <td class="txt-align-r">
                             <input class="input-td-2 input-td-2-creditof" value="{{cuotaPagarF | currency}}" readonly
                              >
                           </td>
                         </tr>
-                      </div>
+                      <!-- </div> -->
                       <tr>
-                        <th class="th-total-interes"> Total interés a pagar:</th>
-                        <td class="th-total-interes txt-align-r ">
+                        <th class=""> Total interés a pagar:</th>
+                        <td class="txt-align-r ">
                           <input class="input-td-2" value="{{sumaInteresesF | currency}}" readonly>
                         </td>
                       </tr>
@@ -827,7 +827,7 @@
                 <mat-checkbox class="example-margin" [(ngModel)]="checked" (ngModelChange)="simuladorInmobiliario()">
                   Vivienda Ecológica</mat-checkbox>
               </section>
-              <br class="salto-linea">
+              <!-- <br class="salto-linea"> -->
               <label class="label-tabla-de">Tabla de </label> <br>
               <label class="label-amortizacion">amortización</label>
               <div class="button-group div-botones-francesa-alemana">
@@ -837,7 +837,8 @@
                   style="background-color: #959398;  margin-left: 2%;">Alemana</button>
               </div>
               <div class="div-bg-gray">
-                <br class="salto-linea"><br class="salto-linea">
+                <!-- <br class="salto-linea"> -->
+                <br class="salto-linea">
                 <h2 class="h3-tasa-interes">
                   Tasa de Interés</h2>
                 <div class="row div-interes-tasa">
@@ -912,18 +913,18 @@
                           <input value="{{numeroCuotas}}" readonly class="input-td-2">
                         </td>
                       </tr>
-                      <div class="div-td" style="background-color: #ec047c;">
-                        <tr>
+                      <!-- <div class="div-td" style="background-color: #ec047c;"> -->
+                        <tr style="background-color: #ec047c;">
                           <th>Cuota inicial:</th>
                           <td class="txt-align-r">
                             <input class="input-td-2 input-td-2-creditoA" value="{{cuotaInicial | currency}}" readonly
                           >
                           </td>
                         </tr>
-                      </div>
+                      <!-- </div> -->
                       <tr>
-                        <th class="th-total-interes">Total interés a pagar:</th>
-                        <td class="th-total-interes txt-align-r">
+                        <th class="">Total interés a pagar:</th>
+                        <td class="txt-align-r">
                           <input value="{{sumaIntereses | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
@@ -958,18 +959,18 @@
                           <input class="input-td-2 " value="{{numeroCuotas}}" readonly >
                         </td>
                       </tr>
-                      <div class="div-td-2" style="background-color: #ec047c ; ">
-                        <tr>
+                      <!-- <div class="div-td-2" style="background-color: #ec047c ; "> -->
+                        <tr style="background-color: #ec047c ; ">
                           <th> Cuota a pagar:</th>
                           <td class="txt-align-r">
                             <input class="input-td-2 input-td-2-creditof" value="{{cuotaPagarF | currency}}" readonly
                            >
                           </td>
                         </tr>
-                      </div>
+                      <!-- </div> -->
                       <tr>
-                        <th class="th-total-interes"> Total interés a pagar:</th>
-                        <td class="th-total-interes txt-align-r ">
+                        <th class=""> Total interés a pagar:</th>
+                        <td class="txt-align-r ">
                           <input class="input-td-2" value="{{sumaInteresesF | currency}}" readonly>
                         </td>
                       </tr>
@@ -1066,37 +1067,37 @@
               </div>
             </div>
           </div>
+
         </mat-tab>
 
       </mat-tab-group>
-    </div>
-  </div>
+      <div class="container">
+        <div>
+          <!-- <br class="salto-linea"> -->
+          <div class="form-group grupo-botones" >
+            <button class="btn btn-light boton-lq-dialog" *ngIf="itemS==0" (click)="openDialog()">Lo Quiero!</button>
 
-  <div class="container">
-    <div>
-      <br class="salto-linea">
-      <div class="form-group" style="text-align: center;">
-        <button class="btn btn-light boton-lq-dialog" *ngIf="itemS==0" (click)="openDialog()">Lo Quiero!</button>
-
-        <button class="btn btn-light boton-lq-cliente" *ngIf="itemS!=0 && crud_operation.is_visible==false"
-          (click)="new()">Lo Quiero!</button>
-        <button *ngIf="alemana.is_visible" class="btn btn-light boton-sd" (click)="vetTablaIA()" style="">Simulación
-          detallada
-        </button>
-        <button *ngIf="francesa.is_visible" class="btn btn-light boton-sd" (click)="vetTablaFrancesa()">Simulación
-          detallada
-        </button>
+            <button class="btn btn-light boton-lq-cliente" *ngIf="itemS!=0 && crud_operation.is_visible==false"
+              (click)="new()">Lo Quiero!</button>
+            <button *ngIf="alemana.is_visible" class="btn btn-light boton-sd" (click)="vetTablaIA()">Simulación
+              detallada
+            </button>
+            <button *ngIf="francesa.is_visible" class="btn btn-light boton-sd" (click)="vetTablaFrancesa()">Simulación
+              detallada
+            </button>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="crud_operation.is_visible" style="text-align: center;">
+          <div id="hubspotForm"></div>
+          <button class="btn btn-light boton-cancelar" (click)="crud_operation.is_visible=false">Cancelar</button>
+        </div>
       </div>
     </div>
-    <div class="form-group" *ngIf="crud_operation.is_visible" style="text-align: center;">
-      <div id="hubspotForm"></div>
-      <button class="btn btn-light boton-cancelar" (click)="crud_operation.is_visible=false">Cancelar</button>
-    </div>
-  </div>
-  <div>
-
 
   </div>
+
+
+
 </body>
 <footer>
   <div class="container">

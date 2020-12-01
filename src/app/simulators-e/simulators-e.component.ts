@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Client } from '../client';
 import { ClientService } from '../client.service';
@@ -10,7 +10,8 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 import { MatDialog } from '@angular/material/dialog';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import { DialogExampleComponent } from '../dialog-example/dialog-example.component';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { async } from '@angular/core/testing';
+
 declare var hbspt: any // put this at the top
 
 class Product {
@@ -26,7 +27,8 @@ class Product {
 @Component({
   selector: 'app-simulators-e',
   templateUrl: './simulators-e.component.html',
-  styleUrls: ['./simulators-e.component.css']
+  styleUrls: ['./simulators-e.component.css'],
+  // encapsulation: ViewEncapsulation.None
 })
 export class SimulatorsEComponent implements OnInit {
 
@@ -118,7 +120,7 @@ export class SimulatorsEComponent implements OnInit {
   constructor(private service: ClientService, private toastr: ToastrService, public dialog: MatDialog) {
     this.data = [];
     this.itemS = 0;
-    this.nombreProducto = "Ahorro DPF";
+    this.nombreProducto = "Crédito Educativo";
     this.francesa.is_visible = false;
 
   }
@@ -405,59 +407,128 @@ export class SimulatorsEComponent implements OnInit {
     console.log(event.value);
     this.numeroCuotas = event.value;
   }
+  getBase64ImageFromURL(url) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");
+        resolve(dataURL);
+      };
+      img.onerror = error => {
+        reject(error);
+      };
+      img.src = url;
+    });
+  }
+
+  // img_footer:string
+
+  img_footer=this.getBase64ImageFromURL( '../../assets/images/franja.png');
+  async generatePDF(action = 'download') {
 
 
-  generatePDF(action = 'download') {
 
     if (this.francesa.is_visible) {
       //credito educativo
       let docDefinition = {
-        content: [
-          {
-            text: 'BANCO PROCREDIT',
-            fontSize: 16,
-            alignment: 'center',
-            color: '#da1d2c'
-          },
 
-          {
+
+        // header: {
+        //   columns: [
+        //     {
+        //       image: await this.getBase64ImageFromURL(
+        //         '../../assets/images/logo.png'
+        //         // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+        //       ),
+        //       width:150
+        //     },
+
+        //     {
+        //       text: `Fecha: ${new Date().toLocaleString()}\n Producto : ${this.nombreProducto}`,
+        //       alignment: 'right'
+        //     }
+        //   ]
+        // },
+
+          footer:
+           {
+
             columns: [
+              {
+                // width:'*',
+                image: await this.getBase64ImageFromURL(
+                  '../../assets/images/franja.png'
+                  // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+                ),
+                width:600,
+                heigth: 1
+              },
+            ]
+          },
+        content: [
 
-              [
-                {
-                  text: `Fecha: ${new Date().toLocaleString()}`,
-                  alignment: 'right'
-                },
-                {
-                  text: `Producto : ${this.nombreProducto}`,
-                  alignment: 'right'
-                }
-              ]
+          {
+            // alignment: 'justify',
+            columns: [
+              {
+                image: await this.getBase64ImageFromURL(
+                  '../../assets/images/logo.png'
+                  // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+                ),
+                width:150
+              },
+
+              {
+                text: `Fecha: ${new Date().toLocaleString()}\n Producto : ${this.nombreProducto}\n Amortización Francesa`,
+                alignment: 'right'
+              }
             ]
           },
           {
-            text: 'Detalles Simulación',
-            style: 'sectionHeader'
+            aligment: 'center',
+            text: '  ',
+            // style: 'sectionHeader'
           },
+          {
+            aligment: 'center',
+            text: '  ',
+            // style: 'sectionHeader'
+          },
+
 
           {
             table: {
               layout: 'lightHorizontalLines', // optional
               headerRows: 1,
+
               widths: ['auto', 'auto'],
               body: [
-                [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
+                [{text:'Detalles Simulación',alignment: 'center', fillColor: '#b40c15',color:'white', colSpan :2},{}],
+                [{ text: 'Monto del Préstamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
-                [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
-                [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
+                [{ text: 'Tasa Interés Periódica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Cuota a Pagar Periódicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
                 [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
               ]
             }
           },
           {
-            text: 'Tabla de Amortización Francesa',
-            style: 'sectionHeader'
+            aligment: 'center',
+            text: '  ',
+            // style: 'sectionHeader'
           },
+          {
+            aligment: 'center',
+            text: '  ',
+            // style: 'sectionHeader'
+          },
+
 
           {
             style: 'tableExample',
@@ -466,7 +537,12 @@ export class SimulatorsEComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interés del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                [{ text: '#Cuotas', alignment: 'center', fillColor: '#b40c15',color:'white'},
+                {text: 'Interés del Periodo',alignment: 'center', fillColor: '#b40c15',color:'white'},
+                 {text:'Capital Amortizado',alignment: 'center', fillColor: '#b40c15',color:'white'},
+                  {text:'Seguro',alignment: 'center', fillColor: '#b40c15',color:'white'},
+                  {text:'Cuota a Pagar',alignment: 'center', fillColor: '#b40c15',color:'white'},
+                   {text:'Saldo Remanente',alignment: 'center', fillColor: '#b40c15',color:'white'}],
                 ...this.dataFrances.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
 
               ],
@@ -475,14 +551,36 @@ export class SimulatorsEComponent implements OnInit {
           },
 
           {
-            text: 'Visita Nuestra Página',
-            style: 'sectionHeader'
+            aligment: 'center',
+            text: 'Visita Nuestra Página Web',
+            // style: 'sectionHeader'
           },
+
           {
             columns: [
               [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
             ]
           },
+
+          // {
+          //   aligment: 'center',
+          //   text: 'Contactanos al :1800 100 400',
+          //   // style: 'sectionHeader'
+          // },
+
+          // {
+          //   image: await this.getBase64ImageFromURL(
+          //     '../../assets/images/franja.png'
+          //     // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+          //   ),
+          //   width:510,
+          //   heigth: 1
+          // },
+          // {
+          //   columns: [
+          //     [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
+          //   ]
+          // },
 
         ],
         styles: {
