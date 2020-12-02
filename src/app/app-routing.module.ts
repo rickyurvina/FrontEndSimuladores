@@ -6,6 +6,7 @@ import { SimulatorsComponent } from './simulators/simulators.component';
 
 const routes:Routes =
 [{ path: 'educativo', component:SimulatorsEComponent},
+
 // {path:'simuladores',component:SimulatorsComponent}
 ];
 
