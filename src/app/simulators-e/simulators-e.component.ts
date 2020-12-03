@@ -115,6 +115,10 @@ export class SimulatorsEComponent implements OnInit {
   nombreProducto: string;
   itemS: number;
 
+  liquidoRecibir:number;
+  tasaEfectiva:number;
+  solca:number;
+
 
 
   constructor(private service: ClientService, private toastr: ToastrService, public dialog: MatDialog) {
@@ -122,6 +126,8 @@ export class SimulatorsEComponent implements OnInit {
     this.itemS = 0;
     this.nombreProducto = "Crédito Educativo";
     this.francesa.is_visible = false;
+    // this.tasaEfectiva=Math.pow((1+this.tasaCreditoEducativo/12/100),12)-1;
+
 
   }
 
@@ -131,7 +137,6 @@ export class SimulatorsEComponent implements OnInit {
 
   ngOnInit(): void {
     this.francesa.is_visible=true;
-
 
     this.service.getCreditoEducativo().subscribe(
       (datos) => {
@@ -143,13 +148,20 @@ export class SimulatorsEComponent implements OnInit {
           this.tiempoMinCreditoEducativo = x.tiempomin;
           this.tiempoMaxCreditoEducativo = x.tiempomax;
         }
+    this.tasaEfectiva=Math.pow((1+this.tasaCreditoEducativo/12/100),12)-1;
+
         console.log("tasaeducativo", this.tasaCreditoEducativo)
       },
       (error) => {
         console.log("ERROR DE CONEXION", error);
         this.refresh();
       }
-    )
+    );
+    // this.tasaInteresAnual=this.tasaCreditoEducativo;
+    // this.tasaEfectiva=Math.pow((1+this.tasaInteresAnual/12/100),12)-1;
+
+
+
 
     this.porcentajeSD = 0.684;
 
@@ -261,8 +273,18 @@ export class SimulatorsEComponent implements OnInit {
     this.limpiarTabla();
     /**Variables globales para los dos sistemas */
     this.tasaInteresAnual = this.tasaCreditoEducativo;
+    // this.tasaEfectiva=Math.pow((1+this.tasaCreditoEducativo/12/100),12)-1;
+
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
     this.porcentajeSeguroDesgravamen = 0.684 / 100;
+    this.solca=this.valorPrestamo*0.5/100;
+    console.log("valor solca", this.solca);
+    this.liquidoRecibir=this.valorPrestamo-this.solca;
+
+    // this.tasaEfectiva=(1+(8.5/12));
+    // this.tasaEfectiva=Math.pow((this.tasaEfectiva),12)
+
+    console.log("tasa efectiva",this.tasaEfectiva);
     /**Validacion montos y tiempo */
     if (this.valorPrestamo > this.montoMaxCreditoEducativo || this.valorPrestamo < this.montoMinCreditoEducativo) {
       this.valorPrestamo = this.montoMinCreditoEducativo;
@@ -289,6 +311,7 @@ export class SimulatorsEComponent implements OnInit {
       this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
       this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
       this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
+
       for (let i = 0; i < this.numeroCuotas; i++) {
 
         this.dataFrances.push({
@@ -299,15 +322,17 @@ export class SimulatorsEComponent implements OnInit {
           cuotaPagar: this.cuotaPagarF,
           saldoRemanente: this.saldoRemanenteF
         });
-        this.sumaSeguroDesgravamenF=this.sumaSeguroDesgravamenF+this.valorSeguroDesgravamenF
+      this.sumaSeguroDesgravamenF=this.sumaSeguroDesgravamenF+this.valorSeguroDesgravamenF
+
         this.sumaInteresesF = this.sumaInteresesF + this.interesDelPeriodoF;
         this.valorSeguroDesgravamenF = this.saldoRemanenteF * this.porcentajeSeguroDesgravamen / 12;
         this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
         this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
         this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
-      }
       console.log("suma seguro d", this.sumaSeguroDesgravamenF);
+
+      }
 
        /**Calculo Aleman */
       //valor fijo capital amortizado calculo aleman
@@ -400,8 +425,6 @@ export class SimulatorsEComponent implements OnInit {
     console.log(event.value);
     this.valorPrestamo = event.value;
   }
-
-
 
   onInputChangeTiempo(event: any) {
     console.log(event.value);

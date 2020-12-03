@@ -44,7 +44,7 @@
               </label>
               <div class="input-group margin-left-3">
                 <mat-slider class="mat-slider" thumbLabel [displayWith]="formatoTiempo"
-                  (input)="onInputChangeTiempoFlex($event)" tickInterval="1" min="1" max="365" [(ngModel)]="term"
+                  (input)="onInputChangeTiempoFlex($event)" tickInterval="1" min="{{tiempoMinAhorroFlexSave}}" max="{{tiempoMaxAhorroFlexSave}}" [(ngModel)]="term"
                   (ngModelChange)="flexSave()" style="min-width: 280px;">
                 </mat-slider>
                 <input type="number" class="form-control input-monto-tiempo" id="exampleInputPassword1" placeholder="Pazo"
@@ -153,7 +153,7 @@
               </label>
               <div class="input-group margin-left-3">
                 <mat-slider class="mat-slider" (input)="onInputChangeMontoDpf($event)" thumbLabel
-                [displayWith]="formatoMonto" tickInterval="1" min="5000" max="1000000" [(ngModel)]="amountDpf"
+                [displayWith]="formatoMonto" tickInterval="100" min="5000" max="1000000" [(ngModel)]="amountDpf"
                 (ngModelChange)="dpfSave()" step="100"></mat-slider>
                 <input class="form-control input-monto-tiempo input-monto" type="number" id="exampleInputEmail1"
                 placeholder="Monto" [(ngModel)]="amountDpf" name="amountDpf" (ngModelChange)="dpfSave()" size=40
@@ -169,7 +169,7 @@
                 (ngModelChange)="dpfSave()"> </mat-slider>
               <input type="number" class="form-control input-monto-tiempo" id="exampleInputPassword1"
                 placeholder="Pazo" [(ngModel)]="termDpf" name="termDpf" (ngModelChange)="dpfSave()" size=40
-                min="6" max="36">
+                min="{{tiempoMinAhorroDpf}}" max="{{tiempoMaxAhorroDpf}}">
               </div>
               <br>
               <div class="div-bg-gray">
@@ -218,7 +218,7 @@
                       <tr>
                         <th>Plazo Días:</th>
                         <td class="txt-align-r">
-                          <input value="{{termDpf}}" readonly class="input-td">
+                          <input value="{{tiempoDiasDpf}}" readonly class="input-td">
                         </td>
                       </tr>
                       <tr>
@@ -571,7 +571,8 @@
                   style="background-color: #959398;  margin-left: 2%;">Alemana</button>
               </div>
               <div class="div-bg-gray">
-                <br class="salto-linea"><br class="salto-linea">
+                <br class="salto-linea"><h2 class="h3-tasa-interes-efectiva">
+                  Tasa de Interés Efectiva: {{this.tasaEfectivaP | percent: '1.2-2'}}</h2>
                 <h2 class="h3-tasa-interes">
                   Tasa de Interés</h2>
                 <div class="row div-interes-tasa">
@@ -638,13 +639,13 @@
                       <tr>
                         <th> Total seguro :</th>
                         <td class="txt-align-r">
-                          <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
+                          <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
                         </td>
                       </tr>
                       <tr>
-                        <th> # Cuotas:</th>
+                        <th> Liquido a Recibir:</th>
                         <td class="txt-align-r">
-                          <input value="{{numeroCuotas}}" readonly class="input-td-2">
+                          <input value="{{liquidoRecibirP | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
                       <!-- <div class="div-td" style="background-color: #f45424;"> -->
@@ -683,13 +684,13 @@
                       <tr>
                         <th> Total seguro :</th>
                         <td class="txt-align-r">
-                          <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
+                          <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
                         </td>
                       </tr>
                       <tr>
-                        <th> # Cuotas:</th>
+                        <th> Liquido a Recibir:</th>
                         <td class="txt-align-r">
-                          <input class="input-td-2" value="{{numeroCuotas}}" readonly class="input-td-2">
+                          <input value="{{liquidoRecibirP | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
                       <!-- <div class="div-td-2" style="background-color: #f45424 ; "> -->
@@ -851,7 +852,11 @@
               </div>
               <div class="div-bg-gray">
                 <!-- <br class="salto-linea"> -->
-                <br class="salto-linea">
+                <h2 class="h3-tasa-interes-efectiva" *ngIf="checked==false">
+                  Tasa de Interés Efectiva: {{this.tasaEfectivaV | percent: '1.2-2'}}</h2>
+
+                  <h2 class="h3-tasa-interes-efectiva" *ngIf="checked">
+                    Tasa de Interés Efectiva: {{this.tasaEfectivaVEco | percent: '1.2-2'}}</h2>
                 <h2 class="h3-tasa-interes">
                   Tasa de Interés</h2>
                 <div class="row div-interes-tasa">
@@ -921,13 +926,13 @@
                       <tr>
                         <th> Total seguro :</th>
                         <td class="txt-align-r">
-                          <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
+                          <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
                         </td>
                       </tr>
                       <tr>
-                        <th> # Cuotas:</th>
+                        <th> Liquido a Recibir:</th>
                         <td class="txt-align-r">
-                          <input value="{{numeroCuotas}}" readonly class="input-td-2">
+                          <input value="{{liquidoRecibirV | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
                       <!-- <div class="div-td" style="background-color: #ec047c;"> -->
@@ -967,13 +972,13 @@
                       <tr>
                         <th> Total seguro :</th>
                         <td class="txt-align-r">
-                          <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
+                          <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
                         </td>
                       </tr>
                       <tr>
-                        <th> # Cuotas:</th>
+                        <th> Liquido a Recibir:</th>
                         <td class="txt-align-r">
-                          <input class="input-td-2 " value="{{numeroCuotas}}" readonly >
+                          <input value="{{liquidoRecibirV | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
                       <!-- <div class="div-td-2" style="background-color: #ec047c ; "> -->

@@ -64,7 +64,8 @@
                   style="background-color: #959398;  margin-left: 2%;">Alemana</button>
               </div>
               <div class="div-bg-gray">
-                <br class="salto-linea"><br class="salto-linea">
+                <br class="salto-linea"> <h2 class="h3-tasa-interes-efectiva">
+                  Tasa de Interés Efectiva: {{this.tasaEfectiva | percent: '1.2-2'}}</h2>
                 <h2 class="h3-tasa-interes">
                   Tasa de Interés</h2>
                 <div class="row div-interes-tasa">
@@ -129,13 +130,13 @@
                       <tr>
                         <th> Total seguro :</th>
                         <td class="txt-align-r">
-                          <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
+                          <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
                         </td>
                       </tr>
                       <tr>
-                        <th> # Cuotas:</th>
+                        <th> Liquido a Recibir:</th>
                         <td class="txt-align-r">
-                          <input value="{{numeroCuotas}}" readonly class="input-td-2">
+                          <input value="{{liquidoRecibir | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
                       <!-- <div class="div-td" style="background-color: #fbcb0c;"> -->
@@ -175,13 +176,13 @@
                       <tr>
                         <th> Total seguro :</th>
                         <td class="txt-align-r">
-                          <input value="{{sumaSeguroDesgravamenA | currency}}" readonly class="input-td">
+                          <input value="{{sumaSeguroDesgravamenF | currency}}" readonly class="input-td">
                         </td>
                       </tr>
                       <tr>
-                        <th> # Cuotas:</th>
+                        <th> Liquido a Recibir:</th>
                         <td class="txt-align-r">
-                          <input class="input-td-2" value="{{numeroCuotas}}" readonly class="input-td-2">
+                          <input value="{{liquidoRecibir | currency}}" readonly class="input-td-2">
                         </td>
                       </tr>
                       <!-- <div class="div-td-2" style="background-color: #fbcb0c ; "> -->

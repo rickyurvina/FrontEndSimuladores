@@ -194,6 +194,8 @@ example-button-toggle-label {
   width:97.5%;
 }
 
+
+
 .label-amortizacion {
   color: #0d0c0e;
   margin-left: 3%;
@@ -236,6 +238,13 @@ example-button-toggle-label {
 .h3-tasa-interes {
   margin-left: 3%;
   font-size: 25px;
+  font-weight: 700;
+  font-family: amaranth-regular;
+  margin-bottom: -0.5%;
+}
+.h3-tasa-interes-efectiva {
+  margin-left: 3%;
+  font-size: 20px;
   font-weight: 700;
   font-family: amaranth-regular;
   margin-bottom: -0.5%;
@@ -743,6 +752,13 @@ padding-bottom: 2%;
     font-family: amaranth-regular;
     /* margin-bottom: -0.5%; */
   }
+  .h3-tasa-interes-efectiva {
+    /* margin-left: 3%; */
+    font-size: 20px;
+    font-weight: 700;
+    font-family: amaranth-regular;
+    /* margin-bottom: -0.5%; */
+  }
 
   .h1-tasa-credito {
     font-size: 70px;
@@ -917,6 +933,7 @@ padding-bottom: 2%;
   .input-td-2-creditoA{
     /* margin-left: 42%; */
   }
+
 
   .td-div-input{
 

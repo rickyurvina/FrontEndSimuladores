@@ -266,6 +266,13 @@ example-button-toggle-label {
   font-family: amaranth-regular;
   margin-bottom: -0.5%;
 }
+.h3-tasa-interes-efectiva {
+  margin-left: 3%;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: amaranth-regular;
+  margin-bottom: -0.5%;
+}
 
 .h1-tasa-credito {
   font-size: 100px;
@@ -756,6 +763,14 @@ padding-bottom: 2%;
   .h3-tasa-interes {
     /* margin-left: 3%; */
     font-size: 25px;
+    font-weight: 700;
+    font-family: amaranth-regular;
+    /* margin-bottom: -0.5%; */
+  }
+
+  .h3-tasa-interes-efectiva {
+    /* margin-left: 3%; */
+    font-size: 20px;
     font-weight: 700;
     font-family: amaranth-regular;
     /* margin-bottom: -0.5%; */

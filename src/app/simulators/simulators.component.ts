@@ -143,6 +143,16 @@ export class SimulatorsComponent implements OnInit {
   itemS: number;
   checked = false;
 
+  liquidoRecibirP:number;
+  tasaEfectivaP:number;
+  solcaP:number;
+
+  liquidoRecibirV:number;
+  tasaEfectivaV:number;
+  tasaEfectivaVEco:number;
+
+  solcaV:number;
+
 
   constructor(private service: ClientService, private toastr: ToastrService, public dialog: MatDialog) {
     this.data = [];
@@ -201,6 +211,7 @@ export class SimulatorsComponent implements OnInit {
           this.tiempoMinCreditoEducativo = x.tiempomin;
           this.tiempoMaxCreditoEducativo = x.tiempomax;
         }
+
         console.log("tasaeducativo", this.tasaCreditoEducativo)
       },
       (error) => {
@@ -219,6 +230,8 @@ export class SimulatorsComponent implements OnInit {
           this.tiempoMaxCreditoInversion = x.tiempomax;
 
         }
+    this.tasaEfectivaP=Math.pow((1+this.tasaCreditoInversion/12/100),12)-1;
+
         console.log("tasainversion", this.tasaCreditoInversion);
       },
       (error) => {
@@ -237,6 +250,10 @@ export class SimulatorsComponent implements OnInit {
           this.tiempoMaxCreditoInmobiliario = x.tiempomax;
           this.tasaEcoCreditoInmobiliario = x.tasa_ecologica;
         }
+        this.tasaEfectivaV=Math.pow((1+this.tasaCreditoInmobiliario/12/100),12)-1;
+        this.tasaEfectivaVEco=Math.pow((1+this.tasaEcoCreditoInmobiliario/12/100),12)-1;
+
+
         console.log("Tasa ecologica", this.tasaEcoCreditoInmobiliario);
       },
       (error) => {
@@ -377,6 +394,10 @@ export class SimulatorsComponent implements OnInit {
     this.tasaInteresAnual = this.tasaCreditoInversion;
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
     this.porcentajeSeguroDesgravamen = 0.684 / 100;
+
+    this.solcaP=this.valorPrestamo*0.5/100;
+    console.log("valor solca", this.solcaP);
+    this.liquidoRecibirP=this.valorPrestamo-this.solcaP;
     /**Validacion montos y tiempo */
     if (this.valorPrestamo > this.montoMaxCreditoInversion || this.valorPrestamo < this.montoMinCreditoInversion) {
       this.valorPrestamo = this.montoMinCreditoInversion;
@@ -472,6 +493,10 @@ export class SimulatorsComponent implements OnInit {
     // this.tasaInteresAnual = this.tasaCreditoEducativo;
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
     this.porcentajeSeguroDesgravamen = 0.684 / 100;
+
+    this.solcaV=this.valorPrestamo*0.5/100;
+    console.log("valor solca", this.solcaV);
+    this.liquidoRecibirV=this.valorPrestamo-this.solcaV;
     /**Validacion montos y tiempo */
     if (this.valorPrestamo > this.montoMaxCreditoInmobiliario || this.valorPrestamo < this.montoMinCreditoInmobiliario) {
       this.valorPrestamo = this.montoMinCreditoInmobiliario;
@@ -659,21 +684,27 @@ export class SimulatorsComponent implements OnInit {
     }
 
   }
+  tiempoDiasDpf:number;
   dpfSave(): void {
     if (this.tasaAhorroDpf == null) {
       this.ngOnInit();
     }
     else {
       console.log("tiempo min dpf", this.tiempoMinAhorroDpf);
-      if (this.termDpf < this.tiempoMinAhorroDpf || this.termDpf > this.tiempoMaxAhorroDpf) {
-        this.amountDpf = 5000;
-        this.termDpf = this.tiempoMinAhorroDpf;
+      if (this.amountDpf<0) {
+        // this.amountDpf = 5000;
+        // this.termDpf = this.tiempoMinAhorroDpf;
         this.toastr.warning('Limites Fuera de Rango ', 'Advertencia', {
           timeOut: 4500,
         });
 
       } else {
-        this.returnRateDpf = this.amountDpf * this.termDpf * this.tasaAhorroDpf / 360 / 100 * 30.4167;
+        this.tiempoDiasDpf=0;
+        this.tiempoDiasDpf=this.termDpf*30+1;
+        console.log("Tiempo en dias", this.tiempoDiasDpf);
+        // this.termDpf=this.termDpf*30+1
+        this.returnRateDpf=this.amountDpf*this.tiempoDiasDpf*this.tasaAhorroDpf/360/100
+        // this.returnRateDpf = this.amountDpf * this.termDpf * this.tasaAhorroDpf / 360 / 100 * 30.4167;
         this.retentionDpf = this.returnRateDpf * 0.02;
         this.totalDpf = this.amountDpf + this.returnRateDpf - this.retentionDpf;
       }
