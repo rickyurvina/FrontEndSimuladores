@@ -54,12 +54,15 @@ example-button-toggle-label {
 }
 
 
+
+
 ::ng-deep .mat-tab-label,
 .mat-tab-link {
   font-family: amaranth-regular;
   font-size: 18px;
   font-weight: 1000;
 }
+
 
 
 
@@ -70,11 +73,37 @@ example-button-toggle-label {
   z-index: 1;
   background-color: #ecebeb;
 }
+
+::ng-deep .mat-tab-body-content {
+  height: 100%;
+  overflow: initial !important;
+}
+
+::ng-deep mat-tab-body-content ng-tns-c57-0 ng-trigger ng-trigger-translateTab{
+
+  margin-left: 5%;
+  margin-right: -5%;
+  transform: none;
+  height: 100%;
+  overflow: initial;
+}
+
 ::ng-deep .mat-tab-body-content{
   margin-left: 5%;
   margin-right: -5%;
   transform: none;
+  height: 100%;
   overflow: initial !important;
+}
+ ng-trigger-translateTab
+::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+  /* top: 18px; */
+  /* position: relative;
+  overflow: hidden;
+  display: flex;
+  transition: height 500ms cubic-bezier(0.35, 0, 0.25, 1);
+  height: 700px; */
+  overflow: initial;
 }
 
 ::ng-deep  .mat-tab-body-wrapper {
@@ -84,13 +113,10 @@ example-button-toggle-label {
   transition: height 500ms cubic-bezier(0.35, 0, 0.25, 1);
   height: 40em;
 }
- ng-trigger-translateTab
-::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-wrapper {
-  /* top: 18px; */
-}
 
 ::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
   height: 4px;
+  overflow: initial;
   /* border-radius: 10px */
 }
 
