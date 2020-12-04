@@ -617,9 +617,11 @@ padding-bottom: 2%;
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
   .div-principal {
     padding-bottom: 1px;
+    padding-right: 0px;
+    padding-left: 1%;
     /* margin-top: 5%; */
   }
-  
+
   .-grupo-botones{
     text-align: center;
     margin-top: 0%;
@@ -631,7 +633,7 @@ padding-bottom: 2%;
     height: 100%;
     overflow: initial !important;
   }
- 
+
 
   .mat-slider {
     min-width: 280px;
@@ -822,7 +824,7 @@ padding-bottom: 2%;
   .h1-anual {
     font-size: 20px;
     font-weight: 1000;
-    margin-top:  -10%;
+    margin-top:  -8%;
   }
 
 
@@ -1132,8 +1134,6 @@ padding-bottom: 2%;
   }
 }
 
-
-
 /* Smartphones (landscape) ----------- */
 @media only screen and (min-width : 321px) and (orientation: landscape) and (max-width: 760px) {
   .img-detalle {
@@ -1209,14 +1209,14 @@ padding-bottom: 2%;
   text-align: left;
   color: black;
   padding-bottom: 2%;
-  margin-top: 15%;
+  margin-top: 5%;
     /* background-image: url('../../assets/images/marco-rojo.jpeg'); */
 
   }
   .div-porcentaje-anual-credito {
     /* margin-right: -3%; */
-    margin-top: 15%;
-    margin-left: 40%;
+    margin-top: 5%;
+    margin-left: 35%;
     /* margin-right: -3%; */
     position: absolute;
     /* margin-right: -10%;
@@ -1340,6 +1340,21 @@ padding-bottom: 2%;
     background-size: cover; */
     /* Resize the background image to cover the entire container */
   }
+
+  .detalle-ahorro{
+    padding-right: 0px !important;
+    /* padding-left: 0px !important; */
+  }
+  .div-porcentaje-anual-creditoP{
+    margin-left: 65%;
+  }
+  .div-detalle-simulacion{
+    padding-right: 3%;
+  }
+  .img-flechas{
+    margin-top: 16%;
+  }
+
   ::ng-deep .mat-tab-body-content{
     margin-left: 5%;
     margin-right: -5%;
@@ -1538,12 +1553,31 @@ max-width: 100%;
     background-size: cover; */
     /* Resize the background image to cover the entire container */
   }
+  .div-lado-derecho{
+    padding-right: 1% !important;
+    margin-left: -15%;
+  }
+  .img-flechas{
+    margin-top: 16%;
+  }
+  .div-porcentaje-anual{
+    position: relative;
+    margin-left: 55%;
+    margin-top: -15%;
+
+  }
+  .div-porcentaje-anual-creditoP{
+    margin-left: 65%;
+  }
   ::ng-deep .mat-tab-body-content{
     margin-left: 5%;
     margin-right: -5%;
     transform: none;
     height: 100%;
     overflow: initial !important;
+  }
+  .div-detalle-simulacion{
+    border-radius: 15px 15px 15px 15px;
   }
   .div-imagen-marco{
     display: none;
@@ -1684,7 +1718,7 @@ max-width: 100%;
 
 /* Desktops and laptops ----------- */
 @media only screen and (min-width : 1224px) {
-  
+
 
 
  }
