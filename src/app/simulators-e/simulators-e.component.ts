@@ -127,8 +127,6 @@ export class SimulatorsEComponent implements OnInit {
     this.nombreProducto = "Crédito Educativo";
     this.francesa.is_visible = false;
     // this.tasaEfectiva=Math.pow((1+this.tasaCreditoEducativo/12/100),12)-1;
-
-
   }
 
   openDialog() {
@@ -168,7 +166,6 @@ export class SimulatorsEComponent implements OnInit {
   }
 
   refresh(): void {
-
     window.location.reload();
   }
 
@@ -260,8 +257,6 @@ export class SimulatorsEComponent implements OnInit {
     this.dataAleman = [];
     this.dataFrances = [];
   }
-
-
   /************************************************************* */
   /**Funciones Simuladores de Credito */
 
@@ -440,12 +435,25 @@ export class SimulatorsEComponent implements OnInit {
   img_footer = this.getBase64ImageFromURL('../../assets/images/franja.png');
   async generatePDF(action = 'download') {
 
-
-
     if (this.francesa.is_visible) {
       //credito educativo
       let docDefinition = {
         footer:
+        {
+
+          columns: [
+            {
+              // width:'*',
+              image: await this.getBase64ImageFromURL(
+                '../../assets/images/franja.png'
+                // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+              ),
+              width: 600,
+              heigth: 1
+            },
+          ]
+        },
+        header:
         {
 
           columns: [
@@ -494,7 +502,12 @@ export class SimulatorsEComponent implements OnInit {
                 [{ text: 'Detalles Simulación', alignment: 'center', fillColor: '#b40c15', color: 'white', colSpan: 2 }, {}],
                 [{ text: 'Monto del Préstamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
-                [{ text: 'Tasa Interés Periódica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Tasa de Interés', bold: true }, `${this.tasaInteresAnual.toFixed(2)}%`],
+                [{ text: 'Tasa Interés Periódica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}%`],
+                [{ text: 'Tasa Interés Efectiva', bold: true }, `${(this.tasaEfectiva*100).toFixed(2)}%`],
+                [{ text: 'Tasa Seguro', bold: true }, `${this.porcentajeSD.toFixed(3)}%`],
+                [{ text: 'Total Seguro a Pagar', bold: true }, `$${this.sumaSeguroDesgravamenF.toFixed(2)}`],
+                [{ text: 'Liquido a Recibir', bold: true }, `$${this.liquidoRecibir.toFixed(2)}`],
                 [{ text: 'Cuota a Pagar Periódicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
                 [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
               ]
@@ -528,6 +541,10 @@ export class SimulatorsEComponent implements OnInit {
           {
             aligment: 'center',
             text: 'Visita Nuestra Página Web',
+          },
+          {
+            aligment: 'center',
+            text: '  ',
           },
           {
             columns: [
@@ -601,6 +618,21 @@ export class SimulatorsEComponent implements OnInit {
             },
           ]
         },
+        header:
+        {
+
+          columns: [
+            {
+              // width:'*',
+              image: await this.getBase64ImageFromURL(
+                '../../assets/images/franja.png'
+                // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+              ),
+              width: 600,
+              heigth: 1
+            },
+          ]
+        },
         content: [
           {
             columns: [
@@ -626,27 +658,6 @@ export class SimulatorsEComponent implements OnInit {
             aligment: 'center',
             text: '  ',
           },
-
-          // {
-          //   columns: [
-
-          //     [
-          //       {
-          //         text: `Fecha: ${new Date().toLocaleString()}`,
-          //         alignment: 'right'
-          //       },
-          //       {
-          //         text: `Producto : ${this.nombreProducto}`,
-          //         alignment: 'right'
-          //       }
-          //     ]
-          //   ]
-          // },
-          // {
-          //   text: 'Detalles Simulación',
-          //   style: 'sectionHeader'
-          // },
-
           {
             table: {
               layout: 'lightHorizontalLines', // optional
@@ -656,7 +667,13 @@ export class SimulatorsEComponent implements OnInit {
                 [{ text: 'Detalles Simulación', alignment: 'center', fillColor: '#b40c15', color: 'white', colSpan: 2 }, {}],
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
+                [{ text: 'Tasa de Interés', bold: true }, `${this.tasaInteresAnual.toFixed(2)}%`],
                 [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
+                [{ text: 'Tasa Interés Efectiva', bold: true }, `${(this.tasaEfectiva*100).toFixed(2)}%`],
+                [{ text: 'Tasa Seguro', bold: true }, `${this.porcentajeSD.toFixed(2)}%`],
+                [{ text: 'Total Seguro a Pagar', bold: true }, `$${this.sumaSeguroDesgravamenA.toFixed(3)}`],
+                [{ text: 'Liquido a Recibir', bold: true }, `$${this.liquidoRecibir.toFixed(2)}`],
+                [{ text: 'Cuota Inicial', bold: true }, `$${this.cuotaInicial.toFixed(2)}`],
                 // [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
                 [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
               ]
@@ -694,6 +711,10 @@ export class SimulatorsEComponent implements OnInit {
           {
             aligment: 'center',
             text: 'Visita Nuestra Página Web',
+          },
+          {
+            aligment: 'center',
+            text: '  ',
           },
           {
             columns: [
