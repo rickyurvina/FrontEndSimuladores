@@ -74,10 +74,10 @@ example-button-toggle-label {
   background-color: #ecebeb;
 }
 
-::ng-deep .mat-tab-body-content {
+/* ::ng-deep .mat-tab-body-content {
   height: 100%;
   overflow: initial !important;
-}
+} */
 
 ::ng-deep mat-tab-body-content ng-tns-c57-0 ng-trigger ng-trigger-translateTab{
 
@@ -619,11 +619,19 @@ padding-bottom: 2%;
     padding-bottom: 1px;
     /* margin-top: 5%; */
   }
+  
   .-grupo-botones{
     text-align: center;
     margin-top: 0%;
   }
-
+  ::ng-deep .mat-tab-body-content{
+    margin-left: 0%;
+    margin-right: 0%;
+    transform: none;
+    height: 100%;
+    overflow: initial !important;
+  }
+ 
 
   .mat-slider {
     min-width: 280px;
@@ -1136,6 +1144,13 @@ padding-bottom: 2%;
   *::after {
     box-sizing: content-box;
   }
+  ::ng-deep .mat-tab-body-content{
+    margin-left: 5%;
+    margin-right: -5%;
+    transform: none;
+    height: 100%;
+    overflow: initial !important;
+  }
   .h1-tasa-credito {
     font-size: 70px;
     font-weight: 1000;
@@ -1293,10 +1308,26 @@ padding-bottom: 2%;
 }
 
 /* Smartphones (portrait) ----------- */
-@media only screen and (max-width : 320px) { }
+@media only screen and (max-width : 320px) {
+  ::ng-deep .mat-tab-body-content{
+    margin-left: 5%;
+    margin-right: -5%;
+    transform: none;
+    height: 100%;
+    overflow: initial !important;
+  }
+ }
 
 /* iPads (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) { }
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+  ::ng-deep .mat-tab-body-content{
+    margin-left: 5%;
+    margin-right: -5%;
+    transform: none;
+    height: 100%;
+    overflow: initial !important;
+  }
+ }
 
 /* iPads (landscape) ----------- */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
@@ -1308,6 +1339,13 @@ padding-bottom: 2%;
     /* border-radius: 0px 15px 15px 0px;
     background-size: cover; */
     /* Resize the background image to cover the entire container */
+  }
+  ::ng-deep .mat-tab-body-content{
+    margin-left: 5%;
+    margin-right: -5%;
+    transform: none;
+    height: 100%;
+    overflow: initial !important;
   }
   .div-detalle-simulacion {
     border-radius: 15px 15px 15px 15px;
@@ -1500,6 +1538,13 @@ max-width: 100%;
     background-size: cover; */
     /* Resize the background image to cover the entire container */
   }
+  ::ng-deep .mat-tab-body-content{
+    margin-left: 5%;
+    margin-right: -5%;
+    transform: none;
+    height: 100%;
+    overflow: initial !important;
+  }
   .div-imagen-marco{
     display: none;
   }
@@ -1639,6 +1684,7 @@ max-width: 100%;
 
 /* Desktops and laptops ----------- */
 @media only screen and (min-width : 1224px) {
+  
 
 
  }

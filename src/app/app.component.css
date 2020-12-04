@@ -19,3 +19,31 @@
   /* src: url('assets/Amaranth-Regular.ttf'); */
   src:url(../assets/Amaranth-Italic.ttf)
 }
+.container-responsive{
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+
+
+}
+
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  .container-responsive{
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+
+
+  }
+
+}
+
+@media only screen and (max-width : 320px) {
+  .container-responsive{
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+
+
+  }
+
+ }
