@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  url:"https://backend-proccredit.azurewebsites.net/api"
-  // url:"https://backendsimuladores.azurewebsites.net/api"
+  // url:"https://backend-proccredit.azurewebsites.net/api"
+  url:"https://backendsimuladores.azurewebsites.net/api"
 };
 
 /*
