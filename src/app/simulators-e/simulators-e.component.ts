@@ -77,7 +77,7 @@ export class SimulatorsEComponent implements OnInit {
   dataAleman = [];
   sumaIntereses: number;
   valorSeguroDesgravamen: number;
-  cuotaInicial:number;
+  cuotaInicial: number;
   sumaSeguroDesgravamenA: number;
 
   // variables para calcular la simulacion de los creditos Sistema Frances
@@ -90,7 +90,7 @@ export class SimulatorsEComponent implements OnInit {
   base: number;
   cuotaFrancesa: number;
   valorSeguroDesgravamenF: number;
-  sumaSeguroDesgravamenF:number;
+  sumaSeguroDesgravamenF: number;
 
   /***************************************************** */
 
@@ -115,9 +115,9 @@ export class SimulatorsEComponent implements OnInit {
   nombreProducto: string;
   itemS: number;
 
-  liquidoRecibir:number;
-  tasaEfectiva:number;
-  solca:number;
+  liquidoRecibir: number;
+  tasaEfectiva: number;
+  solca: number;
 
 
 
@@ -136,7 +136,7 @@ export class SimulatorsEComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.francesa.is_visible=true;
+    this.francesa.is_visible = true;
 
     this.service.getCreditoEducativo().subscribe(
       (datos) => {
@@ -148,7 +148,7 @@ export class SimulatorsEComponent implements OnInit {
           this.tiempoMinCreditoEducativo = x.tiempomin;
           this.tiempoMaxCreditoEducativo = x.tiempomax;
         }
-    this.tasaEfectiva=Math.pow((1+this.tasaCreditoEducativo/12/100),12)-1;
+        this.tasaEfectiva = Math.pow((1 + this.tasaCreditoEducativo / 12 / 100), 12) - 1;
 
         console.log("tasaeducativo", this.tasaCreditoEducativo)
       },
@@ -214,7 +214,7 @@ export class SimulatorsEComponent implements OnInit {
       this.valorPrestamo = this.montoMinCreditoEducativo;
       this.numeroCuotas = this.tiempoMinCreditoEducativo;
       this.simuladorEducativo();
-        }
+    }
   }
 
   _selectedIndexChange(index: number) {
@@ -265,10 +265,6 @@ export class SimulatorsEComponent implements OnInit {
   /************************************************************* */
   /**Funciones Simuladores de Credito */
 
-
-
-
-
   simuladorEducativo(): void {
     this.limpiarTabla();
     /**Variables globales para los dos sistemas */
@@ -277,14 +273,14 @@ export class SimulatorsEComponent implements OnInit {
 
     this.tasaInteresPeriodica = this.tasaInteresAnual / 12;
     this.porcentajeSeguroDesgravamen = 0.684 / 100;
-    this.solca=this.valorPrestamo*0.5/100;
+    this.solca = this.valorPrestamo * 0.5 / 100;
     console.log("valor solca", this.solca);
-    this.liquidoRecibir=this.valorPrestamo-this.solca;
+    this.liquidoRecibir = this.valorPrestamo - this.solca;
 
     // this.tasaEfectiva=(1+(8.5/12));
     // this.tasaEfectiva=Math.pow((this.tasaEfectiva),12)
 
-    console.log("tasa efectiva",this.tasaEfectiva);
+    console.log("tasa efectiva", this.tasaEfectiva);
     /**Validacion montos y tiempo */
     if (this.valorPrestamo > this.montoMaxCreditoEducativo || this.valorPrestamo < this.montoMinCreditoEducativo) {
       this.valorPrestamo = this.montoMinCreditoEducativo;
@@ -298,16 +294,16 @@ export class SimulatorsEComponent implements OnInit {
       });
     }
     else {
-       /**Calculo Frances */
+      /**Calculo Frances */
       //valores calculo frances
       this.capitalAmortizadoF = 0;
       this.sumaInteresesF = 0;
-      this.sumaSeguroDesgravamenF=0;
+      this.sumaSeguroDesgravamenF = 0;
       this.base = 1 + this.tasaInteresPeriodica / 100;
       this.saldoRemanenteF = this.valorPrestamo;
       this.valorSeguroDesgravamenF = this.saldoRemanenteF * this.porcentajeSeguroDesgravamen / 12;
       this.interesDelPeriodoF = this.saldoRemanenteF * this.tasaInteresPeriodica / 100;
-      this.cuotaFrancesa=((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
+      this.cuotaFrancesa = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo);
       this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
       this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
       this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
@@ -322,7 +318,7 @@ export class SimulatorsEComponent implements OnInit {
           cuotaPagar: this.cuotaPagarF,
           saldoRemanente: this.saldoRemanenteF
         });
-      this.sumaSeguroDesgravamenF=this.sumaSeguroDesgravamenF+this.valorSeguroDesgravamenF
+        this.sumaSeguroDesgravamenF = this.sumaSeguroDesgravamenF + this.valorSeguroDesgravamenF
 
         this.sumaInteresesF = this.sumaInteresesF + this.interesDelPeriodoF;
         this.valorSeguroDesgravamenF = this.saldoRemanenteF * this.porcentajeSeguroDesgravamen / 12;
@@ -330,14 +326,14 @@ export class SimulatorsEComponent implements OnInit {
         this.cuotaPagarF = ((this.tasaInteresPeriodica / 100) / (1 - (Math.pow(this.base, -this.numeroCuotas))) * this.valorPrestamo) + this.valorSeguroDesgravamenF;
         this.capitalAmortizadoF = this.cuotaFrancesa - this.interesDelPeriodoF;
         this.saldoRemanenteF = this.saldoRemanenteF - this.capitalAmortizadoF;
-      console.log("suma seguro d", this.sumaSeguroDesgravamenF);
+        console.log("suma seguro d", this.sumaSeguroDesgravamenF);
 
       }
 
-       /**Calculo Aleman */
+      /**Calculo Aleman */
       //valor fijo capital amortizado calculo aleman
       this.sumaIntereses = 0;
-      this.sumaSeguroDesgravamenA=0;
+      this.sumaSeguroDesgravamenA = 0;
       this.saldoRemanenteIA = this.valorPrestamo;
       this.capitalAmortizadoIA = this.valorPrestamo / this.numeroCuotas;
       //valores calculo aleman
@@ -346,7 +342,7 @@ export class SimulatorsEComponent implements OnInit {
       this.cuotaPagarIA = this.interesDelPeriodoIA + this.capitalAmortizadoIA + this.valorSeguroDesgravamen;
       this.saldoRemanenteIA = this.saldoRemanenteIA - this.capitalAmortizadoIA;
       console.log("interes aleman primera cuota", this.interesDelPeriodoIA);
-      this.cuotaInicial=this.cuotaPagarIA;
+      this.cuotaInicial = this.cuotaPagarIA;
       for (let i = 0; i < this.numeroCuotas; i++) {
         /**Calculo Aleman */
         // this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
@@ -358,7 +354,7 @@ export class SimulatorsEComponent implements OnInit {
           cuotaPagar: this.cuotaPagarIA,
           saldoRemanente: this.saldoRemanenteIA
         });
-        this.sumaSeguroDesgravamenA=this.sumaSeguroDesgravamenA+this.valorSeguroDesgravamen;
+        this.sumaSeguroDesgravamenA = this.sumaSeguroDesgravamenA + this.valorSeguroDesgravamen;
         this.sumaIntereses = this.sumaIntereses + this.interesDelPeriodoIA;
         this.interesDelPeriodoIA = this.saldoRemanenteIA * this.tasaInteresPeriodica / 100;
         this.valorSeguroDesgravamen = this.saldoRemanenteIA * this.porcentajeSeguroDesgravamen / 12;
@@ -368,18 +364,7 @@ export class SimulatorsEComponent implements OnInit {
     }
 
   }
-  /************************************************************************** */
 
-  /************************************************************************** */
-  //Funciones Simuladores de Ahorro
-
-
-
-
-  /******************************************************************************** */
-
-  /************************************** */
-  //Funciones para Guardar el formulario de cliente mediante el api
   new() {
     this.current_clien = new Client();
     this.crud_operation.is_visible = true;
@@ -452,7 +437,7 @@ export class SimulatorsEComponent implements OnInit {
 
   // img_footer:string
 
-  img_footer=this.getBase64ImageFromURL( '../../assets/images/franja.png');
+  img_footer = this.getBase64ImageFromURL('../../assets/images/franja.png');
   async generatePDF(action = 'download') {
 
 
@@ -460,51 +445,30 @@ export class SimulatorsEComponent implements OnInit {
     if (this.francesa.is_visible) {
       //credito educativo
       let docDefinition = {
+        footer:
+        {
 
-
-        // header: {
-        //   columns: [
-        //     {
-        //       image: await this.getBase64ImageFromURL(
-        //         '../../assets/images/logo.png'
-        //         // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
-        //       ),
-        //       width:150
-        //     },
-
-        //     {
-        //       text: `Fecha: ${new Date().toLocaleString()}\n Producto : ${this.nombreProducto}`,
-        //       alignment: 'right'
-        //     }
-        //   ]
-        // },
-
-          footer:
-           {
-
-            columns: [
-              {
-                // width:'*',
-                image: await this.getBase64ImageFromURL(
-                  '../../assets/images/franja.png'
-                  // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
-                ),
-                width:600,
-                heigth: 1
-              },
-            ]
-          },
+          columns: [
+            {
+              // width:'*',
+              image: await this.getBase64ImageFromURL(
+                '../../assets/images/franja.png'
+                // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+              ),
+              width: 600,
+              heigth: 1
+            },
+          ]
+        },
         content: [
-
           {
-            // alignment: 'justify',
             columns: [
               {
                 image: await this.getBase64ImageFromURL(
                   '../../assets/images/logo.png'
                   // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
                 ),
-                width:150
+                width: 150
               },
 
               {
@@ -516,23 +480,18 @@ export class SimulatorsEComponent implements OnInit {
           {
             aligment: 'center',
             text: '  ',
-            // style: 'sectionHeader'
           },
           {
             aligment: 'center',
             text: '  ',
-            // style: 'sectionHeader'
           },
-
-
           {
             table: {
-              layout: 'lightHorizontalLines', // optional
+              layout: 'lightHorizontalLines',
               headerRows: 1,
-
               widths: ['auto', 'auto'],
               body: [
-                [{text:'Detalles Simulación',alignment: 'center', fillColor: '#b40c15',color:'white', colSpan :2},{}],
+                [{ text: 'Detalles Simulación', alignment: 'center', fillColor: '#b40c15', color: 'white', colSpan: 2 }, {}],
                 [{ text: 'Monto del Préstamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
                 [{ text: 'Tasa Interés Periódica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
@@ -544,66 +503,37 @@ export class SimulatorsEComponent implements OnInit {
           {
             aligment: 'center',
             text: '  ',
-            // style: 'sectionHeader'
           },
           {
             aligment: 'center',
             text: '  ',
-            // style: 'sectionHeader'
           },
-
-
           {
             style: 'tableExample',
             table: {
-              layout: 'lightHorizontalLines', // optional
+              layout: 'lightHorizontalLines',
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{ text: '#Cuotas', alignment: 'center', fillColor: '#b40c15',color:'white'},
-                {text: 'Interés del Periodo',alignment: 'center', fillColor: '#b40c15',color:'white'},
-                 {text:'Capital Amortizado',alignment: 'center', fillColor: '#b40c15',color:'white'},
-                  {text:'Seguro',alignment: 'center', fillColor: '#b40c15',color:'white'},
-                  {text:'Cuota a Pagar',alignment: 'center', fillColor: '#b40c15',color:'white'},
-                   {text:'Saldo Remanente',alignment: 'center', fillColor: '#b40c15',color:'white'}],
+                [{ text: '#Cuotas', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Interés del Periodo', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Capital Amortizado', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Seguro', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Cuota a Pagar', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Saldo Remanente', alignment: 'center', fillColor: '#b40c15', color: 'white' }],
                 ...this.dataFrances.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
-
               ],
-
             }
           },
-
           {
             aligment: 'center',
             text: 'Visita Nuestra Página Web',
-            // style: 'sectionHeader'
           },
-
           {
             columns: [
               [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
             ]
           },
-
-          // {
-          //   aligment: 'center',
-          //   text: 'Contactanos al :1800 100 400',
-          //   // style: 'sectionHeader'
-          // },
-
-          // {
-          //   image: await this.getBase64ImageFromURL(
-          //     '../../assets/images/franja.png'
-          //     // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
-          //   ),
-          //   width:510,
-          //   heigth: 1
-          // },
-          // {
-          //   columns: [
-          //     [{ qr: `https://www.bancoprocredit.com.ec/`, fit: '100' }],
-          //   ]
-          // },
 
         ],
         styles: {
@@ -653,36 +583,69 @@ export class SimulatorsEComponent implements OnInit {
       } else {
         pdfMake.createPdf(docDefinition).download();
       }
-    } else if ( this.alemana.is_visible) {
+    } else if (this.alemana.is_visible) {
       // credito educativo Simulacion Alemana
       let docDefinition = {
+        footer:
+        {
+
+          columns: [
+            {
+              // width:'*',
+              image: await this.getBase64ImageFromURL(
+                '../../assets/images/franja.png'
+                // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+              ),
+              width: 600,
+              heigth: 1
+            },
+          ]
+        },
         content: [
           {
-            text: 'BANCO PROCREDIT',
-            fontSize: 16,
-            alignment: 'center',
-            color: '#da1d2c'
-          },
-
-          {
             columns: [
+              {
+                image: await this.getBase64ImageFromURL(
+                  '../../assets/images/logo.png'
+                  // "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+                ),
+                width: 150
+              },
 
-              [
-                {
-                  text: `Fecha: ${new Date().toLocaleString()}`,
-                  alignment: 'right'
-                },
-                {
-                  text: `Producto : ${this.nombreProducto}`,
-                  alignment: 'right'
-                }
-              ]
+              {
+                text: `Fecha: ${new Date().toLocaleString()}\n Producto : ${this.nombreProducto}\n Amortización Alemana`,
+                alignment: 'right'
+              }
             ]
           },
           {
-            text: 'Detalles Simulación',
-            style: 'sectionHeader'
+            aligment: 'center',
+            text: '  ',
           },
+          {
+            aligment: 'center',
+            text: '  ',
+          },
+
+          // {
+          //   columns: [
+
+          //     [
+          //       {
+          //         text: `Fecha: ${new Date().toLocaleString()}`,
+          //         alignment: 'right'
+          //       },
+          //       {
+          //         text: `Producto : ${this.nombreProducto}`,
+          //         alignment: 'right'
+          //       }
+          //     ]
+          //   ]
+          // },
+          // {
+          //   text: 'Detalles Simulación',
+          //   style: 'sectionHeader'
+          // },
 
           {
             table: {
@@ -690,6 +653,7 @@ export class SimulatorsEComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto'],
               body: [
+                [{ text: 'Detalles Simulación', alignment: 'center', fillColor: '#b40c15', color: 'white', colSpan: 2 }, {}],
                 [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
                 [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
@@ -699,8 +663,12 @@ export class SimulatorsEComponent implements OnInit {
             }
           },
           {
-            text: 'Tabla de Amortización Alemana',
-            style: 'sectionHeader'
+            aligment: 'center',
+            text: '  ',
+          },
+          {
+            aligment: 'center',
+            text: '  ',
           },
 
           {
@@ -710,7 +678,12 @@ export class SimulatorsEComponent implements OnInit {
               headerRows: 1,
               widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                [{ text: '#Cuotas', style: 'tableHeader' }, 'Interés del Periodo', 'Capital Amortizado', 'Seguro', 'Cuota a Pagar', 'Saldo Remanente'],
+                [{ text: '#Cuotas', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Interés del Periodo', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Capital Amortizado', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Seguro', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Cuota a Pagar', alignment: 'center', fillColor: '#b40c15', color: 'white' },
+                { text: 'Saldo Remanente', alignment: 'center', fillColor: '#b40c15', color: 'white' }],
                 ...this.dataAleman.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
 
               ],
@@ -719,8 +692,8 @@ export class SimulatorsEComponent implements OnInit {
           },
 
           {
-            text: 'Visita Nuestra Página',
-            style: 'sectionHeader'
+            aligment: 'center',
+            text: 'Visita Nuestra Página Web',
           },
           {
             columns: [

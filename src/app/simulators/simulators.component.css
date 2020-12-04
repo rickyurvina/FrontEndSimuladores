@@ -161,6 +161,10 @@ example-button-toggle-label {
   /* font-family: amaranth-regular; */
   /* margin-left: -2%; */
 }
+.div-flechas-descargar{
+  position: relative;
+}
+
 
 .input-monto-tiempo {
   width: 100px;

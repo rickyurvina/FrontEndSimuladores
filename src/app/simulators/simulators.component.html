@@ -136,9 +136,12 @@
                   <img alt="ImgImgImg" src="../../assets/images/img-flex.jpg" width="500" height="600" class="img-detalle" />
                 </div>
               </div>
-              <img src="../../assets/images/flechas_rojas.PNG" width="10%" height="15" class="img-flechas">
-              <button class="btn btn-info boton-descargar" style="background-color: #b40c15;  color:white; font-weight: 500"
-                (click)="generatePDF()">Descargar</button>
+              <div class="div-flechas-descargar">
+                <img src="../../assets/images/flechas_rojas.PNG" width="10%" height="15" class="img-flechas">
+                <button class="btn btn-info boton-descargar" style="background-color: #b40c15;  color:white; font-weight: 500"
+                  (click)="generatePDF()">Descargar</button>
+              </div>
+
             </div>
           </div>
         </mat-tab>
@@ -254,9 +257,12 @@
                   <img alt="ImgImgImg" src="../../assets/images/img-dpf.jpg" width="500" height="600" class="img-detalle" />
                 </div>
               </div>
-              <img src="../../assets/images/flechas_azules.PNG" width="10%" height="15" class="img-flechas">
-              <button class="btn btn-info boton-descargar" style="background-color: #005294;  color:white; font-weight: 500"
-                (click)="generatePDF()">Descargar</button>
+              <div class="div-flechas-descargar">
+                <img src="../../assets/images/flechas_azules.PNG" width="10%" height="15" class="img-flechas">
+                <button class="btn btn-info boton-descargar" style="background-color: #005294;  color:white; font-weight: 500"
+                  (click)="generatePDF()">Descargar</button>
+              </div>
+
             </div>
           </div>
         </mat-tab>
@@ -716,10 +722,15 @@
                     class="img-detalle" />
                 </div>
               </div>
-              <img src="../../assets/images/flechas_naranjas.PNG" width="10%" height="15" class="img-flechas">
-              <button class="btn btn-info boton-descargar"
+              <div class="div-flechas-descargar">
+                <img src="../../assets/images/flechas_naranjas.PNG" width="10%" height="15" class="img-flechas">
+
+                <button class="btn btn-info boton-descargar"
                 style="background-color: #f46c24;  color:white; font-weight: 500"
                 (click)="generatePDF()">Descargar</button>
+
+              </div>
+
             </div>
             <div class="div-tabla-francesa">
               <div *ngIf="amortizacionF.is_visible" style="overflow: xscroll;" >
@@ -1004,9 +1015,13 @@
                     class="img-detalle" />
                 </div>
               </div>
-              <img src="../../assets/images/flechas-moradas.png" width="10%" height="15" class="img-flechas">
+              <div class="div-flechas-descargar">
+                <img src="../../assets/images/flechas-moradas.png" width="10%" height="15" class="img-flechas">
               <button class="btn btn-info boton-descargar" style="background-color: #970077; color:white "
                 (click)="generatePDF()">Descargar</button>
+
+              </div>
+
             </div>
             <div class="div-tabla-francesa">
               <div *ngIf="amortizacionF.is_visible" style="overflow: xscroll;" >
