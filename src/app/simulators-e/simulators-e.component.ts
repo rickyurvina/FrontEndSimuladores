@@ -47,6 +47,11 @@ export class SimulatorsEComponent implements OnInit {
   //cerratTabla variable para guardar el estado del boton de cerrar tabla
   cerrarTabla = { is_visible: false };
 
+  botonSimulacion={is_visible:false};
+
+  botonSimulacion2={is_visible:true};
+
+
   //selectIndex guarda el estado del matSlider
   selectedIndex = 0;
 
@@ -172,15 +177,21 @@ export class SimulatorsEComponent implements OnInit {
   cerrarTablas(): void {
     this.amortizacionF.is_visible = false;
     this.amortizacionIA.is_visible = false;
+    this.botonSimulacion2.is_visible=true;
+    this.botonSimulacion.is_visible=false;
   }
 
   vetTablaIA() {
     this.amortizacionIA.is_visible = true;
-    this.cerrarTabla.is_visible = true
+    this.cerrarTabla.is_visible = true;
+    this.botonSimulacion.is_visible=true;
+    this.botonSimulacion2.is_visible=false;
   }
   vetTablaFrancesa() {
     this.amortizacionF.is_visible = true;
-    this.cerrarTabla.is_visible = true
+    this.cerrarTabla.is_visible = true;
+    this.botonSimulacion.is_visible=true;
+    this.botonSimulacion2.is_visible=false;
   }
 
   verFrancesa(): void {
@@ -500,16 +511,18 @@ export class SimulatorsEComponent implements OnInit {
               widths: ['auto', 'auto'],
               body: [
                 [{ text: 'Detalles Simulación', alignment: 'center', fillColor: '#b40c15', color: 'white', colSpan: 2 }, {}],
-                [{ text: 'Monto del Préstamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
+                [{ text: 'Monto del Préstamo', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.valorPrestamo)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
                 [{ text: 'Tasa de Interés', bold: true }, `${this.tasaInteresAnual.toFixed(2)}%`],
                 [{ text: 'Tasa Interés Periódica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}%`],
                 [{ text: 'Tasa Interés Efectiva', bold: true }, `${(this.tasaEfectiva*100).toFixed(2)}%`],
                 [{ text: 'Tasa Seguro', bold: true }, `${this.porcentajeSD.toFixed(3)}%`],
-                [{ text: 'Total Seguro a Pagar', bold: true }, `$${this.sumaSeguroDesgravamenF.toFixed(2)}`],
-                [{ text: 'Liquido a Recibir', bold: true }, `$${this.liquidoRecibir.toFixed(2)}`],
-                [{ text: 'Cuota a Pagar Periódicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
-                [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaInteresesF.toFixed(2)}`],
+                [{ text: 'Total Seguro a Pagar', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.sumaSeguroDesgravamenF)}`],
+                [{ text: 'Contribución SOLCA 0.5%', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.solca)}`],
+
+                [{ text: 'Liquido a Recibir', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.liquidoRecibir)}`],
+                [{ text: 'Cuota a Pagar Periódicamente', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.cuotaPagarF)}`],
+                [{ text: 'Total Interés a Pagar', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.sumaInteresesF)}`],
               ]
             }
           },
@@ -534,7 +547,12 @@ export class SimulatorsEComponent implements OnInit {
                 { text: 'Seguro', alignment: 'center', fillColor: '#b40c15', color: 'white' },
                 { text: 'Cuota a Pagar', alignment: 'center', fillColor: '#b40c15', color: 'white' },
                 { text: 'Saldo Remanente', alignment: 'center', fillColor: '#b40c15', color: 'white' }],
-                ...this.dataFrances.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
+                ...this.dataFrances.map(p => ([p.numeroCuota,
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.interesPeriodo),
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.capitalAmortizado),
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format( p.seguro),
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format( p.cuotaPagar),
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.saldoRemanente)]))
               ],
             }
           },
@@ -665,17 +683,19 @@ export class SimulatorsEComponent implements OnInit {
               widths: ['auto', 'auto'],
               body: [
                 [{ text: 'Detalles Simulación', alignment: 'center', fillColor: '#b40c15', color: 'white', colSpan: 2 }, {}],
-                [{ text: 'Monto del Prestamo', bold: true }, `$${this.valorPrestamo.toFixed(2)}`],
+                [{ text: 'Monto del Prestamo', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.valorPrestamo)}`],
                 [{ text: 'Plazo (Meses)', bold: true }, `${this.numeroCuotas}`],
                 [{ text: 'Tasa de Interés', bold: true }, `${this.tasaInteresAnual.toFixed(2)}%`],
                 [{ text: 'Tasa Interés Periodica', bold: true }, `${this.tasaInteresPeriodica.toFixed(2)}`],
                 [{ text: 'Tasa Interés Efectiva', bold: true }, `${(this.tasaEfectiva*100).toFixed(2)}%`],
                 [{ text: 'Tasa Seguro', bold: true }, `${this.porcentajeSD.toFixed(2)}%`],
-                [{ text: 'Total Seguro a Pagar', bold: true }, `$${this.sumaSeguroDesgravamenA.toFixed(3)}`],
-                [{ text: 'Liquido a Recibir', bold: true }, `$${this.liquidoRecibir.toFixed(2)}`],
-                [{ text: 'Cuota Inicial', bold: true }, `$${this.cuotaInicial.toFixed(2)}`],
+                [{ text: 'Total Seguro a Pagar', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.sumaSeguroDesgravamenA)}`],
+                [{ text: 'Contribución SOLCA 0.5%', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.solca)}`],
+
+                [{ text: 'Liquido a Recibir', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.liquidoRecibir)}`],
+                [{ text: 'Cuota Inicial', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.cuotaInicial)}`],
                 // [{ text: 'Cuota a Pagar Periodicamente', bold: true }, `$${this.cuotaPagarF.toFixed(2)}`],
-                [{ text: 'Total Interés a Pagar', bold: true }, `$${this.sumaIntereses.toFixed(2)}`],
+                [{ text: 'Total Interés a Pagar', bold: true }, `${Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(this.sumaIntereses)}`],
               ]
             }
           },
@@ -701,7 +721,12 @@ export class SimulatorsEComponent implements OnInit {
                 { text: 'Seguro', alignment: 'center', fillColor: '#b40c15', color: 'white' },
                 { text: 'Cuota a Pagar', alignment: 'center', fillColor: '#b40c15', color: 'white' },
                 { text: 'Saldo Remanente', alignment: 'center', fillColor: '#b40c15', color: 'white' }],
-                ...this.dataAleman.map(p => ([p.numeroCuota, '$' + p.interesPeriodo.toFixed(2), '$' + p.capitalAmortizado.toFixed(2), '$' + p.seguro.toFixed(2), '$' + p.cuotaPagar.toFixed(2), '$' + p.saldoRemanente.toFixed(2)]))
+                ...this.dataAleman.map(p => ([p.numeroCuota,
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.interesPeriodo),
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.capitalAmortizado),
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.seguro),
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.cuotaPagar),
+                  Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(p.saldoRemanente)]))
 
               ],
 
